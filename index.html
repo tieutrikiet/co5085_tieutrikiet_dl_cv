@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CO5085 — Deep Learning</title>
+<meta name="description" content="Coursework for CO5085 Deep Learning and Its Applications — exercises E1–E4 and assignments A1–A2 in PyTorch.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --surface: #ffffff;
+    --border: #e3e3e8;
+    --text: #1a1a1f;
+    --muted: #6b6b76;
+    --accent: #3b5bdb;
+    --accent-soft: #eef1fd;
+    --shadow: 0 1px 2px rgba(20,20,30,.05), 0 8px 24px rgba(20,20,30,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1013;
+      --surface: #17181d;
+      --border: #2a2c34;
+      --text: #ececf1;
+      --muted: #9a9aa6;
+      --accent: #8da2fb;
+      --accent-soft: #1d2130;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1013;
+    --surface: #17181d;
+    --border: #2a2c34;
+    --text: #ececf1;
+    --muted: #9a9aa6;
+    --accent: #8da2fb;
+    --accent-soft: #1d2130;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px 80px; }
+
+  header { padding: 72px 0 40px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 14px;
+  }
+  h1 {
+    margin: 0 0 12px;
+    font-size: clamp(30px, 6vw, 44px);
+    line-height: 1.15; letter-spacing: -.022em; font-weight: 680;
+  }
+  .lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: 17px; }
+  .byline {
+    margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: 8px 20px;
+    font-size: 14px; color: var(--muted);
+  }
+  .byline strong { color: var(--text); font-weight: 600; }
+
+  h2 {
+    margin: 48px 0 18px; font-size: 13px; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+  }
+
+  .grid { display: grid; gap: 12px; }
+  @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+  .card {
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    text-decoration: none; color: inherit;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  a.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .tag {
+    font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: .04em;
+    background: var(--accent-soft); color: var(--accent);
+    padding: 5px 8px; border-radius: 6px;
+  }
+  .status {
+    font-size: 11px; font-weight: 600; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--muted);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .status.done { color: #2f9e44; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .status.done { color: #69db7c; } }
+  :root[data-theme="dark"] .status.done { color: #69db7c; }
+
+  .card h3 { margin: 0; font-size: 17px; font-weight: 620; letter-spacing: -.01em; }
+  .card p { margin: 0; font-size: 14.5px; color: var(--muted); }
+
+  footer {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
+    font-size: 14px; color: var(--muted);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">CO5085 · Deep Learning and Its Applications</p>
+    <h1>Exercises &amp; assignments in PyTorch</h1>
+    <p class="lede">
+      Four exercises and two assignments, each one a comparison backed by real experiments —
+      runnable code plus measured results: metrics, plots and error cases, not just model
+      definitions.
+    </p>
+    <p class="byline">
+      <span><strong>Tieu Tri Kiet</strong></span>
+      <span>PyTorch · Apple Silicon (MPS)</span>
+      <span><a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv">Source on GitHub</a></span>
+    </p>
+  </header>
+
+  <h2>Exercises</h2>
+  <div class="grid">
+
+    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E1">
+      <div class="card-top"><span class="tag">E1</span><span class="status"><span class="dot"></span>Planned</span></div>
+      <h3>Image classification</h3>
+      <p>Softmax on a flattened vector, an MLP, and a CNN on the same small image set — compared on accuracy, capacity and where each one fails.</p>
+    </a>
+
+    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E2">
+      <div class="card-top"><span class="tag">E2</span><span class="status"><span class="dot"></span>Planned</span></div>
+      <h3>Multi-head self-attention</h3>
+      <p>MSA written from scratch and with <code>torch.nn</code>, over several tokenizations: patches, pixel/row, a CNN stem, and CLS + patches.</p>
+    </a>
+
+    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E3">
+      <div class="card-top"><span class="tag">E3</span><span class="status"><span class="dot"></span>Planned</span></div>
+      <h3>Sequence models</h3>
+      <p>LSTM and GRU reading an image as a sequence of rows, measured against a feed-forward and CNN baseline on the same data.</p>
+    </a>
+
+    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E4">
+      <div class="card-top"><span class="tag">E4</span><span class="status"><span class="dot"></span>Planned</span></div>
+      <h3>Generative models</h3>
+      <p>VAE, GAN and diffusion on an MNIST-like set — sample grids, latent-space visualization, and sample quality traded against compute.</p>
+    </a>
+
+  </div>
+
+  <h2>Assignments</h2>
+  <div class="grid">
+
+    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/A1">
+      <div class="card-top"><span class="tag">A1</span><span class="status"><span class="dot"></span>Planned</span></div>
+      <h3>CNN vs. Transformer</h3>
+      <p>A self-chosen large image dataset under several regimes: from scratch vs. pretrained, with the backbone frozen, partially frozen, or fully finetuned.</p>
+    </a>
+
+    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/A2">
+      <div class="card-top"><span class="tag">A2</span><span class="status"><span class="dot"></span>Planned</span></div>
+      <h3>Pipeline + paper analysis</h3>
+      <p>A self-chosen topic — detection, segmentation or similar — built into a working pipeline, alongside an analysis of one related paper.</p>
+    </a>
+
+  </div>
+
+  <footer>
+    Datasets are kept outside the repository and are not committed.
+    See the <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv#setup">README</a> for setup and the expected data layout.
+  </footer>
+
+</div>
+</body>
+</html>
