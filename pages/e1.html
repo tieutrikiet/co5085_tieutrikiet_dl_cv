@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E1 · Phân loại ảnh — CO5085</title>
+<meta name="description" content="E1 — Phân loại ảnh. Phân loại ảnh trên một tập ảnh nhỏ bằng ba cách tiếp cận có dung lượng mô hình tăng dần, rồi so sánh chúng trên cùng một tập dữ liệu và cùng một quy trình đánh giá.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html#tong-quan">
+    <span class="code">CO5085</span>
+    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+  </a>
+  <nav class="quicknav" aria-label="Điều hướng nhanh">
+    <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
+    <a href="../index.html#thong-tin"><span class="num">02</span><span class="label">Thông tin</span></a>
+    <a href="../index.html#bai-tap"><span class="num">03</span><span class="label">Bài tập</span></a>
+    <a href="../index.html#do-an"><span class="num">04</span><span class="label">Đồ án</span></a>
+    <a href="../index.html#tuyen-bo-ai"><span class="num">05</span><span class="label">Tuyên bố AI</span></a>
+  </nav>
+</header>
+
+<main class="detail">
+  <div class="inner">
+    <a class="backlink" href="../index.html#bai-tap"><span class="chev" aria-hidden="true">←</span> Quay lại danh sách bài tập</a>
+
+    <div class="card-top" style="max-width:260px">
+      <span class="tag">E1</span>
+      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+    </div>
+
+    <h1>Phân loại ảnh</h1>
+    <p class="lede">Phân loại ảnh trên một tập ảnh nhỏ bằng ba cách tiếp cận có dung lượng mô hình tăng dần, rồi so sánh chúng trên cùng một tập dữ liệu và cùng một quy trình đánh giá.</p>
+
+    <section>
+      <h2>Yêu cầu</h2>
+      <div class="box">
+        <p>Sử dụng một tập ảnh nhỏ (MNIST / Fashion-MNIST / CIFAR-10), thực hiện phân loại ảnh với ba mô hình, sau đó <strong>so sánh độ chính xác, dung lượng mô hình (capacity) và các trường hợp lỗi</strong>.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Ba mô hình</h2>
+      <ol class="steps">
+        <li><span class="n">i</span><div><h3>Bộ phân loại softmax</h3><p>Hồi quy softmax trực tiếp trên vector ảnh đã được làm phẳng — mô hình tuyến tính, đóng vai trò baseline thấp nhất.</p></div></li>
+        <li><span class="n">ii</span><div><h3>MLP</h3><p>Mạng perceptron nhiều lớp, cũng nhận vector phẳng làm đầu vào, bổ sung các lớp ẩn phi tuyến.</p></div></li>
+        <li><span class="n">iii</span><div><h3>CNN</h3><p>Mạng tích chập khai thác cấu trúc không gian hai chiều của ảnh thay vì làm phẳng đầu vào.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Nội dung so sánh</h2>
+      <div class="box">
+        <p><strong>Độ chính xác</strong> trên cùng một tập kiểm tra và cùng một cách chia dữ liệu.</p>
+      </div>
+      <div class="box">
+        <p><strong>Dung lượng mô hình</strong> — số tham số, và quan hệ giữa dung lượng với hiện tượng quá khớp.</p>
+      </div>
+      <div class="box">
+        <p><strong>Trường hợp lỗi</strong> — những ảnh bị phân loại sai, các lớp hay bị nhầm lẫn với nhau, và sự khác biệt giữa ba mô hình.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Kết quả</h2>
+      <div class="note">
+        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
+        sẽ được đưa vào thư mục <code>E1/</code> của kho mã nguồn khi hoàn thành, và phần này
+        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+      </div>
+      <p style="margin-top:14px">
+        <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E1">Xem thư mục <code>E1/</code> trên GitHub →</a>
+      </p>
+    </section>
+  </div>
+</main>
+
+</body>
+</html>

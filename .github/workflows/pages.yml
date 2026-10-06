@@ -24,15 +24,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Stage only what the site needs. Notebooks and results stay in the repo
-      # but are deliberately not published — a Pages site is public even when
-      # the repository is private.
+      # Stage only the site files. Notebooks and results stay in the repo
+      # but are deliberately not published to the Pages domain.
       - name: Stage site
         run: |
           mkdir -p _site
           cp index.html _site/
-          [ -d assets ] && cp -r assets _site/ || true
+          cp -r assets _site/
+          cp -r pages  _site/
           touch _site/.nojekyll
+          echo "--- staged ---"
+          find _site -type f | sort
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

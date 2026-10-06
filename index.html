@@ -1,191 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CO5085 — Deep Learning</title>
-<meta name="description" content="Coursework for CO5085 Deep Learning and Its Applications — exercises E1–E4 and assignments A1–A2 in PyTorch.">
+<title>CO5085 — Học sâu & Thị giác máy tính</title>
+<meta name="description" content="CO5085 — Học sâu và ứng dụng trong thị giác máy tính. Tổng quan môn học, thông tin, bài tập, đồ án và tuyên bố sử dụng AI.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
-<style>
-  :root {
-    --bg: #fbfbfd;
-    --surface: #ffffff;
-    --border: #e3e3e8;
-    --text: #1a1a1f;
-    --muted: #6b6b76;
-    --accent: #3b5bdb;
-    --accent-soft: #eef1fd;
-    --shadow: 0 1px 2px rgba(20,20,30,.05), 0 8px 24px rgba(20,20,30,.05);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0f1013;
-      --surface: #17181d;
-      --border: #2a2c34;
-      --text: #ececf1;
-      --muted: #9a9aa6;
-      --accent: #8da2fb;
-      --accent-soft: #1d2130;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #0f1013;
-    --surface: #17181d;
-    --border: #2a2c34;
-    --text: #ececf1;
-    --muted: #9a9aa6;
-    --accent: #8da2fb;
-    --accent-soft: #1d2130;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
-  }
-
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font: 16px/1.6 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px 80px; }
-
-  header { padding: 72px 0 40px; }
-  .eyebrow {
-    font-size: 12px; font-weight: 600; letter-spacing: .09em;
-    text-transform: uppercase; color: var(--accent); margin: 0 0 14px;
-  }
-  h1 {
-    margin: 0 0 12px;
-    font-size: clamp(30px, 6vw, 44px);
-    line-height: 1.15; letter-spacing: -.022em; font-weight: 680;
-  }
-  .lede { margin: 0; max-width: 60ch; color: var(--muted); font-size: 17px; }
-  .byline {
-    margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--border);
-    display: flex; flex-wrap: wrap; gap: 8px 20px;
-    font-size: 14px; color: var(--muted);
-  }
-  .byline strong { color: var(--text); font-weight: 600; }
-
-  h2 {
-    margin: 48px 0 18px; font-size: 13px; font-weight: 600;
-    letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
-  }
-
-  .grid { display: grid; gap: 12px; }
-  @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
-
-  .card {
-    display: flex; flex-direction: column; gap: 10px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    text-decoration: none; color: inherit;
-    transition: border-color .15s ease, transform .15s ease;
-  }
-  a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  a.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .tag {
-    font: 600 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-    letter-spacing: .04em;
-    background: var(--accent-soft); color: var(--accent);
-    padding: 5px 8px; border-radius: 6px;
-  }
-  .status {
-    font-size: 11px; font-weight: 600; letter-spacing: .05em;
-    text-transform: uppercase; color: var(--muted);
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-  .status.done { color: #2f9e44; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .status.done { color: #69db7c; } }
-  :root[data-theme="dark"] .status.done { color: #69db7c; }
-
-  .card h3 { margin: 0; font-size: 17px; font-weight: 620; letter-spacing: -.01em; }
-  .card p { margin: 0; font-size: 14.5px; color: var(--muted); }
-
-  footer {
-    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
-    font-size: 14px; color: var(--muted);
-  }
-  footer a { color: var(--accent); }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<div class="wrap">
 
-  <header>
-    <p class="eyebrow">CO5085 · Deep Learning and Its Applications</p>
-    <h1>Exercises &amp; assignments in PyTorch</h1>
-    <p class="lede">
-      Four exercises and two assignments, each one a comparison backed by real experiments —
-      runnable code plus measured results: metrics, plots and error cases, not just model
-      definitions.
-    </p>
-    <p class="byline">
-      <span><strong>Tieu Tri Kiet</strong></span>
-      <span>PyTorch · Apple Silicon (MPS)</span>
-      <span><a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv">Source on GitHub</a></span>
-    </p>
-  </header>
+<!-- ===== Điều hướng nhanh ===== -->
+<header class="topbar">
+  <a class="brand" href="#tong-quan">
+    <span class="code">CO5085</span>
+    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+  </a>
+  <nav class="quicknav" aria-label="Điều hướng nhanh">
+    <a href="#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
+    <a href="#thong-tin"><span class="num">02</span><span class="label">Thông tin</span></a>
+    <a href="#bai-tap"><span class="num">03</span><span class="label">Bài tập</span></a>
+    <a href="#do-an"><span class="num">04</span><span class="label">Đồ án</span></a>
+    <a href="#tuyen-bo-ai"><span class="num">05</span><span class="label">Tuyên bố AI</span></a>
+  </nav>
+</header>
+<div class="progress" aria-hidden="true"></div>
+<div class="dots" role="group" aria-label="Chuyển trang"></div>
 
-  <h2>Exercises</h2>
-  <div class="grid">
+<main class="scroller">
 
-    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E1">
-      <div class="card-top"><span class="tag">E1</span><span class="status"><span class="dot"></span>Planned</span></div>
-      <h3>Image classification</h3>
-      <p>Softmax on a flattened vector, an MLP, and a CNN on the same small image set — compared on accuracy, capacity and where each one fails.</p>
-    </a>
+  <!-- ===== 01 · Tổng quan ===== -->
+  <section class="page hero" id="tong-quan" data-title="Tổng quan" aria-labelledby="h-tong-quan">
+    <div class="inner">
+      <div class="reveal">
+        <span class="hero-code">CO5085</span>
+      </div>
+      <h1 id="h-tong-quan" class="reveal">Học sâu và ứng dụng trong thị giác máy tính</h1>
+      <p class="hero-en reveal">Deep Learning and Its Applications in Computer Vision</p>
+      <p class="hero-intro reveal">
+        Môn học tập trung vào học sâu cho thị giác máy tính: học biểu diễn, quy trình
+        huấn luyện và đánh giá, học chuyển giao, cùng các kiến trúc hiện đại. Toàn bộ
+        bài tập và đồ án được hiện thực bằng PyTorch và dựa trên thực nghiệm thực tế —
+        mỗi nội dung đều yêu cầu so sánh và phân tích, nên mã nguồn chạy được kèm kết
+        quả đo đạc (số liệu, đồ thị, trường hợp lỗi) mới là sản phẩm cần nộp.
+      </p>
+      <div class="hero-meta reveal">
+        <span class="chip">Giảng viên · <strong>TS. Lê Thành Sách</strong></span>
+        <span class="chip">Sinh viên · <strong>Tiêu Trí Kiệt</strong></span>
+        <span class="chip">MSSV · <strong>2570436</strong></span>
+        <span class="chip"><strong>PyTorch</strong></span>
+      </div>
+      <p class="scroll-hint reveal">
+        <span class="arrow" aria-hidden="true">↓</span>
+        Cuộn, dùng phím mũi tên, hoặc chọn mục trên thanh điều hướng
+      </p>
+    </div>
+  </section>
 
-    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E2">
-      <div class="card-top"><span class="tag">E2</span><span class="status"><span class="dot"></span>Planned</span></div>
-      <h3>Multi-head self-attention</h3>
-      <p>MSA written from scratch and with <code>torch.nn</code>, over several tokenizations: patches, pixel/row, a CNN stem, and CLS + patches.</p>
-    </a>
+  <!-- ===== 02 · Thông tin ===== -->
+  <section class="page" id="thong-tin" data-title="Thông tin" aria-labelledby="h-thong-tin">
+    <div class="inner">
+      <div class="page-head reveal">
+        <span class="page-num">02 — THÔNG TIN</span>
+        <h2 id="h-thong-tin">Giảng viên &amp; sinh viên</h2>
+        <p class="page-sub">Thông tin phụ trách giảng dạy và thông tin cá nhân của sinh viên thực hiện.</p>
+      </div>
 
-    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E3">
-      <div class="card-top"><span class="tag">E3</span><span class="status"><span class="dot"></span>Planned</span></div>
-      <h3>Sequence models</h3>
-      <p>LSTM and GRU reading an image as a sequence of rows, measured against a feed-forward and CNN baseline on the same data.</p>
-    </a>
+      <div class="people reveal">
+        <article class="person">
+          <p class="role">Giảng viên phụ trách</p>
+          <div class="person-id">
+            <div class="avatar" aria-hidden="true">LS</div>
+            <div>
+              <h3>TS. Lê Thành Sách</h3>
+              <p class="person-sub">Giảng viên môn học</p>
+            </div>
+          </div>
+          <dl>
+            <dt>Môn học</dt><dd>CO5085</dd>
+            <dt>Tên môn</dt><dd>Học sâu và ứng dụng trong thị giác máy tính</dd>
+          </dl>
+        </article>
 
-    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E4">
-      <div class="card-top"><span class="tag">E4</span><span class="status"><span class="dot"></span>Planned</span></div>
-      <h3>Generative models</h3>
-      <p>VAE, GAN and diffusion on an MNIST-like set — sample grids, latent-space visualization, and sample quality traded against compute.</p>
-    </a>
+        <article class="person">
+          <p class="role">Sinh viên thực hiện</p>
+          <div class="person-id">
+            <div class="avatar" aria-hidden="true">TK</div>
+            <div>
+              <h3>Tiêu Trí Kiệt</h3>
+              <p class="person-sub">MSSV 2570436</p>
+            </div>
+          </div>
+          <dl>
+            <dt>Mã số</dt><dd class="mono">2570436</dd>
+            <dt>Môn học</dt><dd>CO5085</dd>
+            <dt>Mã nguồn</dt>
+            <dd><a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv">github.com/tieutrikiet</a></dd>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  </div>
+  <!-- ===== 03 · Bài tập ===== -->
+  <section class="page" id="bai-tap" data-title="Bài tập" aria-labelledby="h-bai-tap">
+    <div class="inner">
+      <div class="page-head reveal">
+        <span class="page-num">03 — BÀI TẬP</span>
+        <h2 id="h-bai-tap">Ba bài tập trên tập ảnh nhỏ</h2>
+        <p class="page-sub">
+          Phân loại ảnh, cơ chế tự chú ý đa đầu và mô hình chuỗi — dùng chung một tập
+          ảnh nhỏ để kết quả so sánh được với nhau. Chọn một thẻ để xem chi tiết.
+        </p>
+      </div>
 
-  <h2>Assignments</h2>
-  <div class="grid">
+      <div class="cards three reveal">
+        <a class="card" href="pages/e1.html">
+          <div class="card-top">
+            <span class="tag">E1</span>
+            <span class="status"><span class="dot"></span>Đang thực hiện</span>
+          </div>
+          <h3>Phân loại ảnh</h3>
+          <p>So sánh bộ phân loại softmax trên vector phẳng, MLP và CNN về độ chính xác, dung lượng mô hình và các trường hợp lỗi.</p>
+          <div class="pills"><span class="pill">Softmax</span><span class="pill">MLP</span><span class="pill">CNN</span></div>
+          <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
+        </a>
 
-    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/A1">
-      <div class="card-top"><span class="tag">A1</span><span class="status"><span class="dot"></span>Planned</span></div>
-      <h3>CNN vs. Transformer</h3>
-      <p>A self-chosen large image dataset under several regimes: from scratch vs. pretrained, with the backbone frozen, partially frozen, or fully finetuned.</p>
-    </a>
+        <a class="card" href="pages/e2.html">
+          <div class="card-top">
+            <span class="tag">E2</span>
+            <span class="status"><span class="dot"></span>Đang thực hiện</span>
+          </div>
+          <h3>Tự chú ý đa đầu</h3>
+          <p>Hiện thực Multi-Head Self-Attention hoàn toàn từ đầu và bằng module PyTorch, khảo sát nhiều cách token hoá khác nhau.</p>
+          <div class="pills"><span class="pill">MSA</span><span class="pill">Token hoá</span><span class="pill">ViT</span></div>
+          <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
+        </a>
 
-    <a class="card" href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/A2">
-      <div class="card-top"><span class="tag">A2</span><span class="status"><span class="dot"></span>Planned</span></div>
-      <h3>Pipeline + paper analysis</h3>
-      <p>A self-chosen topic — detection, segmentation or similar — built into a working pipeline, alongside an analysis of one related paper.</p>
-    </a>
+        <a class="card" href="pages/e3.html">
+          <div class="card-top">
+            <span class="tag">E3</span>
+            <span class="status"><span class="dot"></span>Đang thực hiện</span>
+          </div>
+          <h3>Mô hình chuỗi</h3>
+          <p>LSTM và GRU đọc ảnh như một chuỗi điểm ảnh hoặc chuỗi hàng, đối chiếu với baseline mạng truyền thẳng và CNN.</p>
+          <div class="pills"><span class="pill">LSTM</span><span class="pill">GRU</span><span class="pill">RNN</span></div>
+          <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  </div>
+  <!-- ===== 04 · Đồ án ===== -->
+  <section class="page" id="do-an" data-title="Đồ án" aria-labelledby="h-do-an">
+    <div class="inner">
+      <div class="page-head reveal">
+        <span class="page-num">04 — ĐỒ ÁN</span>
+        <h2 id="h-do-an">Hai đồ án tự chọn</h2>
+        <p class="page-sub">
+          Quy mô lớn hơn, có giao thức thực nghiệm rõ ràng, một pipeline chạy được và
+          phần phân tích viết tay. Mỗi đồ án gồm hai phần nộp.
+        </p>
+      </div>
 
-  <footer>
-    Datasets are kept outside the repository and are not committed.
-    See the <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv#setup">README</a> for setup and the expected data layout.
-  </footer>
+      <div class="cards two reveal">
+        <a class="card" href="pages/a1.html">
+          <div class="card-top">
+            <span class="tag">A1</span>
+            <span class="status"><span class="dot"></span>Đang thực hiện</span>
+          </div>
+          <h3>CNN đối đầu Transformer</h3>
+          <p>Trên một tập ảnh lớn tự chọn: huấn luyện từ đầu so với dùng mô hình tiền huấn luyện, kết hợp đóng băng toàn phần, đóng băng một phần hoặc tinh chỉnh toàn bộ backbone.</p>
+          <div class="pills"><span class="pill">Transfer learning</span><span class="pill">Fine-tuning</span><span class="pill">CNN</span><span class="pill">Transformer</span></div>
+          <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
+        </a>
 
-</div>
+        <a class="card" href="pages/a2.html">
+          <div class="card-top">
+            <span class="tag">A2</span>
+            <span class="status"><span class="dot"></span>Đang thực hiện</span>
+          </div>
+          <h3>Chủ đề tự chọn &amp; phân tích bài báo</h3>
+          <p>Chọn một chủ đề (phát hiện đối tượng, phân vùng ảnh, …), xây dựng pipeline hoạt động được và phân tích một bài báo liên quan về phương pháp, thực nghiệm và hạn chế.</p>
+          <div class="pills"><span class="pill">Detection</span><span class="pill">Segmentation</span><span class="pill">Phân tích bài báo</span></div>
+          <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 05 · Tuyên bố sử dụng AI ===== -->
+  <section class="page" id="tuyen-bo-ai" data-title="Tuyên bố AI" aria-labelledby="h-tuyen-bo-ai">
+    <div class="inner">
+      <div class="page-head reveal">
+        <span class="page-num">05 — LIÊM CHÍNH HỌC THUẬT</span>
+        <h2 id="h-tuyen-bo-ai">Tuyên bố sử dụng AI</h2>
+        <p class="page-sub">Cách các công cụ AI/LLM được sử dụng trong quá trình học tập và thực hiện môn học này.</p>
+      </div>
+
+      <div class="panel reveal" tabindex="0" role="region" aria-label="Nội dung tuyên bố sử dụng AI">
+        <p>
+          Tôi có sử dụng các công cụ trí tuệ nhân tạo tạo sinh và mô hình ngôn ngữ lớn
+          (AI/LLM), bao gồm ChatGPT/Codex và Claude (Anthropic), như công cụ hỗ trợ trong
+          quá trình học tập và thực hiện các bài tập, đồ án của môn học.
+        </p>
+
+        <h4>AI được sử dụng cho các công việc sau</h4>
+        <ul>
+          <li>Hỗ trợ dịch các paper, bài viết và tài liệu kỹ thuật từ tiếng Anh sang tiếng Việt.</li>
+          <li>Hỗ trợ tóm tắt, diễn giải và tổ chức lại nội dung, kèm trích dẫn nguyên văn và vị trí trang, nhằm giúp tài liệu dễ hiểu hơn.</li>
+          <li>Hỗ trợ giải thích các khái niệm kỹ thuật, thuật ngữ và mối liên hệ giữa các phương pháp, kiến trúc mô hình được nghiên cứu.</li>
+          <li>Hỗ trợ tổng hợp, so sánh và soạn bản nháp phân tích phê phán về phương pháp, giả định, kết quả thực nghiệm và hạn chế của các nguồn được nghiên cứu.</li>
+          <li>Hỗ trợ tìm kiếm, kiểm tra và cập nhật thông tin từ tài liệu chính thức và các nguồn web; xác định section, số trang, bảng biểu và đoạn trích liên quan.</li>
+          <li>Hỗ trợ xây dựng dàn ý, trả lời các câu hỏi nghiên cứu, biên tập ngôn ngữ, định dạng báo cáo dưới dạng Markdown và vẽ sơ đồ minh họa.</li>
+          <li>Hỗ trợ phần cài đặt và thực nghiệm: viết và chỉnh sửa mã nguồn minh họa, đọc log để chẩn đoán lỗi và giải thích các lỗi phát sinh khi chạy thử. Tôi trực tiếp chạy, kiểm chứng và ghi lại kết quả trên máy của mình.</li>
+          <li>Đóng vai người phản biện nội bộ để rà soát tính nhất quán của lập luận và các câu tóm tắt do tôi viết.</li>
+          <li>Hỗ trợ thảo luận, hỏi–đáp và phát triển cách trình bày nội dung trong suốt quá trình làm việc.</li>
+        </ul>
+
+        <h4>Giới hạn vai trò của AI</h4>
+        <p>
+          AI được sử dụng với vai trò hỗ trợ, <strong>không</strong> được xem là tác giả,
+          nguồn học thuật hoặc bên chịu trách nhiệm về nội dung. AI không tạo ra bất kỳ
+          số liệu thực nghiệm nào và không thay thế việc đọc toàn văn các nguồn gốc.
+        </p>
+
+        <h4>Trách nhiệm cuối cùng thuộc về tôi, bao gồm</h4>
+        <ul>
+          <li>Đọc và đối chiếu nội dung với các paper và nguồn gốc.</li>
+          <li>Kiểm tra tính chính xác của bản dịch, số liệu, trích dẫn và vị trí tham chiếu.</li>
+          <li>Phân biệt rõ nội dung của tác giả với phần diễn giải hoặc suy luận tổng hợp do AI hỗ trợ tạo ra.</li>
+          <li>Đánh giá lại các kết luận, tự chọn lập trường khi AI đưa ra nhiều cách trả lời cho cùng một câu hỏi, và sửa những thông tin thiếu chính xác hoặc không còn cập nhật.</li>
+          <li>Tuân thủ các yêu cầu về trích dẫn, bản quyền, bảo mật và liêm chính học thuật.</li>
+          <li>Chịu trách nhiệm về các lập luận, lựa chọn nội dung và sản phẩm cuối cùng.</li>
+        </ul>
+
+        <p>
+          Mọi nội dung do AI đề xuất đều đã hoặc cần được con người xem xét trước khi đưa
+          vào báo cáo và sản phẩm nộp. Tôi không coi đầu ra của AI là bằng chứng độc lập và
+          chỉ sử dụng các paper, tài liệu kỹ thuật và nguồn chính thức làm căn cứ trích dẫn.
+          Tôi sẵn sàng cung cấp lịch sử trao đổi với AI nếu giảng viên yêu cầu.
+        </p>
+      </div>
+
+      <div class="page-foot reveal">
+        <span>CO5085 · Tiêu Trí Kiệt · 2570436</span>
+        <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv">Kho mã nguồn trên GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/site.js"></script>
 </body>
 </html>

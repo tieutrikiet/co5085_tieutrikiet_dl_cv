@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E2 · Tự chú ý đa đầu — CO5085</title>
+<meta name="description" content="E2 — Tự chú ý đa đầu. Hiện thực cơ chế Multi-Head Self-Attention hoàn toàn từ đầu và bằng module có sẵn của PyTorch, sau đó khảo sát ảnh hưởng của cách token hoá ảnh tới kết quả phân loại.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html#tong-quan">
+    <span class="code">CO5085</span>
+    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+  </a>
+  <nav class="quicknav" aria-label="Điều hướng nhanh">
+    <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
+    <a href="../index.html#thong-tin"><span class="num">02</span><span class="label">Thông tin</span></a>
+    <a href="../index.html#bai-tap"><span class="num">03</span><span class="label">Bài tập</span></a>
+    <a href="../index.html#do-an"><span class="num">04</span><span class="label">Đồ án</span></a>
+    <a href="../index.html#tuyen-bo-ai"><span class="num">05</span><span class="label">Tuyên bố AI</span></a>
+  </nav>
+</header>
+
+<main class="detail">
+  <div class="inner">
+    <a class="backlink" href="../index.html#bai-tap"><span class="chev" aria-hidden="true">←</span> Quay lại danh sách bài tập</a>
+
+    <div class="card-top" style="max-width:260px">
+      <span class="tag">E2</span>
+      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+    </div>
+
+    <h1>Tự chú ý đa đầu</h1>
+    <p class="lede">Hiện thực cơ chế Multi-Head Self-Attention hoàn toàn từ đầu và bằng module có sẵn của PyTorch, sau đó khảo sát ảnh hưởng của cách token hoá ảnh tới kết quả phân loại.</p>
+
+    <section>
+      <h2>Yêu cầu</h2>
+      <div class="box">
+        <p>Hiện thực <strong>Multi-Head Self-Attention (MSA)</strong> theo hai cách: hoàn toàn từ đầu, và sử dụng module PyTorch. Khảo sát một số cách token hoá rồi phân loại trên cùng tập ảnh nhỏ đã dùng ở E1.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Hai cách hiện thực</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><h3>Từ đầu</h3><p>Tự viết phép chiếu Q/K/V, tích vô hướng có chia tỷ lệ, softmax, phép ghép nhiều đầu và phép chiếu đầu ra — không dùng lớp attention dựng sẵn.</p></div></li>
+        <li><span class="n">2</span><div><h3>Bằng PyTorch</h3><p>Dùng module attention có sẵn làm đối chiếu, nhằm kiểm chứng tính đúng đắn và so sánh hiệu năng với bản tự viết.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Các cách token hoá khảo sát</h2>
+      <div class="box"><p><strong>Patch</strong> — chia ảnh thành các mảng vuông, mỗi mảng là một token.</p></div>
+      <div class="box"><p><strong>Pixel / hàng</strong> — coi từng điểm ảnh hoặc từng hàng ảnh là một token.</p></div>
+      <div class="box"><p><strong>CNN stem</strong> — dùng vài lớp tích chập để trích đặc trưng trước khi đưa vào khối attention.</p></div>
+      <div class="box"><p><strong>CLS + patches</strong> — thêm một token phân loại đứng trước chuỗi patch, theo kiểu ViT.</p></div>
+    </section>
+
+    <section>
+      <h2>Kết quả</h2>
+      <div class="note">
+        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
+        sẽ được đưa vào thư mục <code>E2/</code> của kho mã nguồn khi hoàn thành, và phần này
+        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+      </div>
+      <p style="margin-top:14px">
+        <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E2">Xem thư mục <code>E2/</code> trên GitHub →</a>
+      </p>
+    </section>
+  </div>
+</main>
+
+</body>
+</html>

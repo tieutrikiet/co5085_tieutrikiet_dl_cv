@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E3 · Mô hình chuỗi — CO5085</title>
+<meta name="description" content="E3 — Mô hình chuỗi. Xử lý ảnh như một chuỗi bằng LSTM và GRU, rồi đối chiếu với baseline mạng truyền thẳng và CNN trên cùng tập dữ liệu.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html#tong-quan">
+    <span class="code">CO5085</span>
+    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+  </a>
+  <nav class="quicknav" aria-label="Điều hướng nhanh">
+    <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
+    <a href="../index.html#thong-tin"><span class="num">02</span><span class="label">Thông tin</span></a>
+    <a href="../index.html#bai-tap"><span class="num">03</span><span class="label">Bài tập</span></a>
+    <a href="../index.html#do-an"><span class="num">04</span><span class="label">Đồ án</span></a>
+    <a href="../index.html#tuyen-bo-ai"><span class="num">05</span><span class="label">Tuyên bố AI</span></a>
+  </nav>
+</header>
+
+<main class="detail">
+  <div class="inner">
+    <a class="backlink" href="../index.html#bai-tap"><span class="chev" aria-hidden="true">←</span> Quay lại danh sách bài tập</a>
+
+    <div class="card-top" style="max-width:260px">
+      <span class="tag">E3</span>
+      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+    </div>
+
+    <h1>Mô hình chuỗi</h1>
+    <p class="lede">Xử lý ảnh như một chuỗi bằng LSTM và GRU, rồi đối chiếu với baseline mạng truyền thẳng và CNN trên cùng tập dữ liệu.</p>
+
+    <section>
+      <h2>Yêu cầu</h2>
+      <div class="box">
+        <p>Xây dựng mô hình chuỗi với <strong>LSTM</strong> và <strong>GRU</strong> — ví dụ coi ảnh MNIST như một chuỗi điểm ảnh hoặc chuỗi hàng — rồi <strong>so sánh với baseline mạng truyền thẳng / CNN</strong>.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Mô hình</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><h3>LSTM</h3><p>Mạng hồi quy có cổng, với ô nhớ dài hạn giúp giữ thông tin qua nhiều bước thời gian.</p></div></li>
+        <li><span class="n">2</span><div><h3>GRU</h3><p>Biến thể gọn hơn của LSTM, ít tham số hơn do gộp cổng — dùng để xem độ phức tạp có đổi lấy độ chính xác hay không.</p></div></li>
+        <li><span class="n">3</span><div><h3>Baseline</h3><p>Mạng truyền thẳng và CNN từ E1, chạy lại trên cùng cách chia dữ liệu để kết quả có thể so sánh trực tiếp.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Cách biểu diễn chuỗi</h2>
+      <div class="box"><p><strong>Chuỗi hàng</strong> — mỗi bước thời gian là một hàng điểm ảnh, chuỗi có độ dài bằng chiều cao ảnh.</p></div>
+      <div class="box"><p><strong>Chuỗi điểm ảnh</strong> — mỗi bước thời gian là một điểm ảnh, tạo ra chuỗi dài hơn nhiều và khó học hơn.</p></div>
+    </section>
+
+    <section>
+      <h2>Kết quả</h2>
+      <div class="note">
+        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
+        sẽ được đưa vào thư mục <code>E3/</code> của kho mã nguồn khi hoàn thành, và phần này
+        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+      </div>
+      <p style="margin-top:14px">
+        <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E3">Xem thư mục <code>E3/</code> trên GitHub →</a>
+      </p>
+    </section>
+  </div>
+</main>
+
+</body>
+</html>

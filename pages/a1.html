@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A1 · CNN đối đầu Transformer — CO5085</title>
+<meta name="description" content="A1 — CNN đối đầu Transformer. So sánh kiến trúc tích chập và kiến trúc Transformer trên một tập ảnh lớn tự chọn, dưới nhiều chế độ huấn luyện khác nhau.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html#tong-quan">
+    <span class="code">CO5085</span>
+    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+  </a>
+  <nav class="quicknav" aria-label="Điều hướng nhanh">
+    <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
+    <a href="../index.html#thong-tin"><span class="num">02</span><span class="label">Thông tin</span></a>
+    <a href="../index.html#bai-tap"><span class="num">03</span><span class="label">Bài tập</span></a>
+    <a href="../index.html#do-an"><span class="num">04</span><span class="label">Đồ án</span></a>
+    <a href="../index.html#tuyen-bo-ai"><span class="num">05</span><span class="label">Tuyên bố AI</span></a>
+  </nav>
+</header>
+
+<main class="detail">
+  <div class="inner">
+    <a class="backlink" href="../index.html#do-an"><span class="chev" aria-hidden="true">←</span> Quay lại danh sách đồ án</a>
+
+    <div class="card-top" style="max-width:260px">
+      <span class="tag">A1</span>
+      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+    </div>
+
+    <h1>CNN đối đầu Transformer</h1>
+    <p class="lede">So sánh kiến trúc tích chập và kiến trúc Transformer trên một tập ảnh lớn tự chọn, dưới nhiều chế độ huấn luyện khác nhau.</p>
+
+    <section>
+      <h2>Yêu cầu</h2>
+      <div class="box">
+        <p>Chọn một <strong>tập ảnh lớn</strong>, so sánh <strong>CNN với Transformer</strong> dưới nhiều chế độ huấn luyện: huấn luyện từ đầu so với dùng mô hình tiền huấn luyện; đóng băng backbone, đóng băng một phần, hoặc tinh chỉnh toàn bộ.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Hai phần nộp</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><h3>A1.1 — Tập dữ liệu &amp; giao thức</h3><p>Chọn và mô tả tập dữ liệu, xác định cách chia dữ liệu, chỉ số đánh giá và giao thức thực nghiệm sẽ dùng chung cho mọi mô hình.</p></div></li>
+        <li><span class="n">2</span><div><h3>A1.2 — So sánh cuối cùng</h3><p>Chạy toàn bộ các cấu hình theo giao thức đã định, tổng hợp kết quả và phân tích khác biệt giữa hai họ kiến trúc.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Các chế độ huấn luyện</h2>
+      <div class="box"><p><strong>Từ đầu</strong> — khởi tạo ngẫu nhiên, không dùng trọng số tiền huấn luyện.</p></div>
+      <div class="box"><p><strong>Tiền huấn luyện · đóng băng backbone</strong> — chỉ huấn luyện phần đầu phân loại, backbone giữ nguyên.</p></div>
+      <div class="box"><p><strong>Tiền huấn luyện · đóng băng một phần</strong> — mở khoá những tầng cuối của backbone.</p></div>
+      <div class="box"><p><strong>Tiền huấn luyện · tinh chỉnh toàn bộ</strong> — cập nhật toàn bộ tham số.</p></div>
+    </section>
+
+    <section>
+      <h2>Kết quả</h2>
+      <div class="note">
+        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
+        sẽ được đưa vào thư mục <code>A1/</code> của kho mã nguồn khi hoàn thành, và phần này
+        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+      </div>
+      <p style="margin-top:14px">
+        <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/A1">Xem thư mục <code>A1/</code> trên GitHub →</a>
+      </p>
+    </section>
+  </div>
+</main>
+
+</body>
+</html>
