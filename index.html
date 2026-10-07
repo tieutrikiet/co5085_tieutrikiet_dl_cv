@@ -14,7 +14,7 @@
 <header class="topbar">
   <a class="brand" href="#tong-quan">
     <span class="code">CO5085</span>
-    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+    <span class="brand-text">Học sâu &amp; Ứng dụng trong Thị giác máy tính</span>
   </a>
   <nav class="quicknav" aria-label="Điều hướng nhanh">
     <a href="#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
@@ -38,18 +38,15 @@
       <h1 id="h-tong-quan" class="reveal">Học sâu và ứng dụng trong thị giác máy tính</h1>
       <p class="hero-en reveal">Deep Learning and Its Applications in Computer Vision</p>
       <p class="hero-intro reveal">
-        Môn học tập trung vào học sâu cho thị giác máy tính: học biểu diễn, quy trình
-        huấn luyện và đánh giá, học chuyển giao, cùng các kiến trúc hiện đại. Toàn bộ
-        bài tập và đồ án được hiện thực bằng PyTorch và dựa trên thực nghiệm thực tế —
-        mỗi nội dung đều yêu cầu so sánh và phân tích, nên mã nguồn chạy được kèm kết
-        quả đo đạc (số liệu, đồ thị, trường hợp lỗi) mới là sản phẩm cần nộp.
+        Mô tả học phần:
+        Môn học này trang bị cho người học các kiến thức và kỹ năng về học sâu trong lĩnh vực thị giác máy tính. Nội dung môn học bao gồm các nguyên lý của học biểu diễn cho dữ liệu hình ảnh và video, quy trình xây dựng, huấn luyện, đánh giá và tinh chỉnh các mô hình học sâu hiện đại, cũng như các kỹ thuật tiền huấn luyện và chuyển giao tri thức. Người học được tiếp cận các bài toán cốt lõi của thị giác máy tính như phân loại ảnh, phát hiện đối tượng, phân đoạn ảnh, nhận dạng và hiểu nội dung hình ảnh, đồng thời thực hành phát triển các hệ thống sử dụng các thư viện và nền tảng hiện đại như PyTorch, torchvision, Hugging Face và Ultralytics. Sau khi hoàn thành học phần, người học có khả năng lựa chọn, triển khai, đánh giá và cải tiến các mô hình học sâu để giải quyết các bài toán thị giác máy tính trong nghiên cứu và ứng dụng thực tế.
       </p>
-      <div class="hero-meta reveal">
+      <!-- <div class="hero-meta reveal">
         <span class="chip">Giảng viên · <strong>TS. Lê Thành Sách</strong></span>
         <span class="chip">Sinh viên · <strong>Tiêu Trí Kiệt</strong></span>
         <span class="chip">MSSV · <strong>2570436</strong></span>
         <span class="chip"><strong>PyTorch</strong></span>
-      </div>
+      </div> -->
       <p class="scroll-hint reveal">
         <span class="arrow" aria-hidden="true">↓</span>
         Cuộn, dùng phím mũi tên, hoặc chọn mục trên thanh điều hướng
@@ -68,7 +65,7 @@
 
       <div class="people reveal">
         <article class="person">
-          <p class="role">Giảng viên phụ trách</p>
+          <p class="role">Giảng viên 1</p>
           <div class="person-id">
             <div class="avatar" aria-hidden="true">LS</div>
             <div>
@@ -83,17 +80,31 @@
         </article>
 
         <article class="person">
-          <p class="role">Sinh viên thực hiện</p>
+          <p class="role">Giảng viên 2</p>
+          <div class="person-id">
+            <div class="avatar" aria-hidden="true">NM</div>
+            <div>
+              <h3>TS. Nguyễn Quốc Minh</h3>
+              <p class="person-sub">Giảng viên môn học</p>
+            </div>
+          </div>
+          <dl>
+            <dt>Môn học</dt><dd>CO5085</dd>
+            <dt>Tên môn</dt><dd>Học sâu và ứng dụng trong thị giác máy tính</dd>
+          </dl>
+        </article>
+
+        <article class="person">
+          <p class="role">Học viên</p>
           <div class="person-id">
             <div class="avatar" aria-hidden="true">TK</div>
             <div>
               <h3>Tiêu Trí Kiệt</h3>
-              <p class="person-sub">MSSV 2570436</p>
+              <!-- <p class="person-sub">MSHV 2570436</p> -->
             </div>
           </div>
           <dl>
-            <dt>Mã số</dt><dd class="mono">2570436</dd>
-            <dt>Môn học</dt><dd>CO5085</dd>
+            <dt>MSHV</dt><dd class="mono">2570436</dd>
             <dt>Mã nguồn</dt>
             <dd><a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv">github.com/tieutrikiet</a></dd>
           </dl>
@@ -109,8 +120,7 @@
         <span class="page-num">03 — BÀI TẬP</span>
         <h2 id="h-bai-tap">Ba bài tập trên tập ảnh nhỏ</h2>
         <p class="page-sub">
-          Phân loại ảnh, cơ chế tự chú ý đa đầu và mô hình chuỗi — dùng chung một tập
-          ảnh nhỏ để kết quả so sánh được với nhau. Chọn một thẻ để xem chi tiết.
+          Nhấn vào để xem chi tiết.
         </p>
       </div>
 
@@ -120,8 +130,9 @@
             <span class="tag">E1</span>
             <span class="status"><span class="dot"></span>Đang thực hiện</span>
           </div>
-          <h3>Phân loại ảnh</h3>
-          <p>So sánh bộ phân loại softmax trên vector phẳng, MLP và CNN về độ chính xác, dung lượng mô hình và các trường hợp lỗi.</p>
+          <h3>Phân loại ảnh: softmax, MLP, CNN</h3>
+          <p>Xây dựng và so sánh ba bộ phân loại trên tập ảnh nhỏ: softmax trên vector flatten, MLP trên vector flatten, và CNN.</p>
+          <p><b>Hạn nộp: 02/11/2026, 23:59 GMT+7.</b></p>
           <div class="pills"><span class="pill">Softmax</span><span class="pill">MLP</span><span class="pill">CNN</span></div>
           <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
         </a>
@@ -131,9 +142,10 @@
             <span class="tag">E2</span>
             <span class="status"><span class="dot"></span>Đang thực hiện</span>
           </div>
-          <h3>Tự chú ý đa đầu</h3>
-          <p>Hiện thực Multi-Head Self-Attention hoàn toàn từ đầu và bằng module PyTorch, khảo sát nhiều cách token hoá khác nhau.</p>
-          <div class="pills"><span class="pill">MSA</span><span class="pill">Token hoá</span><span class="pill">ViT</span></div>
+          <h3>Transformer: MSA và tokenization</h3>
+          <p>Hiện thực Multi-Head Self-Attention (MSA) từ đầu và bằng module PyTorch; thử nhiều cách lấy token; phân loại trên cùng tập ảnh đã dùng ở E1.</p>
+          <p><b>Hạn nộp: 02/11/2026, 23:59 GMT+7.</b></p>
+          <div class="pills"><span class="pill">MSA</span><span class="pill">Tokenization</span><span class="pill">ViT</span></div>
           <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
         </a>
 
@@ -142,8 +154,9 @@
             <span class="tag">E3</span>
             <span class="status"><span class="dot"></span>Đang thực hiện</span>
           </div>
-          <h3>Mô hình chuỗi</h3>
-          <p>LSTM và GRU đọc ảnh như một chuỗi điểm ảnh hoặc chuỗi hàng, đối chiếu với baseline mạng truyền thẳng và CNN.</p>
+          <h3>LSTM / GRU trên chuỗi ảnh</h3>
+          <p>Mô hình hóa ảnh như dữ liệu chuỗi bằng LSTM và GRU; so sánh với baseline không hồi quy (MLP/CNN) đã có từ E1..</p>
+          <p><b>Hạn nộp: 09/11/2026, 23:59 GMT+7.</b></p>
           <div class="pills"><span class="pill">LSTM</span><span class="pill">GRU</span><span class="pill">RNN</span></div>
           <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
         </a>
@@ -158,8 +171,7 @@
         <span class="page-num">04 — ĐỒ ÁN</span>
         <h2 id="h-do-an">Hai đồ án tự chọn</h2>
         <p class="page-sub">
-          Quy mô lớn hơn, có giao thức thực nghiệm rõ ràng, một pipeline chạy được và
-          phần phân tích viết tay. Mỗi đồ án gồm hai phần nộp.
+          Nhấn vào để xem chi tiết.
         </p>
       </div>
 
@@ -169,9 +181,11 @@
             <span class="tag">A1</span>
             <span class="status"><span class="dot"></span>Đang thực hiện</span>
           </div>
-          <h3>CNN đối đầu Transformer</h3>
-          <p>Trên một tập ảnh lớn tự chọn: huấn luyện từ đầu so với dùng mô hình tiền huấn luyện, kết hợp đóng băng toàn phần, đóng băng một phần hoặc tinh chỉnh toàn bộ backbone.</p>
-          <div class="pills"><span class="pill">Transfer learning</span><span class="pill">Fine-tuning</span><span class="pill">CNN</span><span class="pill">Transformer</span></div>
+          <h3>So sánh CNN và Transformer</h3>
+          <p>Trên một tập dữ liệu ảnh lớn do nhóm tự chọn, với nhiều chế độ huấn luyện: from-scratch vs pretrained; đóng băng backbone, đóng băng một phần, hoặc fine-tune toàn bộ.</p>
+          <p><b>A1.1 — Dataset + protocol (26/10/2026)</b></p>
+          <p><b>A1.2 — So sánh cuối (09/11/2026)</b></p>
+          <div class="pills"><span class="pill">CNN</span><span class="pill">Transformer</span><span class="pill">From-scratch</span><span class="pill">Pretrained</span><span class="pill">Fine-tune</span><span class="pill">Comparison</span></div>
           <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
         </a>
 
@@ -182,7 +196,9 @@
           </div>
           <h3>Chủ đề tự chọn &amp; phân tích bài báo</h3>
           <p>Chọn một chủ đề (phát hiện đối tượng, phân vùng ảnh, …), xây dựng pipeline hoạt động được và phân tích một bài báo liên quan về phương pháp, thực nghiệm và hạn chế.</p>
-          <div class="pills"><span class="pill">Detection</span><span class="pill">Segmentation</span><span class="pill">Phân tích bài báo</span></div>
+          <p><b>A2.1 — Chủ đề + paper + dữ liệu (02/11/2026)</b></p>
+          <p><b>A2.2 — Cài đặt + bài viết paper (16/11/2026)</b></p>
+          <div class="pills"><span class="pill">Pipeline</span><span class="pill">Segmentation</span><span class="pill">Detection</span><span class="pill">Paper Analysis</span><span class="pill">Augmentation</span></div>
           <span class="card-go">Xem chi tiết <span class="chev" aria-hidden="true">→</span></span>
         </a>
       </div>

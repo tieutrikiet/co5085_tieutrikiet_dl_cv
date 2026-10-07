@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E1 · Phân loại ảnh — CO5085</title>
-<meta name="description" content="E1 — Phân loại ảnh. Phân loại ảnh trên một tập ảnh nhỏ bằng ba cách tiếp cận có dung lượng mô hình tăng dần, rồi so sánh chúng trên cùng một tập dữ liệu và cùng một quy trình đánh giá.">
+<title>E1 · Phân loại ảnh: Softmax, MLP, CNN — CO5085</title>
+<meta name="description" content="E1 — Phân loại ảnh: Softmax, MLP, CNN. Xây dựng và so sánh ba bộ phân loại trên tập ảnh nhỏ.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
@@ -13,7 +13,7 @@
 <header class="topbar">
   <a class="brand" href="../index.html#tong-quan">
     <span class="code">CO5085</span>
-    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+    <span class="brand-text">Học sâu &amp; Ứng dụng trong Thị giác máy tính</span>
   </a>
   <nav class="quicknav" aria-label="Điều hướng nhanh">
     <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
@@ -33,46 +33,63 @@
       <span class="status"><span class="dot"></span>Đang thực hiện</span>
     </div>
 
-    <h1>Phân loại ảnh</h1>
-    <p class="lede">Phân loại ảnh trên một tập ảnh nhỏ bằng ba cách tiếp cận có dung lượng mô hình tăng dần, rồi so sánh chúng trên cùng một tập dữ liệu và cùng một quy trình đánh giá.</p>
+    <h1>Phân loại ảnh: Softmax, MLP, CNN</h1>
+
+    <div class="hero-meta" style="margin-top:0">
+      <span class="chip">Hạn nộp · <strong>02/11/2026, 23:59 GMT+7</strong></span>
+      <span class="chip">Tuần · <strong>W9</strong></span>
+      <span class="chip">Phát đề · <strong>07/09/2026</strong></span>
+    </div>
 
     <section>
-      <h2>Yêu cầu</h2>
+      <h2>Mục tiêu</h2>
       <div class="box">
-        <p>Sử dụng một tập ảnh nhỏ (MNIST / Fashion-MNIST / CIFAR-10), thực hiện phân loại ảnh với ba mô hình, sau đó <strong>so sánh độ chính xác, dung lượng mô hình (capacity) và các trường hợp lỗi</strong>.</p>
+        <p>Xây dựng và so sánh <strong>ba bộ phân loại</strong> trên tập ảnh nhỏ (MNIST / Fashion-MNIST / CIFAR-10): <strong>softmax</strong> trên vector flatten, <strong>MLP</strong> trên vector flatten, và <strong>CNN</strong>.</p>
       </div>
     </section>
 
     <section>
       <h2>Ba mô hình</h2>
       <ol class="steps">
-        <li><span class="n">i</span><div><h3>Bộ phân loại softmax</h3><p>Hồi quy softmax trực tiếp trên vector ảnh đã được làm phẳng — mô hình tuyến tính, đóng vai trò baseline thấp nhất.</p></div></li>
-        <li><span class="n">ii</span><div><h3>MLP</h3><p>Mạng perceptron nhiều lớp, cũng nhận vector phẳng làm đầu vào, bổ sung các lớp ẩn phi tuyến.</p></div></li>
-        <li><span class="n">iii</span><div><h3>CNN</h3><p>Mạng tích chập khai thác cấu trúc không gian hai chiều của ảnh thay vì làm phẳng đầu vào.</p></div></li>
+        <li><span class="n">i</span><div><h3>Softmax classifier</h3><p>Làm phẳng ảnh thành vector, rồi áp dụng một phép ánh xạ tuyến tính kèm softmax. Đây là mô hình tuyến tính, dùng làm baseline thấp nhất.</p></div></li>
+        <li><span class="n">ii</span><div><h3>MLP classifier</h3><p>Mạng fully connected nhiều tầng: đầu vào vẫn là vector flatten, thêm các tầng ẩn với hàm kích hoạt phi tuyến, đầu ra softmax.</p></div></li>
+        <li><span class="n">iii</span><div><h3>CNN classifier</h3><p>Dùng convolution và pooling (có thể thêm batch norm) để khai thác cấu trúc không gian 2D của ảnh, sau đó là head phân loại.</p></div></li>
       </ol>
     </section>
 
     <section>
-      <h2>Nội dung so sánh</h2>
-      <div class="box">
-        <p><strong>Độ chính xác</strong> trên cùng một tập kiểm tra và cùng một cách chia dữ liệu.</p>
+      <h2>Yêu cầu bắt buộc</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><p><strong>Softmax classifier:</strong> flatten ảnh thành vector, ánh xạ tuyến tính + softmax.</p></div></li>
+        <li><span class="n">2</span><div><p><strong>MLP classifier:</strong> fully connected nhiều tầng (ẩn + kích hoạt), đầu ra softmax; đầu vào vẫn là vector flatten.</p></div></li>
+        <li><span class="n">3</span><div><p><strong>CNN classifier:</strong> convolution / pooling (có thể batch norm) + head phân loại, phù hợp ảnh nhỏ.</p></div></li>
+        <li><span class="n">4</span><div><p><strong>Tự viết training loop</strong> (forward → loss → <code>backward()</code> → <code>optimizer.step()</code>); huấn luyện và đánh giá trên validation/test.</p></div></li>
+        <li><span class="n">5</span><div><p><strong>So sánh ba mô hình:</strong> accuracy, số tham số / capacity, đường cong loss–accuracy, và các trường hợp sai (confusion matrix, vài mẫu lỗi).</p></div></li>
+      </ol>
+      <div class="note" style="margin-top:14px">
+        <strong>Không thuộc E1:</strong> ViT / attention và LSTM/GRU (để dành cho E2–E3). Mô hình hồi quy và mô hình tạo sinh không được chấm trong các bài Ei.
       </div>
-      <div class="box">
-        <p><strong>Dung lượng mô hình</strong> — số tham số, và quan hệ giữa dung lượng với hiện tượng quá khớp.</p>
-      </div>
-      <div class="box">
-        <p><strong>Trường hợp lỗi</strong> — những ảnh bị phân loại sai, các lớp hay bị nhầm lẫn với nhau, và sự khác biệt giữa ba mô hình.</p>
-      </div>
+    </section>
+
+    <section>
+      <h2>Tiêu chí</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><p><strong>Mã chạy được</strong> cho đủ 3 mô hình.</p></div></li>
+        <li><span class="n">2</span><div><p><strong>Vòng lặp huấn luyện đúng</strong>, tự viết bằng PyTorch.</p></div></li>
+        <li><span class="n">3</span><div><p><strong>Bảng, biểu đồ và phân tích lỗi</strong> rõ ràng.</p></div></li>
+      </ol>
     </section>
 
     <section>
       <h2>Kết quả</h2>
       <div class="note">
-        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
-        sẽ được đưa vào thư mục <code>E1/</code> của kho mã nguồn khi hoàn thành, và phần này
-        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
       </div>
-      <p style="margin-top:14px">
+    </section>
+
+    <section>
+      <h2>Mã nguồn</h2>
+      <p>
         <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E1">Xem thư mục <code>E1/</code> trên GitHub →</a>
       </p>
     </section>

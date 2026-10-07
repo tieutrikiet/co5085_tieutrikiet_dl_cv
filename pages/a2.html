@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A2 · Chủ đề tự chọn &amp; phân tích bài báo — CO5085</title>
-<meta name="description" content="A2 — Chủ đề tự chọn &amp; phân tích bài báo. Chọn một chủ đề trong thị giác máy tính, xây dựng một pipeline chạy được, đồng thời phân tích một bài báo liên quan.">
+<title>A2 · Chủ đề tự chọn và phân tích paper — CO5085</title>
+<meta name="description" content="A2 — Chủ đề tự chọn và phân tích paper: xây dựng một pipeline thị giác máy tính chạy được và phân tích một paper liên quan.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
@@ -13,7 +13,7 @@
 <header class="topbar">
   <a class="brand" href="../index.html#tong-quan">
     <span class="code">CO5085</span>
-    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+    <span class="brand-text">Học sâu &amp; Ứng dụng trong Thị giác máy tính</span>
   </a>
   <nav class="quicknav" aria-label="Điều hướng nhanh">
     <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
@@ -33,39 +33,71 @@
       <span class="status"><span class="dot"></span>Đang thực hiện</span>
     </div>
 
-    <h1>Chủ đề tự chọn &amp; phân tích bài báo</h1>
-    <p class="lede">Chọn một chủ đề trong thị giác máy tính, xây dựng một pipeline chạy được, đồng thời phân tích một bài báo liên quan.</p>
+    <h1>Chủ đề tự chọn và phân tích paper</h1>
 
     <section>
       <h2>Yêu cầu</h2>
       <div class="box">
-        <p>Chọn một <strong>chủ đề tự do</strong> (phát hiện đối tượng, phân vùng ảnh, …). Xây dựng một <strong>pipeline hoạt động được</strong> và <strong>phân tích một bài báo liên quan</strong> về phương pháp, thực nghiệm và hạn chế.</p>
+        <p>Chọn <strong>một chủ đề thị giác máy tính</strong> (không trùng bài toán phân loại ảnh thuần của A1) và làm hai việc:</p>
+        <p>1. Xây dựng <strong>một pipeline chạy được</strong> (huấn luyện hoặc fine-tune + đánh giá).</p>
+        <p>2. <strong>Phân tích một paper liên quan</strong> (phương pháp, thí nghiệm, hạn chế) và nối với phần cài đặt của nhóm.</p>
+      </div>
+      <div class="note" style="margin-top:14px">
+        <strong>Gợi ý chủ đề:</strong> phân đoạn ảnh, phát hiện đối tượng, định danh / ReID, tạo sinh hình ảnh. Chủ đề khác trong CV + deep learning phải được thảo luận và giảng viên đồng ý trước A2.1. Chủ đề và paper không đổi sau A2.1 nếu không có lý do đặc biệt và sự đồng ý của giảng viên.
       </div>
     </section>
 
     <section>
       <h2>Hai phần nộp</h2>
       <ol class="steps">
-        <li><span class="n">1</span><div><h3>A2.1 — Chủ đề, bài báo &amp; dữ liệu</h3><p>Chốt chủ đề, chọn bài báo sẽ phân tích và chuẩn bị tập dữ liệu tương ứng.</p></div></li>
-        <li><span class="n">2</span><div><h3>A2.2 — Hiện thực &amp; bài viết</h3><p>Hoàn thiện pipeline chạy được, kèm bài viết phân tích bài báo đã chọn.</p></div></li>
+        <li><span class="n">1</span><div>
+          <h3>A2.1 — Chủ đề + paper + dữ liệu</h3>
+          <p><span class="chip">Hạn nộp · <strong>02/11/2026, 23:59 GMT+7</strong> · W9</span></p>
+          <p>Khóa chủ đề; citation paper; mô tả tập dữ liệu và metric; kế hoạch pipeline. Chưa cần kết quả cuối.</p>
+        </div></li>
+        <li><span class="n">2</span><div>
+          <h3>A2.2 — Cài đặt + bài viết paper</h3>
+          <p><span class="chip">Hạn nộp · <strong>16/11/2026, 23:59 GMT+7</strong> · W11</span></p>
+          <p>Pipeline chạy được, so sánh ít nhất 2 biến thể, phân tích paper đầy đủ, có số liệu và thảo luận.</p>
+        </div></li>
       </ol>
     </section>
 
     <section>
-      <h2>Nội dung phân tích bài báo</h2>
-      <div class="box"><p><strong>Phương pháp</strong> — ý tưởng cốt lõi, kiến trúc và những lựa chọn thiết kế đáng chú ý.</p></div>
-      <div class="box"><p><strong>Thực nghiệm</strong> — cách thiết lập, tập dữ liệu, chỉ số đánh giá và kết quả được báo cáo.</p></div>
-      <div class="box"><p><strong>Hạn chế</strong> — các giả định, điểm yếu và những gì bài báo chưa giải quyết.</p></div>
+      <h2>Yêu cầu kỹ thuật</h2>
+      <p>Triển khai <strong>ít nhất một pipeline chạy được</strong> và so sánh <strong>ít nhất hai phương pháp hoặc hai biến thể</strong> (kiến trúc, backbone, pretrained vs. không, loss, …). Gợi ý theo chủ đề:</p>
+      <ol class="steps">
+        <li><span class="n">i</span><div><h3>Phân đoạn</h3><p>FCN, U-Net, DeepLab, PSPNet, SegFormer, Mask R-CNN; backbone ResNet vs. ViT. Metric: mIoU, Dice.</p></div></li>
+        <li><span class="n">ii</span><div><h3>Phát hiện</h3><p>YOLO vs. Faster R-CNN / DETR; CNN vs. Transformer. Metric: mAP@0.5 (và mAP@0.5:0.95 nếu được); có thể thêm FPS.</p></div></li>
+        <li><span class="n">iii</span><div><h3>Định danh</h3><p>ArcFace / CosFace / ReID; so sánh loss hoặc backbone. Metric: accuracy, Recall@k, mAP.</p></div></li>
+        <li><span class="n">iv</span><div><h3>Tạo sinh</h3><p>GAN vs. VAE vs. Diffusion (hoặc hai biến thể của một họ). Metric: FID / IS nếu chạy được.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Phân tích paper (bắt buộc)</h2>
+      <p>Chọn một paper liên quan trực tiếp (ưu tiên CVPR / ICCV / ECCV / NeurIPS / ICLR hoặc bài có ảnh hưởng). Báo cáo cần:</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><p><strong>Phương pháp:</strong> ý tưởng, kiến trúc, loss, giả thiết.</p></div></li>
+        <li><span class="n">2</span><div><p><strong>Thí nghiệm của paper:</strong> tập dữ liệu, metric, kết luận.</p></div></li>
+        <li><span class="n">3</span><div><p><strong>Hạn chế:</strong> dữ liệu, tính toán, failure case, giả thiết không đúng trên tập của nhóm.</p></div></li>
+        <li><span class="n">4</span><div><p><strong>Đối chiếu:</strong> nhóm tái hiện được gì, khác gì, học được gì cho pipeline.</p></div></li>
+      </ol>
+      <div class="note" style="margin-top:14px">
+        <strong>Không chép abstract</strong> — phải viết lại và gắn với thí nghiệm của nhóm.
+      </div>
     </section>
 
     <section>
       <h2>Kết quả</h2>
       <div class="note">
-        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
-        sẽ được đưa vào thư mục <code>A2/</code> của kho mã nguồn khi hoàn thành, và phần này
-        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
       </div>
-      <p style="margin-top:14px">
+    </section>
+
+    <section>
+      <h2>Mã nguồn</h2>
+      <p>
         <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/A2">Xem thư mục <code>A2/</code> trên GitHub →</a>
       </p>
     </section>

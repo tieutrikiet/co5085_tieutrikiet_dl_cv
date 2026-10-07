@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E3 · Mô hình chuỗi — CO5085</title>
-<meta name="description" content="E3 — Mô hình chuỗi. Xử lý ảnh như một chuỗi bằng LSTM và GRU, rồi đối chiếu với baseline mạng truyền thẳng và CNN trên cùng tập dữ liệu.">
+<title>E3 · LSTM / GRU trên chuỗi ảnh — CO5085</title>
+<meta name="description" content="E3 — LSTM / GRU trên chuỗi ảnh. Mô hình hóa ảnh như dữ liệu chuỗi bằng LSTM và GRU, so sánh với baseline MLP/CNN từ E1.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
@@ -13,7 +13,7 @@
 <header class="topbar">
   <a class="brand" href="../index.html#tong-quan">
     <span class="code">CO5085</span>
-    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+    <span class="brand-text">Học sâu &amp; Ứng dụng trong Thị giác máy tính</span>
   </a>
   <nav class="quicknav" aria-label="Điều hướng nhanh">
     <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
@@ -33,39 +33,60 @@
       <span class="status"><span class="dot"></span>Đang thực hiện</span>
     </div>
 
-    <h1>Mô hình chuỗi</h1>
-    <p class="lede">Xử lý ảnh như một chuỗi bằng LSTM và GRU, rồi đối chiếu với baseline mạng truyền thẳng và CNN trên cùng tập dữ liệu.</p>
+    <h1>LSTM / GRU trên chuỗi ảnh</h1>
+
+    <div class="hero-meta" style="margin-top:0">
+      <span class="chip">Hạn nộp · <strong>09/11/2026, 23:59 GMT+7</strong></span>
+      <span class="chip">Tuần · <strong>W10</strong></span>
+      <span class="chip">Phát đề · <strong>07/09/2026</strong></span>
+    </div>
 
     <section>
-      <h2>Yêu cầu</h2>
+      <h2>Mục tiêu</h2>
       <div class="box">
-        <p>Xây dựng mô hình chuỗi với <strong>LSTM</strong> và <strong>GRU</strong> — ví dụ coi ảnh MNIST như một chuỗi điểm ảnh hoặc chuỗi hàng — rồi <strong>so sánh với baseline mạng truyền thẳng / CNN</strong>.</p>
+        <p>Mô hình hóa ảnh như <strong>dữ liệu chuỗi</strong> bằng <strong>LSTM</strong> và <strong>GRU</strong>; so sánh với <strong>baseline không hồi quy</strong> (MLP/CNN) đã có từ E1.</p>
       </div>
     </section>
 
     <section>
-      <h2>Mô hình</h2>
+      <h2>Ba mô hình</h2>
       <ol class="steps">
-        <li><span class="n">1</span><div><h3>LSTM</h3><p>Mạng hồi quy có cổng, với ô nhớ dài hạn giúp giữ thông tin qua nhiều bước thời gian.</p></div></li>
-        <li><span class="n">2</span><div><h3>GRU</h3><p>Biến thể gọn hơn của LSTM, ít tham số hơn do gộp cổng — dùng để xem độ phức tạp có đổi lấy độ chính xác hay không.</p></div></li>
-        <li><span class="n">3</span><div><h3>Baseline</h3><p>Mạng truyền thẳng và CNN từ E1, chạy lại trên cùng cách chia dữ liệu để kết quả có thể so sánh trực tiếp.</p></div></li>
+        <li><span class="n">i</span><div><h3>LSTM</h3><p>Mạng hồi quy có cổng (input, forget, output) và ô nhớ riêng, giúp giữ thông tin qua nhiều bước thời gian.</p></div></li>
+        <li><span class="n">ii</span><div><h3>GRU</h3><p>Biến thể gọn hơn của LSTM: gộp thành hai cổng (update, reset), ít tham số hơn với cùng kích thước ẩn.</p></div></li>
+        <li><span class="n">iii</span><div><h3>Baseline không hồi quy</h3><p>MLP và/hoặc CNN từ E1, dùng lại checkpoint hoặc huấn luyện lại trên cùng split để so sánh trực tiếp.</p></div></li>
       </ol>
     </section>
 
     <section>
-      <h2>Cách biểu diễn chuỗi</h2>
-      <div class="box"><p><strong>Chuỗi hàng</strong> — mỗi bước thời gian là một hàng điểm ảnh, chuỗi có độ dài bằng chiều cao ảnh.</p></div>
-      <div class="box"><p><strong>Chuỗi điểm ảnh</strong> — mỗi bước thời gian là một điểm ảnh, tạo ra chuỗi dài hơn nhiều và khó học hơn.</p></div>
+      <h2>Yêu cầu bắt buộc</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><p><strong>Hiện thực cả LSTM và GRU</strong> cho phân loại trên cùng tập ảnh (được phép dùng <code>nn.LSTM</code> / <code>nn.GRU</code>).</p></div></li>
+        <li><span class="n">2</span><div><p><strong>Tự chọn cách đưa ảnh thành chuỗi:</strong> mỗi hàng (hoặc cột) là một bước thời gian; dãy patch/block theo hàng hoặc cột; hoặc cách khác, có mô tả trong báo cáo. Thử <strong>ít nhất hai cách biểu diễn</strong> hoặc so sánh LSTM vs. GRU trên cùng một cách biểu diễn, và luôn so với baseline.</p></div></li>
+        <li><span class="n">3</span><div><p><strong>Baseline không hồi quy:</strong> MLP và/hoặc CNN từ E1 (dùng lại checkpoint hoặc huấn luyện lại cùng split).</p></div></li>
+        <li><span class="n">4</span><div><p><strong>Huấn luyện, đánh giá, so sánh</strong> accuracy, số tham số và khả năng bắt phụ thuộc thời gian so với CNN/MLP.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Tiêu chí</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><p><strong>Có LSTM và GRU.</strong></p></div></li>
+        <li><span class="n">2</span><div><p><strong>Có so sánh với MLP/CNN.</strong></p></div></li>
+        <li><span class="n">3</span><div><p><strong>Nêu rõ cách tokenize chuỗi.</strong></p></div></li>
+        <li><span class="n">4</span><div><p><strong>Bảng và biểu đồ rõ ràng.</strong></p></div></li>
+      </ol>
     </section>
 
     <section>
       <h2>Kết quả</h2>
       <div class="note">
-        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
-        sẽ được đưa vào thư mục <code>E3/</code> của kho mã nguồn khi hoàn thành, và phần này
-        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
       </div>
-      <p style="margin-top:14px">
+    </section>
+
+    <section>
+      <h2>Mã nguồn</h2>
+      <p>
         <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E3">Xem thư mục <code>E3/</code> trên GitHub →</a>
       </p>
     </section>

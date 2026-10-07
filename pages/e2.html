@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>E2 · Tự chú ý đa đầu — CO5085</title>
-<meta name="description" content="E2 — Tự chú ý đa đầu. Hiện thực cơ chế Multi-Head Self-Attention hoàn toàn từ đầu và bằng module có sẵn của PyTorch, sau đó khảo sát ảnh hưởng của cách token hoá ảnh tới kết quả phân loại.">
+<title>E2 · Transformer: MSA và Tokenization — CO5085</title>
+<meta name="description" content="E2 — Transformer: MSA và Tokenization. Hiện thực Multi-Head Self-Attention từ đầu và bằng PyTorch, thử nhiều cách lấy token trên cùng tập ảnh của E1.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
@@ -13,7 +13,7 @@
 <header class="topbar">
   <a class="brand" href="../index.html#tong-quan">
     <span class="code">CO5085</span>
-    <span class="brand-text">Học sâu &amp; Thị giác máy tính</span>
+    <span class="brand-text">Học sâu &amp; Ứng dụng trong Thị giác máy tính</span>
   </a>
   <nav class="quicknav" aria-label="Điều hướng nhanh">
     <a href="../index.html#tong-quan"><span class="num">01</span><span class="label">Tổng quan</span></a>
@@ -33,40 +33,62 @@
       <span class="status"><span class="dot"></span>Đang thực hiện</span>
     </div>
 
-    <h1>Tự chú ý đa đầu</h1>
-    <p class="lede">Hiện thực cơ chế Multi-Head Self-Attention hoàn toàn từ đầu và bằng module có sẵn của PyTorch, sau đó khảo sát ảnh hưởng của cách token hoá ảnh tới kết quả phân loại.</p>
+    <h1>Transformer: MSA và Tokenization</h1>
+
+    <div class="hero-meta" style="margin-top:0">
+      <span class="chip">Hạn nộp · <strong>02/11/2026, 23:59 GMT+7</strong></span>
+      <span class="chip">Tuần · <strong>W9</strong></span>
+      <span class="chip">Phát đề · <strong>07/09/2026</strong></span>
+    </div>
 
     <section>
-      <h2>Yêu cầu</h2>
+      <h2>Mục tiêu</h2>
       <div class="box">
-        <p>Hiện thực <strong>Multi-Head Self-Attention (MSA)</strong> theo hai cách: hoàn toàn từ đầu, và sử dụng module PyTorch. Khảo sát một số cách token hoá rồi phân loại trên cùng tập ảnh nhỏ đã dùng ở E1.</p>
+        <p>Hiện thực <strong>Multi-Head Self-Attention (MSA)</strong> từ đầu và bằng module PyTorch; thử <strong>nhiều cách lấy token</strong>; phân loại trên <strong>cùng tập ảnh</strong> đã dùng ở E1.</p>
       </div>
     </section>
 
     <section>
-      <h2>Hai cách hiện thực</h2>
+      <h2>Các cách lấy token</h2>
       <ol class="steps">
-        <li><span class="n">1</span><div><h3>Từ đầu</h3><p>Tự viết phép chiếu Q/K/V, tích vô hướng có chia tỷ lệ, softmax, phép ghép nhiều đầu và phép chiếu đầu ra — không dùng lớp attention dựng sẵn.</p></div></li>
-        <li><span class="n">2</span><div><h3>Bằng PyTorch</h3><p>Dùng module attention có sẵn làm đối chiếu, nhằm kiểm chứng tính đúng đắn và so sánh hiệu năng với bản tự viết.</p></div></li>
+        <li><span class="n">i</span><div><h3>Patch</h3><p>Chia ảnh thành các ô lưới, mỗi ô là một token; có thể thêm token CLS ở đầu chuỗi theo kiểu ViT.</p></div></li>
+        <li><span class="n">ii</span><div><h3>Pixel / hàng</h3><p>Mỗi hàng ảnh (hoặc mỗi pixel) là một token, nên chuỗi dài hơn nhưng mỗi token mang ít thông tin hơn.</p></div></li>
+        <li><span class="n">iii</span><div><h3>CNN-stem</h3><p>Dùng CNN rút feature map, mỗi vị trí spatial trên feature map là một token.</p></div></li>
+        <li><span class="n">iv</span><div><h3>Biến thể</h3><p>Patch overlap, kích thước patch khác nhau, hoặc token theo kênh <em>C</em> thay vì theo <em>H × W</em>.</p></div></li>
       </ol>
     </section>
 
     <section>
-      <h2>Các cách token hoá khảo sát</h2>
-      <div class="box"><p><strong>Patch</strong> — chia ảnh thành các mảng vuông, mỗi mảng là một token.</p></div>
-      <div class="box"><p><strong>Pixel / hàng</strong> — coi từng điểm ảnh hoặc từng hàng ảnh là một token.</p></div>
-      <div class="box"><p><strong>CNN stem</strong> — dùng vài lớp tích chập để trích đặc trưng trước khi đưa vào khối attention.</p></div>
-      <div class="box"><p><strong>CLS + patches</strong> — thêm một token phân loại đứng trước chuỗi patch, theo kiểu ViT.</p></div>
+      <h2>Yêu cầu bắt buộc</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><p><strong>MSA tự viết:</strong> từ các phép toán cơ bản (Linear, nhân ma trận / <code>einsum</code>, softmax, ghép head). Không dùng <code>nn.MultiheadAttention</code> / <code>nn.TransformerEncoder*</code> cho bản này.</p></div></li>
+        <li><span class="n">2</span><div><p><strong>MSA dùng PyTorch:</strong> <code>nn.MultiheadAttention</code> (hoặc <code>TransformerEncoderLayer</code>) để có bản đối chiếu.</p></div></li>
+        <li><span class="n">3</span><div><p><strong>Bộ phân loại ảnh nhỏ:</strong> đưa MSA vào một encoder nông + head; có thể thêm LayerNorm, FFN, positional encoding.</p></div></li>
+        <li><span class="n">4</span><div><p><strong>Nhiều cách lấy token:</strong> triển khai ít nhất hai, khuyến nghị ba (xem phần trên).</p></div></li>
+        <li><span class="n">5</span><div><p><strong>Huấn luyện, đánh giá, so sánh:</strong> (i) MSA tự viết vs. MSA PyTorch, cùng cách tokenize; (ii) các cách tokenize với nhau (accuracy, thời gian, nhận xét).</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Tiêu chí</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><div><p><strong>MSA tự viết đúng.</strong></p></div></li>
+        <li><span class="n">2</span><div><p><strong>Có bản PyTorch</strong> để đối chiếu.</p></div></li>
+        <li><span class="n">3</span><div><p><strong>Ít nhất 2 cách tokenization.</strong></p></div></li>
+        <li><span class="n">4</span><div><p><strong>So sánh có số liệu và nhận xét.</strong></p></div></li>
+      </ol>
     </section>
 
     <section>
       <h2>Kết quả</h2>
       <div class="note">
-        <strong>Chưa có kết quả được công bố.</strong> Mã nguồn, notebook và hình ảnh kết quả
-        sẽ được đưa vào thư mục <code>E2/</code> của kho mã nguồn khi hoàn thành, và phần này
-        sẽ được cập nhật với số liệu, đồ thị cùng các trường hợp lỗi tiêu biểu.
+        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
       </div>
-      <p style="margin-top:14px">
+    </section>
+
+    <section>
+      <h2>Mã nguồn</h2>
+      <p>
         <a href="https://github.com/tieutrikiet/co5085_tieutrikiet_dl_cv/tree/main/E2">Xem thư mục <code>E2/</code> trên GitHub →</a>
       </p>
     </section>
