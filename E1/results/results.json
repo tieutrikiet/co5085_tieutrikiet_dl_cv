@@ -1,0 +1,38 @@
+[
+  {
+    "model": "Softmax",
+    "params": 7850,
+    "best_epoch": 14,
+    "train_time": 15.661677124997368,
+    "train_loss": 0.37376270695527397,
+    "train_acc": 0.8703125,
+    "val_loss": 0.3991770279407501,
+    "val_acc": 0.8630833333333333,
+    "test_loss": 0.4431742344856262,
+    "test_acc": 0.8441
+  },
+  {
+    "model": "MLP",
+    "params": 535818,
+    "best_epoch": 31,
+    "train_time": 44.70512774999952,
+    "train_loss": 0.1044713969329993,
+    "train_acc": 0.961,
+    "val_loss": 0.3456563325723012,
+    "val_acc": 0.9076666666666666,
+    "test_loss": 0.3675196185827255,
+    "test_acc": 0.8962
+  },
+  {
+    "model": "CNN",
+    "params": 421642,
+    "best_epoch": 16,
+    "train_time": 120.22118112499447,
+    "train_loss": 0.06598134143153826,
+    "train_acc": 0.9779791666666666,
+    "val_loss": 0.20808569435278573,
+    "val_acc": 0.933,
+    "test_loss": 0.24314528720378875,
+    "test_acc": 0.9258
+  }
+]
