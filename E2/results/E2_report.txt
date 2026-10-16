@@ -1,0 +1,168 @@
+## Evaluation
+
+(generated 2026-10-16 15:35, seed=42, epochs=50, patience=5)
+Số liệu trong các bảng được tính từ run hiện tại; phần nhận xét là phân tích cho run seed 42 trong notebook.
+
+### 1. Bảng kết quả training
+
+Model              Params  Best ep  Time(s)    Train      Val     Test
+----------------------------------------------------------------------
+patch7_scratch     72,074       25     76.6   91.60%   89.52%   88.01%
+patch7_torch       72,074       25     77.1   91.39%   89.20%   88.04%
+row_scratch        71,498       36    139.7   94.12%   90.64%   89.26%
+row_torch          71,498       24     90.3   92.81%   90.57%   89.47%
+cnn_scratch        93,962       15    138.2   93.97%   91.93%   91.13%
+cnn_torch          93,962       21    178.2   94.78%   92.11%   91.04%
+
+Qua đó ta có thể nhận xét thành hai nhóm:
+
+- Nhóm 1: so sánh với cùng tokenizer nhưng khác nhau ở **scratch** và **torch**:
+  - Về số parameters, số lượng tham số của mô hình scratch và torch ở các tokenizer đều giống nhau, khoảng 72k cho patch7x7, 71k cho row chia thành 28 tokens, hoặc 93k cho CNN.
+  - Nhưng có sự khác biệt đôi chút về best epoch, tức là epoch có val accuracy cao nhất, cũng là checkpoint được giữ lại.
+  - Với tokenizer là patch 7x7 thì mô hình MSA scratch và torch đều không có sự khác nhau về số lượng tham số, best epoch, không có sự khác nhau quá lớn hoặc đáng kể ở thời gian training, train acc/val acc/test acc.
+  - Với tokenizer là row 28px thì hai mô hình có sự khác nhau nhiều hơn và thấy rõ mô hình viết tay scratch sẽ có các giá trị lớn hơn mô hình native, như thông tin best epoch sẽ cho biết tốc độ hội tụ của mô hình native tốt hơn mô hình scratch khoảng 12 epoch, điều này dẫn tới thời gian training của scratch cũng sẽ lớn hơn torch vì early stopping, nếu nhìn vào test acc cuối cùng để đánh giá, thì mô hình torch nhỉnh hơn scratch 0.21 điểm, không quá lớn.
+  - Với tokenizer là CNN, tương tự với cách so sánh ở Row, thì mô hình torch có kết quả kém hơn scratch một chút.
+
+- Nhóm 2: so sánh với cùng loại mô hình nhưng khác tokenizer:
+  - Với scratch, patch 7x7 cho test acc thấp nhất khi so với Row và CNN (88.01% < 89.26% < 91.13%), tuy best epoch của Row là 36 (cao nhất) và CNN là 15 (nhất nhất) nhưng cả hai mô hình có hai tokenizer này thì có thời gian training gần sát nhau (139s với 138s), điều này còn phản ánh một điều, tuy dừng sớm nhưng CNN với số lượng tham số nhiều hơn hẳn so với Row đồng thời đi qua hai lớp conv nên thời gian training network này chắc chắn phải chậm hơn các mô hình tokenizer khác.
+  - Với torch, xét về test acc sau cùng thì CNN vẫn tốt hơn Row sau đó mới đến Patch, best epoch của ba mô hình có tokenizer này cũng có sai khác không lớn, tuy nhiên, với cùng lập luận trên, ở cùng số epoch thì CNN phải tiêu tốn thời gian training nhiều hơn hẳn các mô hình tokenizer còn lại.
+
+
+### 2. Learning curves
+
+- figures/E2_curves_patch7_scratch_vs_torch.png
+- figures/E2_curves_row_scratch_vs_torch.png
+- figures/E2_curves_cnn_scratch_vs_torch.png
+- figures/E2_curves_tokenizers.png
+
+Số liệu learning curves (run hiện tại):
+- patch7_scratch: 30 epochs run, best val acc 89.52% at epoch 25; min val loss 0.299 at epoch 25; train loss 0.832 -> 0.285
+- patch7_torch: 30 epochs run, best val acc 89.20% at epoch 25; min val loss 0.301 at epoch 25; train loss 0.830 -> 0.289
+- row_scratch: 41 epochs run, best val acc 90.64% at epoch 36; min val loss 0.274 at epoch 32; train loss 0.679 -> 0.208
+- row_torch: 29 epochs run, best val acc 90.57% at epoch 24; min val loss 0.273 at epoch 26; train loss 0.678 -> 0.234
+- cnn_scratch: 20 epochs run, best val acc 91.93% at epoch 15; min val loss 0.230 at epoch 15; train loss 0.790 -> 0.192
+- cnn_torch: 26 epochs run, best val acc 92.11% at epoch 21; min val loss 0.232 at epoch 20; train loss 0.792 -> 0.170
+
+Qua ba learning curves của Patch, Row, CNN giữa scratch và torch ở trên, thì ta có thể thấy:
+- Đường "val" của các tokenizer ở cả hai phiên bản đều gần như trùng nhau, xác thực kết quả số liệu trên bảng ở trước đó.
+- Ở tokenizer Patch 7x7 thì chấm tròn (thể hiện cho early stopping) trùng nhau, còn ở Row thì torch dừng sớm hơn scratch, ngược lại với CNN, scratch dừng sớm hơn torch.
+- Trong ba bộ tokenizer, CNN hội tụ nhanh nhất được dựa vào best epoch = 15 so với 25 của patch và 36 của row, đạt khoảng 88% (val cao nhất của patch) ở epoch thứ 3 và sau đó tiếp tục tăng lên đến điểm lớn nhất ở epoch 15. Nhìn qua loss, đường val loss xuống đến đáy ở epoch 15 sau đó tăng nhẹ (có dấu hiệu overfit vì trong khi train loss tiếp tục giảm) và bị cắt đúng lúc nhờ early stopping.
+- Trong khi đó, Row thì có val loss gần như đi ngang trong khi train loss thì tiếp tục giảm, khoảng cách giữa train-val ngày càng lớn, cho thấy dấu hiệu overfit.
+- Patch7 có train và val di chuyển đồng thời với nhau, độ lớn train-val không lớn, cả hai còn đi xuống chậm, đây là dấu hiệu của mô hình bị underfit hoặc hạn chế về capacity, chưa bị overfit -> nên còn khả năng để tiếp tục optimize và tuning để tăng khả năng học của mô hình.
+
+
+### 3. Kiểm định McNemar (scratch vs. torch)
+
+tokenizer    agree     b     c  p (McNemar)
+patch7      93.91%   257   260        0.930
+row         92.86%   290   311        0.415
+cnn         93.33%   294   285        0.740
+
+Kiểm định **McNemar** lấy nhãn thật và dự đoán của từng model, bỏ qua probs vì kiểm định này chỉ cần biết đúng hay sai.
+- `b`: số ảnh scratch đoán đúng nhưng torch sai.
+- `c`: ngược lại.
+- Những ảnh cả hai cùng đoán đúng, hoặc cùng sai thì không mang thông tin so sánh, nên bỏ qua.
+
+**Giả thuyết H0**: hai model tốt như nhau, khi đó mỗi ảnh "bất đồng" có xác suất 50/50 rơi vào nhóm b hoặc nhóm c, tức là b tuân theo phân phối Binominal(b+c, 0.5)
+
+Qua bảng kết quả, `p` cho xác suất thấy độ lệch giữa b và c lớn nếu hai model thật sự ngang nhau. Nếu p < 0.05 tức là 5% thì mới tạo ra sự khác biệt thống kê, qua đó, giá trị của p ở các tokenzier khác nhau giữa scratch và torch đều lớn hơn nhiều so với 0.05
+-> Không có bằng chừng nào cho thấy MSA scratch và torch dùng `nn.MultiheadAttention` cho chất lượng khác nhau.
+
+
+### 4. Accuracy vs. chi phí
+
+model              N   params  ep   s/ep  lat(ms)   train     val    test   gap
+patch7_scratch    16   72,074  25    2.3     0.29  91.60%  89.52%  88.01%   2.1
+patch7_torch      16   72,074  25    2.3     0.27  91.39%  89.20%  88.04%   2.2
+row_scratch       28   71,498  36    3.1     0.29  94.12%  90.64%  89.26%   3.5
+row_torch         28   71,498  24    2.8     0.26  92.81%  90.57%  89.47%   2.2
+cnn_scratch       49   93,962  15    6.4     0.43  93.97%  91.93%  91.13%   2.0
+cnn_torch         49   93,962  21    6.3     0.41  94.78%  92.11%  91.04%   2.7
+
+- figures/E2_acc_vs_cost.png
+
+Thời gian train mỗi epoch:
+
+- patch7 mất 2.3 s, row 2.8–3.1 s, cnn 6.3–6.4 s.
+- Chi phí tăng nhanh hơn số token. Từ N = 16 lên N = 49 (gấp khoảng 3 lần), thời gian tăng khoảng 2.8 lần. Lý do là ma trận attention có kích thước N × N, cộng thêm chi phí của các lớp conv trong stem.
+- Ở cùng một tokenizer, scratch và torch gần như bằng nhau, chỉ lệch khoảng 0.1–0.3 s.
+
+Về latency, ở cả ba tokenizer thì bản torch luôn có độ trễ thấp hơn scratch, tức là torch nhanh hơn khoảng 5-10% so với scratch.
+
+So với baseline E1 (MLP và CNN):
+
+- Không model nào vượt qua được CNN của E1
+- CNN-stem của E2 là gần với CNN của E1 nhất, nhưng dùng khoảng 94k tham số thay vì dùng khoảng 422k tham số của CNN E1.
+- Row với khoảng 71~72k tham số gần bằng với MLP của E1 với hơn 530k tham số.
+
+
+### 5. Confusion matrix và recall theo lớp (MSA tự viết, % theo hàng)
+
+Recall (%)                  patch7     row     cnn
+T-shirt/top                  85.7%   84.9%   86.0%
+Trouser                      97.2%   97.4%   97.3%
+Pullover                     81.7%   81.8%   86.0%
+Dress                        88.9%   90.8%   91.2%
+Coat                         79.5%   86.4%   91.0%
+Sandal                       94.3%   97.5%   98.0%
+Shirt                        65.7%   66.0%   71.0%
+Sneaker                      95.9%   92.9%   97.4%
+Bag                          96.1%   97.9%   97.7%
+Ankle boot                   95.1%   97.0%   95.7%
+Coat -> Pullover               10%      5%      3%
+Shirt -> T-shirt/top           15%     15%     10%
+T-shirt/top -> Shirt            8%     10%     10%
+Shirt -> Pullover               9%      8%      6%
+Shirt -> Coat                   6%      7%     10%
+
+- figures/E2_confusion_matrices.png
+
+Qua ba confusion matrix ở cả ba tokenizer trên, ta có thể thấy:
+- cả ba đều đoán đúng tốt ở các lớp (trouser, sandal, sneaker, bag, boot), đều ≥94%. Tạm gọi đây là các nhóm/lớp dễ, vì các lớp này có hình dạng tổng thể khác biệt rõ.
+- với các lớp khác như t-shirt, pullover, coat thì ở mức 80%-90%, đặc biệt là lớp shirt (66%, 66%, 71%). Tạm gọi là các lớp khó, tất cả đều thuộc nhóm áo.
+- trong lớp khó, ở các nhóm áo thì CNN cải thiện tốt nhất ở coat (80 -> 86 -> 91%), pullover (82 -> 82 -> 86%) và shirt (66 -> 66 -> 71).
+- đối với các cặp dự đoán sai:
+  - Đúng là coat (dự đoán thành pullover), thì patch7 tệ nhất, đoán nhầm lên đến 10%, trong khi row và cnn là 5% và 3%.
+  - shirt -> coat đây là điểm đáng chú ý, vì CNN có tỉ lệ đoán nhầm cao hơn cả patch7 và row, lần lượt là 6% -> 7% -> 10%.
+  - trong đó, cập shirt <-> t-shirt vẫn là cặp có tỉ lệ đoán nhầm cao nhất, tức vẫn là ranh giới khó nhất, giống với kết qua trước đây.
+
+
+### 6. Các lỗi tự tin nhất
+
+- patch7_scratch: 1,199 lỗi / 10,000; top-16 confident errors, 15 at ~100% confidence, min 99.4%
+- row_scratch: 1,074 lỗi / 10,000; top-16 confident errors, 16 at ~100% confidence, min 99.5%
+- cnn_scratch: 887 lỗi / 10,000; top-16 confident errors, 12 at ~100% confidence, min 99.2%
+
+- figures/E2_misclassified_patch7.png
+- figures/E2_misclassified_row.png
+- figures/E2_misclassified_cnn.png
+
+Lỗi tự tin nhất, có nhiều ảnh mà chính mắt người cũng thấy nhãn đáng ngờ:
+- “T: Sneaker” nhưng ảnh trông giống ankle boot cổ cao.
+- “T: Shirt” nhưng hình chữ nhật trông giống túi.
+- “T: T-shirt” nhưng là áo hai dây, bị đoán thành Dress.
+
+=> Vì các lớp áo có cùng hình dạng tổng thể, muốn phân biệt chúng cần chi tiết cục bộ hơn như cổ áo, khuy, độ dài tay áo... Đây là thứ mà cnn-stem làm tốt, trích xuất tốt hơn một phép chiếu tuyến tính (patch, row). Điều này giải thích vì sao lợi thế cnn tập trung ở nhóm áo.
+
+
+### 7. Attention maps (attention rollout từ CLS)
+
+- figures/E2_attention_rollout.png
+
+Mỗi cột là một ảnh (một lớp ảnh), mỗi hàng là một tokenzier. Màu nóng cho viết token đó đóng góp nhiều vào biểu diễn của cls.
+
+- Với row:
+
+  - T-Shirt: dãy sáng tập trung vào hàng tay áo kết thúc, cho thấy độ dài tay áo là điểm phân biệt của T-shirt với Pullover.
+  - Coat: dãy sáng tập trung ở phần cổ áo.
+  - Trouser: dãy sáng tập trung ở phần thân quần, nửa dưới, thể hiện độ dài của quần.
+  - Sandal, Sneaker, Boot: dãy sáng tập trung vào hàng đế và cổ giày.
+
+- Với patch:
+
+  - Attention khá phân tán, thường rơi vào các pattern nằm ở viền của vật thể.
+  - Điều này cũng phản ánh độ thô và thưa của lưới 4x4 với mỗi ô patch là 7x7, không đủ chi tiết để khoanh vùng cho chi tiết.
+
+- Với cnn:
+
+  - Chia thành nhiều ô lưới hơn patch, nhưng attention cũng khá thưa, nhưng có những điểm tập trung nhất định vào chi tiết của các vật thể.
