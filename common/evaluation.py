@@ -39,9 +39,9 @@ def evaluate_model(model, name: str, best_epoch: int, train_time: float,
 
 
 def format_results_table(results: List[dict]) -> str:
-    header = f"{'Model':<9}{'Params':>10}{'Best ep':>9}{'Time(s)':>9}{'Train':>9}{'Val':>9}{'Test':>9}"
+    header = f"{'Model':<15}{'Params':>10}{'Best ep':>9}{'Time(s)':>9}{'Train':>9}{'Val':>9}{'Test':>9}"
     lines = [header, "-" * len(header)]
     for r in results:
-        lines.append(f"{r['model']:<9}{r['params']:>10,}{r['best_epoch']:>9}{r['train_time']:>9.1f}"
+        lines.append(f"{r['model']:<15}{r['params']:>10,}{r['best_epoch']:>9}{r['train_time']:>9.1f}"
                      f"{r['train_acc']:>9.2%}{r['val_acc']:>9.2%}{r['test_acc']:>9.2%}")
     return "\n".join(lines)
