@@ -1,0 +1,126 @@
+## Evaluation
+
+(generated 2026-10-17 22:23, seed=42, epochs=50, patience=5)
+Số liệu trong các bảng được tính từ run hiện tại; phần nhận xét là phân tích cho run seed 42 trong notebook.
+
+### 1. Bảng kết quả: LSTM / GRU × row / col / patch và baseline E1
+
+Model              Params  Best ep  Time(s)    Train      Val     Test
+----------------------------------------------------------------------
+lstm_row           82,186       24     54.3   94.43%   90.71%   89.82%
+lstm_col           82,186       22     43.5   93.51%   89.87%   89.01%
+lstm_patch         92,938       21     34.3   95.28%   89.39%   88.40%
+gru_row            61,962       14     65.3   92.73%   90.53%   89.91%
+gru_col            61,962       20     81.6   93.79%   90.21%   89.24%
+gru_patch          70,026       14     37.7   93.93%   89.42%   88.16%
+MLP               535,818       36     36.6   96.57%   90.54%   89.41%
+CNN               421,642       12     67.5   96.57%   93.08%   92.24%
+********************************************************************************
+
+model          T    D  epochs   s/ep  lat(ms)   gap
+lstm_row      28   28      29    1.6     0.27   3.7
+lstm_col      28   28      27    1.4     0.23   3.6
+lstm_patch    16   49      26    1.1     0.15   5.9
+gru_row       28   28      19    3.1     0.22   2.2
+gru_col       28   28      25    2.9     0.22   3.6
+gru_patch     16   49      19    1.8     0.14   4.5
+MLP            1  784      41    0.8     0.02   6.0
+CNN            1  784      17    3.6     0.13   3.5
+
+#### Theo cách biểu diễn
+
+- row tốt nhất trong ba cách biến ảnh thành chuỗi (row | col | patch), với test_acc là 89.8%~89.9%, col kém hơn khoảng 0.7 điểm, patch thì kém hơn khoảng 1.4~1.7 điểm so với row. Thứ tự này giống nhau ở cả LSTM và GRU.
+- row và col có cùng T, D và số tham số tham gia mô hình, nên chênh lệch này giữa chúng đến từ hướng quét. Đọc ảnh từ tren xuống dưới (row) có lợi hơn đọc từ trái sang phải, vì hình dạng quần áo thay đổi theo chiều dọc rõ hơn.
+
+#### LSTM vs GRU
+
+- Accuracy gần như bằng nhau trên mọi cách biểu diễn.
+- GRU ít tham số hơn LSTM 1/4 và dừng sớm hơn LSTM.
+
+#### So với Baseline
+
+- LSTM và GRU có accuracy ngang với MLP nhưng dùng ít tham số hơn rất nhiều.
+- Tất cả RNN đều kém hơn CNN khoảng 2.4, 2.5 điểm trở lên đến khoảng 4.5 điểm.
+
+#### Thời gian train
+
+- Patch có thời gian train nhanh nhất trong số tất cả, vì chỉ có T=16 bước tuần từ, so với T=28 của row/col.
+- Xét về độ trễ (latency), các mô hình RNN rơi vào khoảng 0.14~0.27ms, gần tương đương với CNN 0.13ms, trong khi đó MLP nhanh nhất chỉ với 0.02ms vì chỉ là vài phép nhân ma trận.
+
+#### Gap
+
+- Gap là khoảng cách giữa train và val.
+- Trong đó, patch có gap lớn nhất khoảng 5.9 điểm, nên patch overfit nhiều nhất.
+- GRU row có gap nhỏ nhất là 2.2
+- MLP có gap = 6.0, do nó sử dụng rất nhiều tham số.
+
+
+### 2. Learning curves
+
+- figures/E3_curves_row_lstm_vs_gru.png
+- figures/E3_curves_col_lstm_vs_gru.png
+- figures/E3_curves_patch_lstm_vs_gru.png
+- figures/E3_curves_lstm_sequences.png
+- figures/E3_curves_gru_sequences.png
+
+Số liệu learning curves (run hiện tại):
+- lstm_row: 29 epochs run, best val acc 90.71% at epoch 24; min val loss 0.276 at epoch 14; train loss 0.790 -> 0.144
+- lstm_col: 27 epochs run, best val acc 89.87% at epoch 22; min val loss 0.294 at epoch 18; train loss 0.825 -> 0.173
+- lstm_patch: 26 epochs run, best val acc 89.39% at epoch 21; min val loss 0.310 at epoch 11; train loss 0.823 -> 0.121
+- gru_row: 19 epochs run, best val acc 90.53% at epoch 14; min val loss 0.263 at epoch 14; train loss 0.785 -> 0.183
+- gru_col: 25 epochs run, best val acc 90.21% at epoch 20; min val loss 0.289 at epoch 20; train loss 0.840 -> 0.155
+- gru_patch: 19 epochs run, best val acc 89.42% at epoch 14; min val loss 0.311 at epoch 11; train loss 0.829 -> 0.151
+- MLP: 41 epochs run, best val acc 90.54% at epoch 36; min val loss 0.295 at epoch 8; train loss 0.522 -> 0.123
+- CNN: 17 epochs run, best val acc 93.08% at epoch 12; min val loss 0.201 at epoch 12; train loss 0.533 -> 0.109
+
+### 3. Kiểm định McNemar
+
+best RNN (theo val acc): lstm_row
+A           B              acc A   acc B   agree   A>B   B>A       p
+lstm_row    gru_row       90.71%  90.53%  92.75%   308   317   0.749
+lstm_col    gru_col       89.87%  90.21%  91.70%   351   374   0.414
+lstm_patch  gru_patch     89.39%  89.42%  90.91%   395   371   0.406
+lstm_row    MLP           90.71%  90.54%  91.16%   401   360   0.147
+lstm_row    CNN           90.71%  93.08%  91.43%   263   505   0.000
+
+#### best_rnn
+
+- Model "tốt nhất" được chọn theo val accuracy, trong đó `lstm_row` có acc đạt 90.71%, `gru_row` chỉ đạt 90.53%.
+- Dù trên test thì `gru_row` nhỉnh hơn `lstm_row` với điểm số 89.91% so với 89.82%, tuy nhiên ta không được chọn model theo test, làm vậy là dùng tập test để ra quyết định, trong khi con số test báo cáo sẽ bị lạc quan.
+
+#### Kết luận:
+
+- LSTM và GRU: có p > 0.4 ở cả ba cách biểu diễn, lớn hơn nhiều so với 0.05 (5%), tức là không có khác biệt có ý nghĩa thống kê.
+- RNN tốt nhất (`lstm_row`) và MLP: có p≈0.15, chênh lệch 0.17 điểm, chưa đủ kết luận để nói rằng RNN tốt hơn.
+- RNN tốt nhất (`lstm_row`) và CNN: có p<0.001, CNN đúng ở 505 ảnh mà RNN sai, trong khi ngược lại RNN chỉ đúng khoảng 263, tức là tỉ lệ CNN đúng gấp đôi RNN đúng. Điều này cho thấy CNN tốt hơn là có ý nghĩa thống kê.
+
+
+### 4. Confusion matrix, recall theo lớp và các lỗi tự tin nhất (% theo hàng)
+
+Recall (%)                    lstm_row         MLP         CNN
+T-shirt/top                      82.6%       84.7%       86.7%
+Trouser                          98.5%       98.3%       98.8%
+Pullover                         84.7%       75.7%       88.8%
+Dress                            89.5%       88.9%       93.9%
+Coat                             84.6%       88.1%       88.2%
+Sandal                           96.8%       96.9%       98.5%
+Shirt                            70.8%       71.2%       73.4%
+Sneaker                          97.6%       95.1%       98.1%
+Bag                              97.8%       97.8%       98.7%
+Ankle boot                       95.3%       97.4%       97.3%
+Coat -> Pullover                    7%          4%          5%
+Shirt -> T-shirt/top               11%         12%         10%
+T-shirt/top -> Shirt               11%         10%          9%
+Shirt -> Pullover                   7%          5%          7%
+Shirt -> Coat                       7%          8%          6%
+
+- figures/E3_confusion_matrices.png
+- figures/E3_misclassified_lstm_row.png
+
+#### Nhận xét
+
+- RNN (lstm_row) mạnh hơn MLP ở nhận dạng đúng Pullover (85 > 76). Nhưng kém hơn ở nhận dạng Coat (85 < 88) và T-Shirt (83 < 85).
+- Trong khi đó, tỉ lệ coat bị nhầm thành pullover là 7%, ở MLP là 4%.
+- Tổng accuracy của hai model (RNN_lstm_row và MLP) gần bằng nhau, chúng sai ở những chỗ khác nhau, điều này phản ánh lại kiểm định McNemar: hai model bất đồng ở khoảng 9% ảnh.
+- Nhìn chung, thì CNN vẫn là model nhận dạng tốt hơn, có các chỉ số cao đồng đều hơn so với hai mô hình còn lại.
+- Shirt vẫn là lớp khó nhất (71–73%) ở mọi model.
