@@ -48,7 +48,8 @@
     <section>
       <h2>Hai phần nộp</h2>
       <ol class="steps">
-        <li><span class="n">1</span><div>
+        <li class="done"><span class="n">1</span><div>
+          <span class="done-badge" title="Đã hoàn thành"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hoàn thành · 25-10-2026</span>
           <h3>A1.1 — Dataset + protocol</h3>
           <p><span class="chip">Hạn nộp · <strong>26/10/2026, 23:59 GMT+7</strong> · W8</span></p>
           <p>Chọn tập dữ liệu; mô tả split và augmentation; liệt kê các mô hình CNN/Transformer sẽ dùng; lên kế hoạch from-scratch / pretrained / freeze. Chưa cần số liệu cuối.</p>
@@ -77,8 +78,20 @@
 
     <section>
       <h2>Kết quả</h2>
-      <div class="note">
-        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
+      <div class="file-box">
+        <span class="file-icon" aria-hidden="true">PDF</span>
+        <div class="file-meta">
+          <strong>A1.1 — Dataset + protocol</strong>
+          <span>Báo cáo A1.1 · PDF · 383 KB</span>
+        </div>
+        <div class="file-actions">
+          <a class="icon-btn" href="../A1/A1.1_report.pdf" download="A1.1_report.pdf" aria-label="Tải báo cáo A1.1" title="Tải">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+          </a>
+          <button class="icon-btn" type="button" data-pdf-open="../A1/A1.1_report.pdf" data-pdf-title="A1.1 — Dataset + protocol" aria-label="Xem báo cáo A1.1" title="Xem">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -91,5 +104,19 @@
   </div>
 </main>
 
+<dialog class="pdf-modal" aria-label="Xem PDF">
+  <div class="pdf-modal-bar">
+    <strong class="pdf-modal-title"></strong>
+    <a class="icon-btn pdf-modal-download" href="#" download aria-label="Tải PDF" title="Tải">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+    </a>
+    <button class="icon-btn pdf-modal-close" type="button" aria-label="Đóng" title="Đóng">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <iframe class="pdf-modal-frame" title="Nội dung PDF"></iframe>
+</dialog>
+
+<script src="../assets/pdf-viewer.js"></script>
 </body>
 </html>
