@@ -1,61 +1,30 @@
-# CO5085 — Deep Learning and Its Applications
+# CO5085 — Học sâu và Ứng dụng trong Thị giác máy tính
 
-Coursework repository of **Tiêu Trí Kiệt** (MSSV 2570436) — exercises E1–E3 and assignments A1–A2,
-all implemented in PyTorch and backed by real empirical experiments.
+_Deep Learning and Its applications in Computer Vision_
 
-📄 **Landing page:** https://tieutrikiet.github.io/co5085_tieutrikiet_dl_cv/
+Trang GitHub Pages: [https://tieutrikiet.github.io/co5085_tieutrikiet_dl_cv/](https://tieutrikiet.github.io/co5085_tieutrikiet_dl_cv/)
 
-## Contents
+## Tổng quan
 
-| Dir | Topic | Deliverable |
-| --- | --- | --- |
-| `E1/` | Image classification on a small image set | Softmax vs. MLP vs. CNN — accuracy, capacity, error cases |
-| `E2/` | Multi-Head Self-Attention | From scratch + `torch.nn`, several tokenizations (patch, row, CNN-stem, CLS) |
-| `E3/` | Sequence models | LSTM and GRU over pixel/row sequences vs. a feed-forward / CNN baseline |
-| `A1/` | CNN vs. Transformer on a large image dataset | A1.1 dataset + protocol, A1.2 final comparison |
-| `A2/` | Self-chosen topic + paper analysis | A2.1 topic/paper/data, A2.2 implementation + write-up |
+| Thư mục | Nội dung                                               |
+| ------- | ------------------------------------------------------ |
+| `E1/`   | Phân loại ảnh: Softmax, MLP, CNN                       |
+| `E2/`   | Multi-Head Self-Attention                              |
+| `E3/`   | Mô hình chuỗi: LSTM, GRU                               |
+| `A1/`   | So sánh CNN và Transformer trên Food-101               |
+| `A2/`   | Phát hiện khuôn mặt với YOLO5Face và phân tích bài báo |
 
-Each directory holds its own `description.md` (the brief), notebooks, and saved results.
-E1–E3 reuse the **same** small image set so results stay comparable.
+## Cài đặt
 
-## Setup
-
-A shared virtualenv lives one level up at `../.venv` (Python 3.11 via pyenv — the system
-Python 3.14 is too new for current PyTorch wheels):
+Phần dưới đây chỉ thiết lập môi trường cơ bản để chạy notebook, không bao gồm môi trường huấn luyện đầy đủ cho YOLO5Face.
 
 ```bash
-source ../.venv/bin/activate
-pip install -r requirements.txt
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install torch torchvision numpy matplotlib pandas scikit-learn pillow jupyter
+jupyter lab
 ```
 
-On Apple Silicon `torch.backends.mps.is_available()` is `True`, so prefer the `mps` device
-over `cpu` for training.
+## Dữ liệu
 
-## Datasets
-
-Datasets are **not** committed — they live outside the repo (one level up in `CO5085/`) and
-are gitignored. Expected layout:
-
-```
-CO5085/
-├── MNIST/  Fashion-MNIST/  cifar-10/  food-101/   ← data, not in git
-└── co5085_tieutrikiet_dl_cv/                      ← this repo
-```
-
-Point notebooks at `../` (or a `DATA_ROOT` variable) rather than hard-coding absolute paths.
-
-## GitHub Pages
-
-The site is a five-section single-page scroller plus per-item detail pages:
-
-```
-index.html          5 snap sections: tổng quan, thông tin, bài tập, đồ án, tuyên bố AI
-assets/site.css     shared styles (light + dark)
-assets/site.js      scroll snapping, quick-nav sync, pagination dots, keyboard paging
-pages/e1..e3.html   exercise detail pages
-pages/a1..a2.html   assignment detail pages
-```
-
-Interface copy is in Vietnamese. `.github/workflows/pages.yml` stages `index.html`,
-`assets/` and `pages/` into `_site` on every push to `main` — the repo root is not
-published, so notebooks are never served from the Pages domain.
+Các bộ dữ liệu không được commit hay đi kèm trong repository.
