@@ -480,6 +480,62 @@ a.card:hover .card-go .chev { transform: translateX(3px); }
 }
 .note strong { color: var(--text); }
 
+/* ---------- Collapsible section ---------- */
+
+.collapsible {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.collapsible > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 18px 22px; cursor: pointer; list-style: none;
+  font-size: 13px; font-weight: 650; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.collapsible > summary::-webkit-details-marker { display: none; }
+.collapsible > summary::after {
+  content: ""; width: 9px; height: 9px; flex: none;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-3px); transition: transform .18s ease;
+}
+.collapsible[open] > summary::after { transform: rotate(-135deg) translateY(-3px); }
+.collapsible > summary:hover { color: var(--accent); }
+.collapsible > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius); }
+.collapsible-body { padding: 0 22px 24px; border-top: 1px solid var(--border); }
+.collapsible-body > section:first-child { margin-top: 22px; }
+.collapsible-body h2 { font-size: 12px; }
+
+/* ---------- Report content ---------- */
+
+.report h3 { margin: 30px 0 10px; font-size: 18px; }
+.report h4 { margin: 26px 0 10px; font-size: 16px; font-weight: 650; color: var(--text); }
+.report h5 { margin: 18px 0 6px; font-size: 14.5px; font-weight: 640; color: var(--text); }
+.report > h3:first-child { margin-top: 0; }
+.report p, .report li { color: var(--muted); font-size: 15px; }
+.report li { margin: 4px 0; }
+.report li strong, .report p strong { color: var(--text); }
+.report ul { padding-left: 22px; }
+.report pre {
+  margin: 12px 0; padding: 14px 16px; overflow-x: auto;
+  background: var(--bg-alt); border: 1px solid var(--border); border-radius: 10px;
+  font-size: 12.5px; line-height: 1.55;
+}
+.report pre code { background: none; padding: 0; white-space: pre; }
+.report pre.scroll { max-height: 260px; }
+.report .table-wrap { overflow-x: auto; margin: 12px 0; }
+.report table { border-collapse: collapse; font-size: 14.5px; min-width: 320px; }
+.report th, .report td { padding: 8px 16px; border-bottom: 1px solid var(--border); text-align: left; }
+.report th { color: var(--text); font-weight: 640; }
+.report td { color: var(--muted); }
+.report td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.report figure { margin: 14px 0; }
+.report figure img { display: block; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); }
+.report figcaption { margin-top: 6px; font-size: 13px; color: var(--faint); font-style: italic; }
+.report .mermaid { margin: 14px 0; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; text-align: center; overflow-x: auto; }
+.report .math { margin: 12px 0; overflow-x: auto; color: var(--text); }
+
 /* ---------- File box + PDF viewer ---------- */
 
 .file-box {

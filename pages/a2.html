@@ -7,6 +7,7 @@
 <meta name="description" content="A2 — Chủ đề tự chọn và phân tích paper: xây dựng một pipeline thị giác máy tính chạy được và phân tích một paper liên quan.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 </head>
 <body>
 
@@ -35,63 +36,236 @@
 
     <h1>Chủ đề tự chọn và phân tích paper</h1>
 
-    <section>
-      <h2>Yêu cầu</h2>
-      <div class="box">
-        <p>Chọn <strong>một chủ đề thị giác máy tính</strong> (không trùng bài toán phân loại ảnh thuần của A1) và làm hai việc:</p>
-        <p>1. Xây dựng <strong>một pipeline chạy được</strong> (huấn luyện hoặc fine-tune + đánh giá).</p>
-        <p>2. <strong>Phân tích một paper liên quan</strong> (phương pháp, thí nghiệm, hạn chế) và nối với phần cài đặt của nhóm.</p>
-      </div>
-      <div class="note" style="margin-top:14px">
-        <strong>Gợi ý chủ đề:</strong> phân đoạn ảnh, phát hiện đối tượng, định danh / ReID, tạo sinh hình ảnh. Chủ đề khác trong CV + deep learning phải được thảo luận và giảng viên đồng ý trước A2.1. Chủ đề và paper không đổi sau A2.1 nếu không có lý do đặc biệt và sự đồng ý của giảng viên.
-      </div>
-    </section>
+    <details class="collapsible">
+      <summary>Yêu cầu</summary>
+      <div class="collapsible-body">
 
-    <section>
-      <h2>Hai phần nộp</h2>
-      <ol class="steps">
-        <li><span class="n">1</span><div>
-          <h3>A2.1 — Chủ đề + paper + dữ liệu</h3>
-          <p><span class="chip">Hạn nộp · <strong>02/11/2026, 23:59 GMT+7</strong> · W9</span></p>
-          <p>Khóa chủ đề; citation paper; mô tả tập dữ liệu và metric; kế hoạch pipeline. Chưa cần kết quả cuối.</p>
-        </div></li>
-        <li><span class="n">2</span><div>
-          <h3>A2.2 — Cài đặt + bài viết paper</h3>
-          <p><span class="chip">Hạn nộp · <strong>16/11/2026, 23:59 GMT+7</strong> · W11</span></p>
-          <p>Pipeline chạy được, so sánh ít nhất 2 biến thể, phân tích paper đầy đủ, có số liệu và thảo luận.</p>
-        </div></li>
-      </ol>
-    </section>
+        <section>
+          <h2>Mô tả</h2>
+          <div class="box">
+            <p>Chọn <strong>một chủ đề thị giác máy tính</strong> (không trùng bài toán phân loại ảnh thuần của A1) và làm hai việc:</p>
+            <p>1. Xây dựng <strong>một pipeline chạy được</strong> (huấn luyện hoặc fine-tune + đánh giá).</p>
+            <p>2. <strong>Phân tích một paper liên quan</strong> (phương pháp, thí nghiệm, hạn chế) và nối với phần cài đặt của nhóm.</p>
+          </div>
+          <div class="note" style="margin-top:14px">
+            <strong>Gợi ý chủ đề:</strong> phân đoạn ảnh, phát hiện đối tượng, định danh / ReID, tạo sinh hình ảnh. Chủ đề khác trong CV + deep learning phải được thảo luận và giảng viên đồng ý trước A2.1. Chủ đề và paper không đổi sau A2.1 nếu không có lý do đặc biệt và sự đồng ý của giảng viên.
+          </div>
+        </section>
 
-    <section>
-      <h2>Yêu cầu kỹ thuật</h2>
-      <p>Triển khai <strong>ít nhất một pipeline chạy được</strong> và so sánh <strong>ít nhất hai phương pháp hoặc hai biến thể</strong> (kiến trúc, backbone, pretrained vs. không, loss, …). Gợi ý theo chủ đề:</p>
-      <ol class="steps">
-        <li><span class="n">i</span><div><h3>Phân đoạn</h3><p>FCN, U-Net, DeepLab, PSPNet, SegFormer, Mask R-CNN; backbone ResNet vs. ViT. Metric: mIoU, Dice.</p></div></li>
-        <li><span class="n">ii</span><div><h3>Phát hiện</h3><p>YOLO vs. Faster R-CNN / DETR; CNN vs. Transformer. Metric: mAP@0.5 (và mAP@0.5:0.95 nếu được); có thể thêm FPS.</p></div></li>
-        <li><span class="n">iii</span><div><h3>Định danh</h3><p>ArcFace / CosFace / ReID; so sánh loss hoặc backbone. Metric: accuracy, Recall@k, mAP.</p></div></li>
-        <li><span class="n">iv</span><div><h3>Tạo sinh</h3><p>GAN vs. VAE vs. Diffusion (hoặc hai biến thể của một họ). Metric: FID / IS nếu chạy được.</p></div></li>
-      </ol>
-    </section>
+        <section>
+          <h2>Hai phần nộp</h2>
+          <ol class="steps">
+            <li class="done"><span class="n">1</span><div>
+              <span class="done-badge" title="Đã hoàn thành"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hoàn thành · 01-11-2026</span>
+              <h3>A2.1 — Chủ đề + paper + dữ liệu</h3>
+              <p><span class="chip">Hạn nộp · <strong>02/11/2026, 23:59 GMT+7</strong> · W9</span></p>
+              <p>Khóa chủ đề; citation paper; mô tả tập dữ liệu và metric; kế hoạch pipeline. Chưa cần kết quả cuối.</p>
+            </div></li>
+            <li><span class="n">2</span><div>
+              <h3>A2.2 — Cài đặt + bài viết paper</h3>
+              <p><span class="chip">Hạn nộp · <strong>16/11/2026, 23:59 GMT+7</strong> · W11</span></p>
+              <p>Pipeline chạy được, so sánh ít nhất 2 biến thể, phân tích paper đầy đủ, có số liệu và thảo luận.</p>
+            </div></li>
+          </ol>
+        </section>
 
-    <section>
-      <h2>Phân tích paper (bắt buộc)</h2>
-      <p>Chọn một paper liên quan trực tiếp (ưu tiên CVPR / ICCV / ECCV / NeurIPS / ICLR hoặc bài có ảnh hưởng). Báo cáo cần:</p>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>Phương pháp:</strong> ý tưởng, kiến trúc, loss, giả thiết.</p></div></li>
-        <li><span class="n">2</span><div><p><strong>Thí nghiệm của paper:</strong> tập dữ liệu, metric, kết luận.</p></div></li>
-        <li><span class="n">3</span><div><p><strong>Hạn chế:</strong> dữ liệu, tính toán, failure case, giả thiết không đúng trên tập của nhóm.</p></div></li>
-        <li><span class="n">4</span><div><p><strong>Đối chiếu:</strong> nhóm tái hiện được gì, khác gì, học được gì cho pipeline.</p></div></li>
-      </ol>
-      <div class="note" style="margin-top:14px">
-        <strong>Không chép abstract</strong> — phải viết lại và gắn với thí nghiệm của nhóm.
+        <section>
+          <h2>Yêu cầu kỹ thuật</h2>
+          <p>Triển khai <strong>ít nhất một pipeline chạy được</strong> và so sánh <strong>ít nhất hai phương pháp hoặc hai biến thể</strong> (kiến trúc, backbone, pretrained vs. không, loss, …). Gợi ý theo chủ đề:</p>
+          <ol class="steps">
+            <li><span class="n">i</span><div><h3>Phân đoạn</h3><p>FCN, U-Net, DeepLab, PSPNet, SegFormer, Mask R-CNN; backbone ResNet vs. ViT. Metric: mIoU, Dice.</p></div></li>
+            <li><span class="n">ii</span><div><h3>Phát hiện</h3><p>YOLO vs. Faster R-CNN / DETR; CNN vs. Transformer. Metric: mAP@0.5 (và mAP@0.5:0.95 nếu được); có thể thêm FPS.</p></div></li>
+            <li><span class="n">iii</span><div><h3>Định danh</h3><p>ArcFace / CosFace / ReID; so sánh loss hoặc backbone. Metric: accuracy, Recall@k, mAP.</p></div></li>
+            <li><span class="n">iv</span><div><h3>Tạo sinh</h3><p>GAN vs. VAE vs. Diffusion (hoặc hai biến thể của một họ). Metric: FID / IS nếu chạy được.</p></div></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Phân tích paper (bắt buộc)</h2>
+          <p>Chọn một paper liên quan trực tiếp (ưu tiên CVPR / ICCV / ECCV / NeurIPS / ICLR hoặc bài có ảnh hưởng). Báo cáo cần:</p>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>Phương pháp:</strong> ý tưởng, kiến trúc, loss, giả thiết.</p></div></li>
+            <li><span class="n">2</span><div><p><strong>Thí nghiệm của paper:</strong> tập dữ liệu, metric, kết luận.</p></div></li>
+            <li><span class="n">3</span><div><p><strong>Hạn chế:</strong> dữ liệu, tính toán, failure case, giả thiết không đúng trên tập của nhóm.</p></div></li>
+            <li><span class="n">4</span><div><p><strong>Đối chiếu:</strong> nhóm tái hiện được gì, khác gì, học được gì cho pipeline.</p></div></li>
+          </ol>
+          <div class="note" style="margin-top:14px">
+            <strong>Không chép abstract</strong> — phải viết lại và gắn với thí nghiệm của nhóm.
+          </div>
+        </section>
+
       </div>
-    </section>
+    </details>
 
     <section>
       <h2>Kết quả</h2>
-      <div class="note">
-        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
+      <div class="box report">
+        <h3>A2.1 — Chủ đề + paper + dữ liệu</h3>
+
+        <h4>Chủ đề</h4>
+        <p>Ở assignment A2 này, chủ đề được lựa chọn để thực hiện thuộc nhóm <strong>"Phát hiện đối tượng"</strong>, cụ thể là <strong>"Phát hiện khuôn mặt"</strong> với đầu vào là một ảnh bất kì.</p>
+        <pre class="mermaid">
+flowchart LR
+  A["Input X"] --&gt; B@{ shape: hex, label: "Model" } --&gt; C["y"]
+        </pre>
+        <p>Trong đó:</p>
+        <ul>
+          <li><strong>X:</strong> là một ảnh đầu vào, có dạng [C, H, W]</li>
+          <li><strong>Model:</strong> là phần được thực hiện ở phần này.</li>
+          <li><strong>y:</strong> là output dùng để xác định khuôn mặt có trong ảnh, với dạng là array của [l, cx, cy, w, h, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5]
+            <ul>
+              <li>l: label với 0 là face</li>
+              <li>cx, cy: tâm (center) của boundary box</li>
+              <li>w, h: là kích thước của bbox</li>
+              <li>x_n, y_n: lần lượt là vị trí của các landmarks</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>Citation paper</h4>
+        <ul>
+          <li>Paper: <strong>YOLO5Face: Why Reinventing a Face Detector</strong></li>
+          <li>Authors: <strong>Delong Qi, Weijun Tan, Qi Yao, Jingfeng Liu</strong></li>
+          <li>Year: <strong>2021</strong></li>
+          <li>Venue: <strong>Published in Computer Vision – ECCV 2022 Workshops (Springer, pages 228–244)</strong></li>
+          <li>Affiliations: <strong>Shenzhen Deepcam Information Technologies (China) and LinkSprite Technologies (USA)</strong></li>
+          <li>Cite as: <strong><a href="https://arxiv.org/abs/2105.12931">arXiv:2105.12931 [cs.CV]</a></strong></li>
+          <li>DOI: <strong>10.48550/arXiv.2105.12931</strong></li>
+          <li>Source Code / Repository: <strong>Available on <a href="https://github.com/deepcam-cn/yolov5-face">GitHub - deepcam-cn/yolov5-face</a></strong></li>
+        </ul>
+
+        <h4>Dataset</h4>
+        <ul>
+          <li>Tập dữ liệu được sử dụng cho A2 này là <strong>WIDERFace</strong>: Một bộ dữ liệu chuẩn về khả năng nhận diện khuôn mặt quy mô lớn được tạo ra bởi Phòng thí nghiệm Đa phương tiện thuộc Đại học Trung văn Hồng Kông (CUHK).</li>
+          <li>Tổng cộng có: <strong>32,203 ảnh</strong>.</li>
+          <li>Số khuôn mặt được đánh nhãn có boundary box: <strong>393,703</strong></li>
+          <li>Được tổ chức thành <strong>61 danh mục sự kiện</strong> khác nhau (như thể thao, giao thông, hội họp và biểu tình) với sự đa dạng cao về quy mô, tư thế, biểu cảm, ánh sáng và sự che khuất.</li>
+          <li>Data Splits:</li>
+        </ul>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tập</th><th>Số ảnh</th><th>Tỷ lệ</th></tr></thead>
+            <tbody>
+              <tr><td>Training</td><td class="num">12,880</td><td class="num">40%</td></tr>
+              <tr><td>Val</td><td class="num">3,226</td><td class="num">10%</td></tr>
+              <tr><td>Test</td><td class="num">16,097</td><td class="num">50%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Sau khi chạy <code>train2yolo</code> và <code>val2yolo</code> để chuyển định dạng thành YOLO cho quá trình training model với label annotation, mỗi ảnh train và val sẽ có một file <code>*.txt</code> riêng cùng tên với ảnh. Mỗi khuôn mặt được đánh nhãn là một dòng với nội dung như sau:</p>
+        <pre><code>0  cx cy w h  x1 y1 x2 y2 x3 y3 x4 y4 x5 y5</code></pre>
+        <p>Tương tự với cách chú giải ở trên:</p>
+        <ul>
+          <li>0: là class face</li>
+          <li>cx cy w h: là boundary box, chuẩn hóa về 0-1 theo kích thước ảnh.</li>
+          <li>các x_n, y_n là vị trí các landmark, cũng được chuẩn hóa 0-1. Điểm nào không có nhãn thì được ghi <code>-1</code>.</li>
+        </ul>
+        <p><em>Việc chuẩn hóa về 0-1 giúp ích cho việc không cần phải tính lại vị trí của các điểm trên khi thay đổi kích thước ảnh</em>.</p>
+        <p>Ví dụ:</p>
+        <p>Ảnh có tên <code>0_Parade_marchingband_1_5.jpg</code> là:</p>
+        <figure><img src="../A2/figures/0_Parade_marchingband_1_5.jpg" alt="Ảnh mẫu 0_Parade_marchingband_1_5 từ WIDERFace" loading="lazy"></figure>
+        <p>Với annotation tương ứng có tên <code>0_Parade_marchingband_1_5.txt</code> là:</p>
+        <pre class="scroll"><code>0  0.50146484375 0.2964860907759883 0.0361328125 0.0746705710102489 0.4964423828125 0.2896354319180088 0.51370703125 0.2896354319180088 0.50680078125 0.2981068814055637 0.4986396484375 0.31363689604685213 0.51370703125 0.31269546120058567
+0  0.4150390625 0.3323572474377745 0.037109375 0.07027818448023426 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138
+0  0.3271484375 0.34260614934114203 0.037109375 0.06149341142020498 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138
+0  0.234375 0.3616398243045388 0.037109375 0.06149341142020498 0.22659765625 0.3484099560761347 0.244384765625 0.3484099560761347 0.236275390625 0.35899853587115665 0.229212890625 0.3735095168374817 0.2425537109375 0.37390190336749635
+0  0.0380859375 0.3301610541727672 0.03125 0.05124450951683748 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138
+0  0.91748046875 0.2745241581259151 0.0400390625 0.0629575402635432 0.91109765625 0.2620395314787701 0.9289375 0.26244509516837483 0.920017578125 0.27662957540263544 0.912990234375 0.28878623718887264 0.92353125 0.2891918008784773
+0  0.7841796875 0.2554904831625183 0.037109375 0.06588579795021962 0.7782509765625 0.2438814055636896 0.7955498046875 0.24220937042459736 0.7877373046875 0.2564319180087848 0.7782509765625 0.2681449487554905 0.7935966796875 0.267307467057101
+0  0.71630859375 0.31112737920937045 0.0380859375 0.06588579795021962 0.71044921875 0.29617276720351393 0.726353515625 0.2974275256222548 0.7190986328125 0.308303074670571 0.712681640625 0.31876134699853587 0.72412109375 0.3191800878477306
+0  0.595703125 0.2972181551976574 0.03125 0.0527086383601757 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138
+0  0.15869140625 0.3389458272327965 0.0322265625 0.048316251830161056 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138 -0.0009765625 -0.0014641288433382138</code></pre>
+        <p>Thì khi mask boundary box lên ảnh ta được:</p>
+        <figure><img src="../A2/figures/0_Parade_marchingband_1_5_bbox.png" alt="Ảnh mẫu với các boundary box khuôn mặt được vẽ lên" loading="lazy"></figure>
+
+        <h4>Metric</h4>
+        <h5>IoU</h5>
+        <p>Một boundary box (bbox) dự đoán cần được ghép với bbox của ground-truth, tức là so với các annotation, bằng <strong>Intersection over Union (IoU)</strong>:</p>
+        <div class="math">$$\text{IoU} = \frac{\text{diện tích giao nhau}}{\text{diện tích hợp}}$$</div>
+        <figure>
+          <img src="../A2/figures/IoU.webp" alt="Minh họa cách tính IoU" loading="lazy">
+          <figcaption>Fig.1. Minh họa cách tính IoU</figcaption>
+        </figure>
+        <p>Giá trị IoU càng cao tức là hai box càng khớp nhau. Với dataset WIDERFace, ngưỡng đánh giá là <strong>0.5</strong> (theo protocol PASCAL VOC).</p>
+        <p>Sau khi ghép dự đoán với ground truth, ta có:</p>
+        <ul>
+          <li>TP: phát hiện đúng một khuôn mặt.</li>
+          <li>FP: dự đoán không khớp mặt hợp lệ, hoặc phát hiện trùng một mặt đã được ghép.</li>
+          <li>FN: mặt hợp lệ bị bỏ sót.</li>
+        </ul>
+
+        <h5>Precision và Recall</h5>
+        <div class="math">$$
+\begin{aligned}
+\text{precision} &= \frac{TP}{TP + FP} = \frac{TP}{\text{Tổng số dự đoán}} \\
+\text{recall} &= \frac{TP}{TP + FN} = \frac{TP}{\text{Tổng số gt-box}}
+\end{aligned}
+$$</div>
+        <ul>
+          <li>Precision: có thể suy luận ra độ chính xác của model khi dự đoán đúng trong các mặt được model tìm thấy. Dùng để kiểm tra phát hiện nhầm.</li>
+          <li>Recall: trả lời cho câu hỏi "trong các mặt thực sự có, model tìm được bao nhiêu?". Dùng để kiểm tra bỏ sót.</li>
+        </ul>
+
+        <h5>Average Precision (AP)</h5>
+        <p>Từ precision và recall đã tìm được ở phía trên ta có thể vẽ được đường cong precsion theo recall (PR curve) cho mỗi class riêng biệt. Nó chỉ ra sự đánh đổi giữa precision và recall đối với nhiều giá trị confidence score khác nhau. AP chính là phần diện tích phía dưới đường cong PR curve đã nói bên trên. Nếu phần diện tích này lớn đồng nghĩa với việc precision và recall sẽ cao đồng nghĩa model có chất lượng tốt.</p>
+        <p>Cho biết khả năng phát hiện trên từng mức khó, xét nhiều confidence threshold, được xem là metric chính.</p>
+        <p>AP trên ba mức <strong>Easy / Medium / Hard</strong>.</p>
+
+        <h4>Kế hoạch pipeline</h4>
+        <pre class="mermaid">
+flowchart TD
+  subgraph model["Model Detector"]
+    direction LR
+    m1["backbone"] --&gt; m2["neck"] --&gt; m3["head"]
+  end
+
+  B["Tiền xử lý"] --&gt; A["Load ảnh"]
+  A --&gt; model
+  model --&gt; D["Predict"]
+  D --&gt; E["So với ground-truth"]
+  E --&gt; F["Tính loss và cập nhật trọng số"]
+  F --&gt; G["Đánh giá"]
+  G --&gt; H["Suy luận trên ảnh mới"]
+        </pre>
+
+        <h5>Tiền xử lý</h5>
+        <ul>
+          <li>Các ảnh có kích thước khác nhau cần được đưa về khích thước đầu vào phù hợp.</li>
+          <li>Có thể thêm các augmentation phù hợp như lật ngang, thay đổi màu hoặc crop, cần áp dụng tương ứng lên annotation khi có biến đổi hình học.</li>
+        </ul>
+
+        <h5>Load ảnh</h5>
+        <ul>
+          <li>Với các ảnh sau khi được xử lý, dùng <strong>DataLoader</strong> để gom nhiều mẫu thành một batch.</li>
+        </ul>
+
+        <h5>Model detector</h5>
+        <p>Bao gồm 3 phần chính:</p>
+        <ul>
+          <li><strong>Backbone</strong>: trích xuất đặc trưng từ ảnh.</li>
+          <li><strong>Neck</strong>: kết hợp đặc trưng ở nhiều độ phân giải.</li>
+          <li><strong>Head</strong>: dự đoán vị trí mặt, confidence và landmarks.</li>
+        </ul>
+        <p>Model được khởi tạo ngẫu nhiên.</p>
+
+        <h5>Ghép dự đoán với ground-truth và tính loss</h5>
+        <p>Trong quá trình dự đoán, model sẽ tạo ra nhiều ứng viên. Lúc này cần xác định dự đoán nào chịu trách nhiệm học mỗi khuôn mặt.</p>
+        <p>Loss của YOLO5Face bao gồm các thành phần:</p>
+        <ul>
+          <li><strong>Bounding box</strong>: vị trí và kích thước khuôn mặt.</li>
+          <li><strong>Objectness</strong>: dự đoán có đối tượng hay không.</li>
+          <li><strong>Classification</strong>: lớp đối tượng.</li>
+          <li><strong>Landmarks</strong>: sai lệch vị trí các điểm hợp lệ.</li>
+        </ul>
+
+        <h5>Đánh giá</h5>
+        <p>Sau mỗi epoch:</p>
+        <ul>
+          <li>Chuyển model qua chế độ evaluation.</li>
+          <li>Chạy dự đoán trên validation.</li>
+          <li>Lọc dự đoán trùng, so với ground-truth.</li>
+          <li>Tính metric, ghi log, lưu checkpoint.</li>
+        </ul>
       </div>
     </section>
 
@@ -104,5 +278,13 @@
   </div>
 </main>
 
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.querySelector('.report'), {delimiters: [{left: '$$', right: '$$', display: true}]})"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
+  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({ startOnLoad: true, theme: dark ? 'dark' : 'neutral' });
+</script>
 </body>
 </html>
