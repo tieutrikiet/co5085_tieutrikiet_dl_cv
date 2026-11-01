@@ -32,6 +32,10 @@ jobs:
           cp index.html _site/
           cp -r assets _site/
           cp -r pages  _site/
+          # Files linked from detail pages (reports, figures).
+          mkdir -p _site/A1 _site/A2
+          cp A1/*.pdf     _site/A1/
+          cp -r A2/figures _site/A2/
           touch _site/.nojekyll
           echo "--- staged ---"
           find _site -type f | sort
