@@ -7,6 +7,7 @@
 <meta name="description" content="E2 — Transformer: MSA và Tokenization. Hiện thực Multi-Head Self-Attention từ đầu và bằng PyTorch, thử nhiều cách lấy token trên cùng tập ảnh của E1.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 </head>
 <body>
 
@@ -30,7 +31,7 @@
 
     <div class="card-top" style="max-width:260px">
       <span class="tag">E2</span>
-      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+      <span class="status done"><span class="dot"></span>Đã hoàn thành</span>
     </div>
 
     <h1>Transformer: MSA và Tokenization</h1>
@@ -41,48 +42,72 @@
       <span class="chip">Phát đề · <strong>07/09/2026</strong></span>
     </div>
 
-    <section>
-      <h2>Mục tiêu</h2>
-      <div class="box">
-        <p>Hiện thực <strong>Multi-Head Self-Attention (MSA)</strong> từ đầu và bằng module PyTorch; thử <strong>nhiều cách lấy token</strong>; phân loại trên <strong>cùng tập ảnh</strong> đã dùng ở E1.</p>
+    <details class="collapsible">
+      <summary>Yêu cầu</summary>
+      <div class="collapsible-body">
+
+        <section>
+          <h2>Mục tiêu</h2>
+          <div class="box">
+            <p>Hiện thực <strong>Multi-Head Self-Attention (MSA)</strong> từ đầu và bằng module PyTorch; thử <strong>nhiều cách lấy token</strong>; phân loại trên <strong>cùng tập ảnh</strong> đã dùng ở E1.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Các cách lấy token</h2>
+          <ol class="steps">
+            <li><span class="n">i</span><div><h3>Patch</h3><p>Chia ảnh thành các ô lưới, mỗi ô là một token; có thể thêm token CLS ở đầu chuỗi theo kiểu ViT.</p></div></li>
+            <li><span class="n">ii</span><div><h3>Pixel / hàng</h3><p>Mỗi hàng ảnh (hoặc mỗi pixel) là một token, nên chuỗi dài hơn nhưng mỗi token mang ít thông tin hơn.</p></div></li>
+            <li><span class="n">iii</span><div><h3>CNN-stem</h3><p>Dùng CNN rút feature map, mỗi vị trí spatial trên feature map là một token.</p></div></li>
+            <li><span class="n">iv</span><div><h3>Biến thể</h3><p>Patch overlap, kích thước patch khác nhau, hoặc token theo kênh <em>C</em> thay vì theo <em>H × W</em>.</p></div></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Yêu cầu bắt buộc</h2>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>MSA tự viết:</strong> từ các phép toán cơ bản (Linear, nhân ma trận / <code>einsum</code>, softmax, ghép head). Không dùng <code>nn.MultiheadAttention</code> / <code>nn.TransformerEncoder*</code> cho bản này.</p></div></li>
+            <li><span class="n">2</span><div><p><strong>MSA dùng PyTorch:</strong> <code>nn.MultiheadAttention</code> (hoặc <code>TransformerEncoderLayer</code>) để có bản đối chiếu.</p></div></li>
+            <li><span class="n">3</span><div><p><strong>Bộ phân loại ảnh nhỏ:</strong> đưa MSA vào một encoder nông + head; có thể thêm LayerNorm, FFN, positional encoding.</p></div></li>
+            <li><span class="n">4</span><div><p><strong>Nhiều cách lấy token:</strong> triển khai ít nhất hai, khuyến nghị ba (xem phần trên).</p></div></li>
+            <li><span class="n">5</span><div><p><strong>Huấn luyện, đánh giá, so sánh:</strong> (i) MSA tự viết vs. MSA PyTorch, cùng cách tokenize; (ii) các cách tokenize với nhau (accuracy, thời gian, nhận xét).</p></div></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Tiêu chí</h2>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>MSA tự viết đúng.</strong></p></div></li>
+            <li><span class="n">2</span><div><p><strong>Có bản PyTorch</strong> để đối chiếu.</p></div></li>
+            <li><span class="n">3</span><div><p><strong>Ít nhất 2 cách tokenization.</strong></p></div></li>
+            <li><span class="n">4</span><div><p><strong>So sánh có số liệu và nhận xét.</strong></p></div></li>
+          </ol>
+        </section>
+
       </div>
-    </section>
-
-    <section>
-      <h2>Các cách lấy token</h2>
-      <ol class="steps">
-        <li><span class="n">i</span><div><h3>Patch</h3><p>Chia ảnh thành các ô lưới, mỗi ô là một token; có thể thêm token CLS ở đầu chuỗi theo kiểu ViT.</p></div></li>
-        <li><span class="n">ii</span><div><h3>Pixel / hàng</h3><p>Mỗi hàng ảnh (hoặc mỗi pixel) là một token, nên chuỗi dài hơn nhưng mỗi token mang ít thông tin hơn.</p></div></li>
-        <li><span class="n">iii</span><div><h3>CNN-stem</h3><p>Dùng CNN rút feature map, mỗi vị trí spatial trên feature map là một token.</p></div></li>
-        <li><span class="n">iv</span><div><h3>Biến thể</h3><p>Patch overlap, kích thước patch khác nhau, hoặc token theo kênh <em>C</em> thay vì theo <em>H × W</em>.</p></div></li>
-      </ol>
-    </section>
-
-    <section>
-      <h2>Yêu cầu bắt buộc</h2>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>MSA tự viết:</strong> từ các phép toán cơ bản (Linear, nhân ma trận / <code>einsum</code>, softmax, ghép head). Không dùng <code>nn.MultiheadAttention</code> / <code>nn.TransformerEncoder*</code> cho bản này.</p></div></li>
-        <li><span class="n">2</span><div><p><strong>MSA dùng PyTorch:</strong> <code>nn.MultiheadAttention</code> (hoặc <code>TransformerEncoderLayer</code>) để có bản đối chiếu.</p></div></li>
-        <li><span class="n">3</span><div><p><strong>Bộ phân loại ảnh nhỏ:</strong> đưa MSA vào một encoder nông + head; có thể thêm LayerNorm, FFN, positional encoding.</p></div></li>
-        <li><span class="n">4</span><div><p><strong>Nhiều cách lấy token:</strong> triển khai ít nhất hai, khuyến nghị ba (xem phần trên).</p></div></li>
-        <li><span class="n">5</span><div><p><strong>Huấn luyện, đánh giá, so sánh:</strong> (i) MSA tự viết vs. MSA PyTorch, cùng cách tokenize; (ii) các cách tokenize với nhau (accuracy, thời gian, nhận xét).</p></div></li>
-      </ol>
-    </section>
-
-    <section>
-      <h2>Tiêu chí</h2>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>MSA tự viết đúng.</strong></p></div></li>
-        <li><span class="n">2</span><div><p><strong>Có bản PyTorch</strong> để đối chiếu.</p></div></li>
-        <li><span class="n">3</span><div><p><strong>Ít nhất 2 cách tokenization.</strong></p></div></li>
-        <li><span class="n">4</span><div><p><strong>So sánh có số liệu và nhận xét.</strong></p></div></li>
-      </ol>
-    </section>
+    </details>
 
     <section>
       <h2>Kết quả</h2>
-      <div class="note">
-        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
+      <div class="file-box is-pending">
+        <span class="file-icon" aria-hidden="true">PDF</span>
+        <div class="file-meta">
+          <strong>E2 — Báo cáo</strong>
+          <span>Báo cáo đang hoàn thành</span>
+        </div>
+        <div class="file-actions">
+          <button class="icon-btn" type="button" disabled aria-label="Tải báo cáo E2 (chưa có)" title="Báo cáo đang hoàn thành">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+          </button>
+          <button class="icon-btn" type="button" disabled aria-label="Xem báo cáo E2 (chưa có)" title="Báo cáo đang hoàn thành">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <h3 class="subhead">Python Notebook</h3>
+      <div class="box report notebook" data-notebook="../E2/notebook.ipynb">
+        <p class="nb-status">Đang tải <code>notebook.ipynb</code>…</p>
       </div>
     </section>
 
@@ -95,5 +120,10 @@
   </div>
 </main>
 
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script defer src="../assets/notebook-viewer.js"></script>
 </body>
 </html>

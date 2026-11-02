@@ -7,6 +7,7 @@
 <meta name="description" content="E3 — LSTM / GRU trên chuỗi ảnh. Mô hình hóa ảnh như dữ liệu chuỗi bằng LSTM và GRU, so sánh với baseline MLP/CNN từ E1.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 </head>
 <body>
 
@@ -30,7 +31,7 @@
 
     <div class="card-top" style="max-width:260px">
       <span class="tag">E3</span>
-      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+      <span class="status done"><span class="dot"></span>Đã hoàn thành</span>
     </div>
 
     <h1>LSTM / GRU trên chuỗi ảnh</h1>
@@ -41,46 +42,70 @@
       <span class="chip">Phát đề · <strong>07/09/2026</strong></span>
     </div>
 
-    <section>
-      <h2>Mục tiêu</h2>
-      <div class="box">
-        <p>Mô hình hóa ảnh như <strong>dữ liệu chuỗi</strong> bằng <strong>LSTM</strong> và <strong>GRU</strong>; so sánh với <strong>baseline không hồi quy</strong> (MLP/CNN) đã có từ E1.</p>
+    <details class="collapsible">
+      <summary>Yêu cầu</summary>
+      <div class="collapsible-body">
+
+        <section>
+          <h2>Mục tiêu</h2>
+          <div class="box">
+            <p>Mô hình hóa ảnh như <strong>dữ liệu chuỗi</strong> bằng <strong>LSTM</strong> và <strong>GRU</strong>; so sánh với <strong>baseline không hồi quy</strong> (MLP/CNN) đã có từ E1.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Ba mô hình</h2>
+          <ol class="steps">
+            <li><span class="n">i</span><div><h3>LSTM</h3><p>Mạng hồi quy có cổng (input, forget, output) và ô nhớ riêng, giúp giữ thông tin qua nhiều bước thời gian.</p></div></li>
+            <li><span class="n">ii</span><div><h3>GRU</h3><p>Biến thể gọn hơn của LSTM: gộp thành hai cổng (update, reset), ít tham số hơn với cùng kích thước ẩn.</p></div></li>
+            <li><span class="n">iii</span><div><h3>Baseline không hồi quy</h3><p>MLP và/hoặc CNN từ E1, dùng lại checkpoint hoặc huấn luyện lại trên cùng split để so sánh trực tiếp.</p></div></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Yêu cầu bắt buộc</h2>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>Hiện thực cả LSTM và GRU</strong> cho phân loại trên cùng tập ảnh (được phép dùng <code>nn.LSTM</code> / <code>nn.GRU</code>).</p></div></li>
+            <li><span class="n">2</span><div><p><strong>Tự chọn cách đưa ảnh thành chuỗi:</strong> mỗi hàng (hoặc cột) là một bước thời gian; dãy patch/block theo hàng hoặc cột; hoặc cách khác, có mô tả trong báo cáo. Thử <strong>ít nhất hai cách biểu diễn</strong> hoặc so sánh LSTM vs. GRU trên cùng một cách biểu diễn, và luôn so với baseline.</p></div></li>
+            <li><span class="n">3</span><div><p><strong>Baseline không hồi quy:</strong> MLP và/hoặc CNN từ E1 (dùng lại checkpoint hoặc huấn luyện lại cùng split).</p></div></li>
+            <li><span class="n">4</span><div><p><strong>Huấn luyện, đánh giá, so sánh</strong> accuracy, số tham số và khả năng bắt phụ thuộc thời gian so với CNN/MLP.</p></div></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Tiêu chí</h2>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>Có LSTM và GRU.</strong></p></div></li>
+            <li><span class="n">2</span><div><p><strong>Có so sánh với MLP/CNN.</strong></p></div></li>
+            <li><span class="n">3</span><div><p><strong>Nêu rõ cách tokenize chuỗi.</strong></p></div></li>
+            <li><span class="n">4</span><div><p><strong>Bảng và biểu đồ rõ ràng.</strong></p></div></li>
+          </ol>
+        </section>
+
       </div>
-    </section>
-
-    <section>
-      <h2>Ba mô hình</h2>
-      <ol class="steps">
-        <li><span class="n">i</span><div><h3>LSTM</h3><p>Mạng hồi quy có cổng (input, forget, output) và ô nhớ riêng, giúp giữ thông tin qua nhiều bước thời gian.</p></div></li>
-        <li><span class="n">ii</span><div><h3>GRU</h3><p>Biến thể gọn hơn của LSTM: gộp thành hai cổng (update, reset), ít tham số hơn với cùng kích thước ẩn.</p></div></li>
-        <li><span class="n">iii</span><div><h3>Baseline không hồi quy</h3><p>MLP và/hoặc CNN từ E1, dùng lại checkpoint hoặc huấn luyện lại trên cùng split để so sánh trực tiếp.</p></div></li>
-      </ol>
-    </section>
-
-    <section>
-      <h2>Yêu cầu bắt buộc</h2>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>Hiện thực cả LSTM và GRU</strong> cho phân loại trên cùng tập ảnh (được phép dùng <code>nn.LSTM</code> / <code>nn.GRU</code>).</p></div></li>
-        <li><span class="n">2</span><div><p><strong>Tự chọn cách đưa ảnh thành chuỗi:</strong> mỗi hàng (hoặc cột) là một bước thời gian; dãy patch/block theo hàng hoặc cột; hoặc cách khác, có mô tả trong báo cáo. Thử <strong>ít nhất hai cách biểu diễn</strong> hoặc so sánh LSTM vs. GRU trên cùng một cách biểu diễn, và luôn so với baseline.</p></div></li>
-        <li><span class="n">3</span><div><p><strong>Baseline không hồi quy:</strong> MLP và/hoặc CNN từ E1 (dùng lại checkpoint hoặc huấn luyện lại cùng split).</p></div></li>
-        <li><span class="n">4</span><div><p><strong>Huấn luyện, đánh giá, so sánh</strong> accuracy, số tham số và khả năng bắt phụ thuộc thời gian so với CNN/MLP.</p></div></li>
-      </ol>
-    </section>
-
-    <section>
-      <h2>Tiêu chí</h2>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>Có LSTM và GRU.</strong></p></div></li>
-        <li><span class="n">2</span><div><p><strong>Có so sánh với MLP/CNN.</strong></p></div></li>
-        <li><span class="n">3</span><div><p><strong>Nêu rõ cách tokenize chuỗi.</strong></p></div></li>
-        <li><span class="n">4</span><div><p><strong>Bảng và biểu đồ rõ ràng.</strong></p></div></li>
-      </ol>
-    </section>
+    </details>
 
     <section>
       <h2>Kết quả</h2>
-      <div class="note">
-        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
+      <div class="file-box is-pending">
+        <span class="file-icon" aria-hidden="true">PDF</span>
+        <div class="file-meta">
+          <strong>E3 — Báo cáo</strong>
+          <span>Báo cáo đang hoàn thành</span>
+        </div>
+        <div class="file-actions">
+          <button class="icon-btn" type="button" disabled aria-label="Tải báo cáo E3 (chưa có)" title="Báo cáo đang hoàn thành">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+          </button>
+          <button class="icon-btn" type="button" disabled aria-label="Xem báo cáo E3 (chưa có)" title="Báo cáo đang hoàn thành">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <h3 class="subhead">Python Notebook</h3>
+      <div class="box report notebook" data-notebook="../E3/notebook.ipynb">
+        <p class="nb-status">Đang tải <code>notebook.ipynb</code>…</p>
       </div>
     </section>
 
@@ -93,5 +118,10 @@
   </div>
 </main>
 
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script defer src="../assets/notebook-viewer.js"></script>
 </body>
 </html>

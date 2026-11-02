@@ -7,6 +7,7 @@
 <meta name="description" content="E1 — Phân loại ảnh: Softmax, MLP, CNN. Xây dựng và so sánh ba bộ phân loại trên tập ảnh nhỏ.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 </head>
 <body>
 
@@ -30,7 +31,7 @@
 
     <div class="card-top" style="max-width:260px">
       <span class="tag">E1</span>
-      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+      <span class="status done"><span class="dot"></span>Đã hoàn thành</span>
     </div>
 
     <h1>Phân loại ảnh: Softmax, MLP, CNN</h1>
@@ -41,49 +42,73 @@
       <span class="chip">Phát đề · <strong>07/09/2026</strong></span>
     </div>
 
-    <section>
-      <h2>Mục tiêu</h2>
-      <div class="box">
-        <p>Xây dựng và so sánh <strong>ba bộ phân loại</strong> trên tập ảnh nhỏ (MNIST / Fashion-MNIST / CIFAR-10): <strong>softmax</strong> trên vector flatten, <strong>MLP</strong> trên vector flatten, và <strong>CNN</strong>.</p>
+    <details class="collapsible">
+      <summary>Yêu cầu</summary>
+      <div class="collapsible-body">
+
+        <section>
+          <h2>Mục tiêu</h2>
+          <div class="box">
+            <p>Xây dựng và so sánh <strong>ba bộ phân loại</strong> trên tập ảnh nhỏ (MNIST / Fashion-MNIST / CIFAR-10): <strong>softmax</strong> trên vector flatten, <strong>MLP</strong> trên vector flatten, và <strong>CNN</strong>.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Ba mô hình</h2>
+          <ol class="steps">
+            <li><span class="n">i</span><div><h3>Softmax classifier</h3><p>Làm phẳng ảnh thành vector, rồi áp dụng một phép ánh xạ tuyến tính kèm softmax. Đây là mô hình tuyến tính, dùng làm baseline thấp nhất.</p></div></li>
+            <li><span class="n">ii</span><div><h3>MLP classifier</h3><p>Mạng fully connected nhiều tầng: đầu vào vẫn là vector flatten, thêm các tầng ẩn với hàm kích hoạt phi tuyến, đầu ra softmax.</p></div></li>
+            <li><span class="n">iii</span><div><h3>CNN classifier</h3><p>Dùng convolution và pooling (có thể thêm batch norm) để khai thác cấu trúc không gian 2D của ảnh, sau đó là head phân loại.</p></div></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Yêu cầu bắt buộc</h2>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>Softmax classifier:</strong> flatten ảnh thành vector, ánh xạ tuyến tính + softmax.</p></div></li>
+            <li><span class="n">2</span><div><p><strong>MLP classifier:</strong> fully connected nhiều tầng (ẩn + kích hoạt), đầu ra softmax; đầu vào vẫn là vector flatten.</p></div></li>
+            <li><span class="n">3</span><div><p><strong>CNN classifier:</strong> convolution / pooling (có thể batch norm) + head phân loại, phù hợp ảnh nhỏ.</p></div></li>
+            <li><span class="n">4</span><div><p><strong>Tự viết training loop</strong> (forward → loss → <code>backward()</code> → <code>optimizer.step()</code>); huấn luyện và đánh giá trên validation/test.</p></div></li>
+            <li><span class="n">5</span><div><p><strong>So sánh ba mô hình:</strong> accuracy, số tham số / capacity, đường cong loss–accuracy, và các trường hợp sai (confusion matrix, vài mẫu lỗi).</p></div></li>
+          </ol>
+          <div class="note" style="margin-top:14px">
+            <strong>Không thuộc E1:</strong> ViT / attention và LSTM/GRU (để dành cho E2–E3). Mô hình hồi quy và mô hình tạo sinh không được chấm trong các bài Ei.
+          </div>
+        </section>
+
+        <section>
+          <h2>Tiêu chí</h2>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>Mã chạy được</strong> cho đủ 3 mô hình.</p></div></li>
+            <li><span class="n">2</span><div><p><strong>Vòng lặp huấn luyện đúng</strong>, tự viết bằng PyTorch.</p></div></li>
+            <li><span class="n">3</span><div><p><strong>Bảng, biểu đồ và phân tích lỗi</strong> rõ ràng.</p></div></li>
+          </ol>
+        </section>
+
       </div>
-    </section>
-
-    <section>
-      <h2>Ba mô hình</h2>
-      <ol class="steps">
-        <li><span class="n">i</span><div><h3>Softmax classifier</h3><p>Làm phẳng ảnh thành vector, rồi áp dụng một phép ánh xạ tuyến tính kèm softmax. Đây là mô hình tuyến tính, dùng làm baseline thấp nhất.</p></div></li>
-        <li><span class="n">ii</span><div><h3>MLP classifier</h3><p>Mạng fully connected nhiều tầng: đầu vào vẫn là vector flatten, thêm các tầng ẩn với hàm kích hoạt phi tuyến, đầu ra softmax.</p></div></li>
-        <li><span class="n">iii</span><div><h3>CNN classifier</h3><p>Dùng convolution và pooling (có thể thêm batch norm) để khai thác cấu trúc không gian 2D của ảnh, sau đó là head phân loại.</p></div></li>
-      </ol>
-    </section>
-
-    <section>
-      <h2>Yêu cầu bắt buộc</h2>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>Softmax classifier:</strong> flatten ảnh thành vector, ánh xạ tuyến tính + softmax.</p></div></li>
-        <li><span class="n">2</span><div><p><strong>MLP classifier:</strong> fully connected nhiều tầng (ẩn + kích hoạt), đầu ra softmax; đầu vào vẫn là vector flatten.</p></div></li>
-        <li><span class="n">3</span><div><p><strong>CNN classifier:</strong> convolution / pooling (có thể batch norm) + head phân loại, phù hợp ảnh nhỏ.</p></div></li>
-        <li><span class="n">4</span><div><p><strong>Tự viết training loop</strong> (forward → loss → <code>backward()</code> → <code>optimizer.step()</code>); huấn luyện và đánh giá trên validation/test.</p></div></li>
-        <li><span class="n">5</span><div><p><strong>So sánh ba mô hình:</strong> accuracy, số tham số / capacity, đường cong loss–accuracy, và các trường hợp sai (confusion matrix, vài mẫu lỗi).</p></div></li>
-      </ol>
-      <div class="note" style="margin-top:14px">
-        <strong>Không thuộc E1:</strong> ViT / attention và LSTM/GRU (để dành cho E2–E3). Mô hình hồi quy và mô hình tạo sinh không được chấm trong các bài Ei.
-      </div>
-    </section>
-
-    <section>
-      <h2>Tiêu chí</h2>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>Mã chạy được</strong> cho đủ 3 mô hình.</p></div></li>
-        <li><span class="n">2</span><div><p><strong>Vòng lặp huấn luyện đúng</strong>, tự viết bằng PyTorch.</p></div></li>
-        <li><span class="n">3</span><div><p><strong>Bảng, biểu đồ và phân tích lỗi</strong> rõ ràng.</p></div></li>
-      </ol>
-    </section>
+    </details>
 
     <section>
       <h2>Kết quả</h2>
-      <div class="note">
-        <strong>Chưa có kết quả.</strong> Phần này sẽ được cập nhật khi hoàn thành.
+      <div class="file-box is-pending">
+        <span class="file-icon" aria-hidden="true">PDF</span>
+        <div class="file-meta">
+          <strong>E1 — Báo cáo</strong>
+          <span>Báo cáo đang hoàn thành</span>
+        </div>
+        <div class="file-actions">
+          <button class="icon-btn" type="button" disabled aria-label="Tải báo cáo E1 (chưa có)" title="Báo cáo đang hoàn thành">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+          </button>
+          <button class="icon-btn" type="button" disabled aria-label="Xem báo cáo E1 (chưa có)" title="Báo cáo đang hoàn thành">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <h3 class="subhead">Python Notebook</h3>
+      <div class="box report notebook" data-notebook="../E1/notebook.ipynb">
+        <p class="nb-status">Đang tải <code>notebook.ipynb</code>…</p>
       </div>
     </section>
 
@@ -96,5 +121,10 @@
   </div>
 </main>
 
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script defer src="../assets/notebook-viewer.js"></script>
 </body>
 </html>

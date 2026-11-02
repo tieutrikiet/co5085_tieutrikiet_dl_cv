@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Stage only the site files. Notebooks and results stay in the repo
+      # Stage only the site files. Source code and results stay in the repo
       # but are deliberately not published to the Pages domain.
       - name: Stage site
         run: |
@@ -36,6 +36,13 @@ jobs:
           mkdir -p _site/A1 _site/A2
           cp A1/*.pdf     _site/A1/
           cp -r A2/figures _site/A2/
+          # Exercise notebooks are rendered client-side on their detail pages;
+          # figures/ holds images the notebooks' markdown cells reference.
+          for ex in E1 E2 E3; do
+            mkdir -p _site/$ex
+            cp $ex/notebook.ipynb _site/$ex/
+            if [ -d $ex/figures ]; then cp -r $ex/figures _site/$ex/; fi
+          done
           touch _site/.nojekyll
           echo "--- staged ---"
           find _site -type f | sort

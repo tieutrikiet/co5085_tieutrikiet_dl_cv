@@ -35,46 +35,53 @@
 
     <h1>So sánh CNN và Transformer</h1>
 
-    <section>
-      <h2>Yêu cầu</h2>
-      <div class="box">
-        <p>So sánh <strong>CNN và Transformer</strong> trên một <strong>tập dữ liệu ảnh lớn</strong> do nhóm tự chọn, với nhiều chế độ huấn luyện: <strong>from-scratch vs. pretrained</strong>; <strong>đóng băng backbone</strong>, <strong>đóng băng một phần</strong>, hoặc <strong>fine-tune toàn bộ</strong>.</p>
-      </div>
-      <div class="note" style="margin-top:14px">
-        <strong>Không phải bài E1</strong> (MNIST / Fashion-MNIST / CIFAR-10). Tập A1 phải đủ lớn và khó hơn để sự khác biệt CNN vs. ViT và freeze/pretrain có ý nghĩa.
-      </div>
-    </section>
+    <details class="collapsible">
+      <summary>Yêu cầu</summary>
+      <div class="collapsible-body">
 
-    <section>
-      <h2>Hai phần nộp</h2>
-      <ol class="steps">
-        <li class="done"><span class="n">1</span><div>
-          <span class="done-badge" title="Đã hoàn thành"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hoàn thành · 25-10-2026</span>
-          <h3>A1.1 — Dataset + protocol</h3>
-          <p><span class="chip">Hạn nộp · <strong>26/10/2026, 23:59 GMT+7</strong> · W8</span></p>
-          <p>Chọn tập dữ liệu; mô tả split và augmentation; liệt kê các mô hình CNN/Transformer sẽ dùng; lên kế hoạch from-scratch / pretrained / freeze. Chưa cần số liệu cuối.</p>
-        </div></li>
-        <li><span class="n">2</span><div>
-          <h3>A1.2 — So sánh cuối</h3>
-          <p><span class="chip">Hạn nộp · <strong>09/11/2026, 23:59 GMT+7</strong> · W10</span></p>
-          <p>Chạy đủ các thí nghiệm trong phần Yêu cầu kỹ thuật; có bảng và biểu đồ, phần thảo luận, và code tái lập được.</p>
-        </div></li>
-      </ol>
-    </section>
+        <section>
+          <h2>Mô tả</h2>
+          <div class="box">
+            <p>So sánh <strong>CNN và Transformer</strong> trên một <strong>tập dữ liệu ảnh lớn</strong> do nhóm tự chọn, với nhiều chế độ huấn luyện: <strong>from-scratch vs. pretrained</strong>; <strong>đóng băng backbone</strong>, <strong>đóng băng một phần</strong>, hoặc <strong>fine-tune toàn bộ</strong>.</p>
+          </div>
+          <div class="note" style="margin-top:14px">
+            <strong>Không phải bài E1</strong> (MNIST / Fashion-MNIST / CIFAR-10). Tập A1 phải đủ lớn và khó hơn để sự khác biệt CNN vs. ViT và freeze/pretrain có ý nghĩa.
+          </div>
+        </section>
 
-    <section>
-      <h2>Yêu cầu kỹ thuật</h2>
-      <p>Chạy và so sánh các cấu hình sau (có thể dùng pretrained từ <code>timm</code> / <code>torchvision</code> / Hugging Face):</p>
-      <ol class="steps">
-        <li><span class="n">1</span><div><p><strong>Hai họ kiến trúc:</strong> ít nhất một CNN (ResNet, ConvNeXt, EfficientNet, …) và một Transformer (ViT, DeiT, Swin, …).</p></div></li>
-        <li><span class="n">2</span><div><p><strong>From-scratch vs. pretrained</strong> trên cùng split (ít nhất một họ; khuyến nghị cả hai).</p></div></li>
-        <li><span class="n">3</span><div><p><strong>Ba kiểu đóng băng</strong> (trên bản pretrained): freeze toàn bộ backbone (chỉ train head); freeze một phần (ví dụ vài block đầu); full fine-tune.</p></div></li>
-      </ol>
-      <div class="box" style="margin-top:14px">
-        <p><strong>Báo cáo:</strong> bảng số liệu (accuracy / F1, thời gian, số tham số trainable) kèm nhận xét, ví dụ khi nào freeze có lợi, khi nào ViT cần pretrain.</p>
-        <p><strong>Metric tối thiểu:</strong> accuracy trên validation/test, thêm confusion matrix hoặc phân tích lỗi.</p>
+        <section>
+          <h2>Hai phần nộp</h2>
+          <ol class="steps">
+            <li class="done"><span class="n">1</span><div>
+              <span class="done-badge" title="Đã hoàn thành"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hoàn thành · 25-10-2026</span>
+              <h3>A1.1 — Dataset + protocol</h3>
+              <p><span class="chip">Hạn nộp · <strong>26/10/2026, 23:59 GMT+7</strong> · W8</span></p>
+              <p>Chọn tập dữ liệu; mô tả split và augmentation; liệt kê các mô hình CNN/Transformer sẽ dùng; lên kế hoạch from-scratch / pretrained / freeze. Chưa cần số liệu cuối.</p>
+            </div></li>
+            <li><span class="n">2</span><div>
+              <h3>A1.2 — So sánh cuối</h3>
+              <p><span class="chip">Hạn nộp · <strong>09/11/2026, 23:59 GMT+7</strong> · W10</span></p>
+              <p>Chạy đủ các thí nghiệm trong phần Yêu cầu kỹ thuật; có bảng và biểu đồ, phần thảo luận, và code tái lập được.</p>
+            </div></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Yêu cầu kỹ thuật</h2>
+          <p>Chạy và so sánh các cấu hình sau (có thể dùng pretrained từ <code>timm</code> / <code>torchvision</code> / Hugging Face):</p>
+          <ol class="steps">
+            <li><span class="n">1</span><div><p><strong>Hai họ kiến trúc:</strong> ít nhất một CNN (ResNet, ConvNeXt, EfficientNet, …) và một Transformer (ViT, DeiT, Swin, …).</p></div></li>
+            <li><span class="n">2</span><div><p><strong>From-scratch vs. pretrained</strong> trên cùng split (ít nhất một họ; khuyến nghị cả hai).</p></div></li>
+            <li><span class="n">3</span><div><p><strong>Ba kiểu đóng băng</strong> (trên bản pretrained): freeze toàn bộ backbone (chỉ train head); freeze một phần (ví dụ vài block đầu); full fine-tune.</p></div></li>
+          </ol>
+          <div class="box" style="margin-top:14px">
+            <p><strong>Báo cáo:</strong> bảng số liệu (accuracy / F1, thời gian, số tham số trainable) kèm nhận xét, ví dụ khi nào freeze có lợi, khi nào ViT cần pretrain.</p>
+            <p><strong>Metric tối thiểu:</strong> accuracy trên validation/test, thêm confusion matrix hoặc phân tích lỗi.</p>
+          </div>
+        </section>
+
       </div>
-    </section>
+    </details>
 
     <section>
       <h2>Kết quả</h2>

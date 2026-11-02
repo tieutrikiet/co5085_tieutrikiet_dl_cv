@@ -488,6 +488,7 @@ a.card:hover .card-go .chev { transform: translateX(3px); }
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
 }
+.hero-meta + .collapsible { margin-top: 26px; }
 .collapsible > summary {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 18px 22px; cursor: pointer; list-style: none;
@@ -536,6 +537,51 @@ a.card:hover .card-go .chev { transform: translateX(3px); }
 .report .mermaid { margin: 14px 0; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; text-align: center; overflow-x: auto; }
 .report .math { margin: 12px 0; overflow-x: auto; color: var(--text); }
 
+/* ---------- Notebook (.ipynb) rendering ---------- */
+
+.notebook { overflow-wrap: anywhere; }
+.notebook .nb-status { margin: 0; color: var(--faint); }
+.notebook .nb-md h1 { margin: 30px 0 12px; font-size: 22px; line-height: 1.3; }
+.notebook .nb-md h2 { margin: 30px 0 10px; font-size: 18px; letter-spacing: normal; text-transform: none; color: var(--text); }
+.notebook .nb-md h3 { margin: 24px 0 8px; font-size: 16px; }
+.notebook .nb-md h4 { margin: 20px 0 6px; font-size: 15px; }
+.notebook > .nb-md:first-child > :first-child { margin-top: 0; }
+.notebook .nb-md img { display: block; max-width: 100%; height: auto; margin: 12px 0; border-radius: 10px; border: 1px solid var(--border); }
+.notebook .nb-md ol { padding-left: 22px; }
+.notebook .nb-md blockquote { margin: 12px 0; padding: 4px 14px; border-left: 3px solid var(--accent); color: var(--muted); }
+.notebook .nb-md hr { border: 0; border-top: 1px solid var(--border); margin: 22px 0; }
+.notebook .nb-md :not(pre) > code { padding: 1px 5px; border-radius: 5px; background: var(--bg-alt); font-size: .9em; }
+.notebook .nb-code { margin: 16px 0; }
+.notebook .nb-input { position: relative; }
+.notebook .nb-prompt {
+  position: absolute; top: -9px; right: 10px; padding: 0 6px;
+  font: 600 11px/18px ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--faint); background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+}
+.notebook .nb-input pre { margin: 0; max-height: 460px; }
+.notebook pre.nb-output {
+  margin: 6px 0 0; max-height: 320px; overflow: auto;
+  background: transparent; border-style: dashed; color: var(--muted); white-space: pre;
+}
+.notebook pre.nb-stderr { color: #b4513a; }
+.notebook .nb-image { margin: 8px 0 0; }
+.notebook .nb-image img, .notebook .nb-image svg { display: block; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); background: #fff; }
+.notebook .nb-html { margin-top: 8px; }
+
+/* highlight.js tokens, themed with the site palette */
+.hljs-keyword, .hljs-built_in, .hljs-literal { color: var(--accent-ink); font-weight: 600; }
+.hljs-string { color: #2b8a4e; }
+.hljs-number { color: #b0631a; }
+.hljs-comment { color: var(--faint); font-style: italic; }
+.hljs-title, .hljs-title.function_ { color: #a33fa3; }
+.hljs-meta { color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  .hljs-string { color: #7fd69b; }
+  .hljs-number { color: #f0a868; }
+  .hljs-title, .hljs-title.function_ { color: #e19ae1; }
+  .notebook pre.nb-stderr { color: #f08e76; }
+}
+
 /* ---------- File box + PDF viewer ---------- */
 
 .file-box {
@@ -566,6 +612,22 @@ a.card:hover .card-go .chev { transform: translateX(3px); }
 }
 .icon-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
 .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.icon-btn:disabled,
+.icon-btn:disabled:hover {
+  cursor: not-allowed; opacity: .45;
+  color: var(--faint); border-color: var(--border); background: var(--bg-alt);
+}
+
+.file-box.is-pending .file-icon { background: var(--bg-alt); color: var(--faint); }
+.file-box.is-pending .file-meta span::before {
+  content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px;
+  border-radius: 50%; background: #c98a1a; vertical-align: 1px;
+}
+
+.detail h3.subhead {
+  margin: 30px 0 14px; font-size: 12px; font-weight: 650;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--faint);
+}
 .icon-btn svg {
   width: 18px; height: 18px; fill: none; stroke: currentColor;
   stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
