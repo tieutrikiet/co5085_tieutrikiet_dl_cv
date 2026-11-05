@@ -31,6 +31,9 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           cp -r assets _site/
+          # Combined E1/E2/E3 report, published via assets/ and linked from
+          # the E1, E2, E3 detail pages. Fail the deploy instead of shipping dead links.
+          test -f "_site/assets/[CO5085][E1E2E3] Report.pdf"
           cp -r pages  _site/
           # Files linked from detail pages (reports, figures).
           mkdir -p _site/A1 _site/A2
