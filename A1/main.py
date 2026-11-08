@@ -11,6 +11,9 @@ Run from the repo root:
     python -m A1.main train --only resnet50_pretrained_head
     python -m A1.main train --retrain             # bỏ qua kết quả đã có, train lại
 
+    python -m A1.main analyze                     # Phase 5: test outputs, confusion matrix, learning curves, lỗi
+    python -m A1.main analyze --source checks --limit 512   # thử nhanh trên kết quả smoke
+
 Thí nghiệm thật chạy rất lâu (~20-25 h); chạy trong terminal và giữ máy không sleep:
     caffeinate -i python -m A1.main train
     tail -f A1/results/experiments/train.log      # theo dõi tiến độ từ terminal khác
@@ -51,6 +54,12 @@ def parse_args():
     p.add_argument("--only", nargs="+", choices=EXPERIMENT_KEYS, help="run only these configurations")
     p.add_argument("--epochs", type=int, default=CONFIG["epochs"], help="override CONFIG['epochs']")
     p.add_argument("--retrain", action="store_true", help="train again even if a finished result exists")
+
+    p = sub.add_parser("analyze", help="evaluate best checkpoints on test + figures + error analysis")
+    p.add_argument("--source", choices=("experiments", "checks"), default="experiments")
+    p.add_argument("--split", choices=("val", "test"), default="test")
+    p.add_argument("--limit", type=int, default=None, help="evaluate a random subset of N images (quick test)")
+    p.add_argument("--recompute", action="store_true", help="ignore cached outputs (.npz)")
     return parser.parse_args()
 
 
@@ -181,6 +190,31 @@ def cmd_train(args, cfg, device):
         sys.exit(1)
 
 
+def cmd_analyze(args, cfg, device):
+    import numpy as np
+    from torch.utils.data import Subset
+
+    from . import analysis
+    from .config import CKPT_DIR, FIG_DIR
+    result_dir = EXPERIMENT_DIR if args.source == "experiments" else CHECK_DIR
+    ckpt_dir = CKPT_DIR if args.source == "experiments" else CKPT_DIR / "_checks"
+    out_dir = result_dir.parent / ("analysis" if args.source == "experiments" else "_checks_analysis")
+    fig_dir = FIG_DIR / ("results" if args.source == "experiments" else "_checks")
+    set_log_file(out_dir / "analyze.log")
+
+    runs = analysis.discover_runs(result_dir)
+    if not runs:
+        sys.exit(f"No finished runs in {result_dir}")
+    log(f"Analyzing {len(runs)} run(s) from {result_dir} on {args.split} | device {device}")
+    class_names, _, datasets = load_data(cfg)
+    ds = datasets[args.split]
+    if args.limit:
+        idx = np.sort(np.random.default_rng(0).choice(len(ds), min(args.limit, len(ds)), replace=False))
+        ds = Subset(ds, idx)
+    analysis.run_analysis(runs, ds, class_names, device, ckpt_dir, out_dir, fig_dir, split=args.split,
+                          num_workers=cfg["num_workers"], amp=cfg["amp"], recompute=args.recompute)
+
+
 def main():
     args = parse_args()
     cfg = dict(CONFIG)
@@ -193,6 +227,8 @@ def main():
         cmd_check(args, cfg, device)
     elif args.command == "train":
         cmd_train(args, cfg, device)
+    elif args.command == "analyze":
+        cmd_analyze(args, cfg, device)
 
 
 if __name__ == "__main__":
