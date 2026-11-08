@@ -1,0 +1,87 @@
+{
+  "run": "resnet50_scratch_full_lr3e-04_ep2_seed0",
+  "config": {
+    "dataset": "Food-101",
+    "data_dir": "/Users/kiettieu/Workspace/09_Assignments/CO5085/food-101",
+    "manifest_path": "/Users/kiettieu/Workspace/09_Assignments/CO5085/co5085_tieutrikiet_dl_cv/A1/split_manifest.csv",
+    "split_seed": 2026,
+    "per_class": {
+      "train": 600,
+      "val": 150,
+      "test": 250
+    },
+    "image_size": 224,
+    "physical_batch": 32,
+    "accum_steps": 4,
+    "num_workers": 8,
+    "seed": 0,
+    "epochs": 2,
+    "warmup_epochs": 1,
+    "lr_head": 0.0003,
+    "backbone_lr_mult": {
+      "scratch": 1.0,
+      "pretrained": 0.1
+    },
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "grad_clip": 1.0,
+    "head_init_std": 0.01,
+    "amp": true,
+    "log_every": 0,
+    "arch": "resnet50",
+    "init": "scratch",
+    "freeze": "full",
+    "frozen_modules": []
+  },
+  "best": {
+    "val_top1": 0.015625,
+    "epoch": 2
+  },
+  "history": {
+    "train_loss": [
+      4.740382194519043,
+      4.616127014160156
+    ],
+    "train_acc": [
+      0.01171875,
+      0.015625
+    ],
+    "val_loss": [
+      4.614505767822266,
+      4.617456436157227
+    ],
+    "val_top1": [
+      0.0,
+      0.015625
+    ],
+    "val_top5": [
+      0.0546875,
+      0.0625
+    ],
+    "lr": [
+      2.9999999999999997e-05,
+      0.0003
+    ],
+    "epoch_time": [
+      13.641670942306519,
+      5.635290861129761
+    ],
+    "val_time": [
+      9.108925819396973,
+      0.9837350845336914
+    ],
+    "memory_mb": [
+      4326.921875,
+      4440.921875
+    ]
+  },
+  "total_params": 23714981,
+  "trainable_params": 23714981,
+  "total_train_time_s": 19.27696180343628,
+  "total_val_time_s": 10.092660903930664,
+  "weights": null
+}

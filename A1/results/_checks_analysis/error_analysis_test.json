@@ -1,0 +1,1651 @@
+{
+  "split": "test",
+  "n_images": 512,
+  "configs": {
+    "resnet50 pretrained full": {
+      "top1": 0.009765625,
+      "top5": 0.05078125,
+      "macro_f1": 0.0032099069684042845,
+      "worst_classes": [
+        [
+          "apple_pie",
+          0.0
+        ],
+        [
+          "pancakes",
+          0.0
+        ],
+        [
+          "paella",
+          0.0
+        ],
+        [
+          "pad_thai",
+          0.0
+        ],
+        [
+          "onion_rings",
+          0.0
+        ],
+        [
+          "omelette",
+          0.0
+        ],
+        [
+          "nachos",
+          0.0
+        ],
+        [
+          "mussels",
+          0.0
+        ],
+        [
+          "miso_soup",
+          0.0
+        ],
+        [
+          "macarons",
+          0.0
+        ]
+      ],
+      "best_classes": [
+        [
+          "oysters",
+          0.5
+        ],
+        [
+          "falafel",
+          0.143
+        ],
+        [
+          "bibimbap",
+          0.143
+        ],
+        [
+          "panna_cotta",
+          0.111
+        ],
+        [
+          "fried_rice",
+          0.0
+        ],
+        [
+          "fried_calamari",
+          0.0
+        ],
+        [
+          "crab_cakes",
+          0.0
+        ],
+        [
+          "creme_brulee",
+          0.0
+        ],
+        [
+          "croque_madame",
+          0.0
+        ],
+        [
+          "garlic_bread",
+          0.0
+        ]
+      ],
+      "top_confusions": [
+        [
+          "creme_brulee",
+          "oysters",
+          7,
+          1.0
+        ],
+        [
+          "donuts",
+          "gyoza",
+          7,
+          0.7
+        ],
+        [
+          "pad_thai",
+          "oysters",
+          7,
+          1.0
+        ],
+        [
+          "spaghetti_bolognese",
+          "oysters",
+          5,
+          0.714
+        ],
+        [
+          "sashimi",
+          "oysters",
+          5,
+          0.714
+        ],
+        [
+          "lasagna",
+          "oysters",
+          5,
+          0.833
+        ],
+        [
+          "takoyaki",
+          "oysters",
+          5,
+          0.455
+        ],
+        [
+          "hummus",
+          "falafel",
+          5,
+          0.556
+        ],
+        [
+          "bread_pudding",
+          "falafel",
+          5,
+          0.625
+        ],
+        [
+          "hot_dog",
+          "falafel",
+          5,
+          0.833
+        ],
+        [
+          "ramen",
+          "oysters",
+          5,
+          1.0
+        ],
+        [
+          "beignets",
+          "falafel",
+          4,
+          0.571
+        ],
+        [
+          "crab_cakes",
+          "oysters",
+          4,
+          0.571
+        ],
+        [
+          "gyoza",
+          "falafel",
+          4,
+          0.5
+        ],
+        [
+          "beef_tartare",
+          "gyoza",
+          4,
+          0.5
+        ]
+      ],
+      "confident_errors": [
+        {
+          "index": 24315,
+          "true": "takoyaki",
+          "pred": "oysters",
+          "conf": 0.027,
+          "image_id": "takoyaki/1836141"
+        },
+        {
+          "index": 12722,
+          "true": "grilled_salmon",
+          "pred": "gyoza",
+          "conf": 0.026,
+          "image_id": "grilled_salmon/601053"
+        },
+        {
+          "index": 15377,
+          "true": "lobster_roll_sandwich",
+          "pred": "gyoza",
+          "conf": 0.025,
+          "image_id": "lobster_roll_sandwich/2581709"
+        },
+        {
+          "index": 15646,
+          "true": "macaroni_and_cheese",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "macaroni_and_cheese/3108607"
+        },
+        {
+          "index": 23580,
+          "true": "strawberry_shortcake",
+          "pred": "gyoza",
+          "conf": 0.025,
+          "image_id": "strawberry_shortcake/2146251"
+        },
+        {
+          "index": 23903,
+          "true": "sushi",
+          "pred": "falafel",
+          "conf": 0.024,
+          "image_id": "sushi/3354268"
+        },
+        {
+          "index": 3736,
+          "true": "carrot_cake",
+          "pred": "oysters",
+          "conf": 0.024,
+          "image_id": "carrot_cake/731847"
+        },
+        {
+          "index": 13963,
+          "true": "hot_dog",
+          "pred": "falafel",
+          "conf": 0.024,
+          "image_id": "hot_dog/574379"
+        },
+        {
+          "index": 4659,
+          "true": "chicken_curry",
+          "pred": "oysters",
+          "conf": 0.024,
+          "image_id": "chicken_curry/3202622"
+        },
+        {
+          "index": 20601,
+          "true": "ravioli",
+          "pred": "deviled_eggs",
+          "conf": 0.024,
+          "image_id": "ravioli/253977"
+        },
+        {
+          "index": 409,
+          "true": "baby_back_ribs",
+          "pred": "oysters",
+          "conf": 0.024,
+          "image_id": "baby_back_ribs/3142180"
+        },
+        {
+          "index": 6997,
+          "true": "creme_brulee",
+          "pred": "oysters",
+          "conf": 0.024,
+          "image_id": "creme_brulee/986485"
+        },
+        {
+          "index": 69,
+          "true": "apple_pie",
+          "pred": "gyoza",
+          "conf": 0.024,
+          "image_id": "apple_pie/2130269"
+        },
+        {
+          "index": 13845,
+          "true": "hot_dog",
+          "pred": "oysters",
+          "conf": 0.023,
+          "image_id": "hot_dog/2181351"
+        },
+        {
+          "index": 14959,
+          "true": "lasagna",
+          "pred": "oysters",
+          "conf": 0.023,
+          "image_id": "lasagna/398728"
+        },
+        {
+          "index": 11904,
+          "true": "gnocchi",
+          "pred": "oysters",
+          "conf": 0.023,
+          "image_id": "gnocchi/3467162"
+        },
+        {
+          "index": 368,
+          "true": "baby_back_ribs",
+          "pred": "falafel",
+          "conf": 0.023,
+          "image_id": "baby_back_ribs/2576256"
+        },
+        {
+          "index": 18208,
+          "true": "pancakes",
+          "pred": "gyoza",
+          "conf": 0.023,
+          "image_id": "pancakes/473383"
+        },
+        {
+          "index": 7830,
+          "true": "donuts",
+          "pred": "gyoza",
+          "conf": 0.023,
+          "image_id": "donuts/2173762"
+        },
+        {
+          "index": 11410,
+          "true": "frozen_yogurt",
+          "pred": "gyoza",
+          "conf": 0.023,
+          "image_id": "frozen_yogurt/334130"
+        }
+      ]
+    },
+    "resnet50 pretrained head": {
+      "top1": 0.013671875,
+      "top5": 0.0546875,
+      "macro_f1": 0.0037139180491214153,
+      "worst_classes": [
+        [
+          "apple_pie",
+          0.0
+        ],
+        [
+          "pad_thai",
+          0.0
+        ],
+        [
+          "oysters",
+          0.0
+        ],
+        [
+          "onion_rings",
+          0.0
+        ],
+        [
+          "omelette",
+          0.0
+        ],
+        [
+          "nachos",
+          0.0
+        ],
+        [
+          "mussels",
+          0.0
+        ],
+        [
+          "miso_soup",
+          0.0
+        ],
+        [
+          "macarons",
+          0.0
+        ],
+        [
+          "macaroni_and_cheese",
+          0.0
+        ]
+      ],
+      "best_classes": [
+        [
+          "ceviche",
+          1.0
+        ],
+        [
+          "pancakes",
+          0.2
+        ],
+        [
+          "falafel",
+          0.143
+        ],
+        [
+          "bibimbap",
+          0.143
+        ],
+        [
+          "pizza",
+          0.125
+        ],
+        [
+          "grilled_salmon",
+          0.125
+        ],
+        [
+          "takoyaki",
+          0.091
+        ],
+        [
+          "french_toast",
+          0.0
+        ],
+        [
+          "crab_cakes",
+          0.0
+        ],
+        [
+          "creme_brulee",
+          0.0
+        ]
+      ],
+      "top_confusions": [
+        [
+          "hummus",
+          "ceviche",
+          6,
+          0.667
+        ],
+        [
+          "strawberry_shortcake",
+          "steak",
+          6,
+          0.75
+        ],
+        [
+          "creme_brulee",
+          "takoyaki",
+          6,
+          0.857
+        ],
+        [
+          "omelette",
+          "ceviche",
+          5,
+          0.625
+        ],
+        [
+          "nachos",
+          "ceviche",
+          4,
+          0.8
+        ],
+        [
+          "greek_salad",
+          "ceviche",
+          4,
+          0.571
+        ],
+        [
+          "panna_cotta",
+          "steak",
+          4,
+          0.444
+        ],
+        [
+          "scallops",
+          "ceviche",
+          4,
+          0.571
+        ],
+        [
+          "donuts",
+          "steak",
+          4,
+          0.4
+        ],
+        [
+          "sashimi",
+          "steak",
+          4,
+          0.571
+        ],
+        [
+          "pad_thai",
+          "ceviche",
+          4,
+          0.571
+        ],
+        [
+          "pulled_pork_sandwich",
+          "pancakes",
+          4,
+          0.571
+        ],
+        [
+          "macaroni_and_cheese",
+          "grilled_salmon",
+          4,
+          0.5
+        ],
+        [
+          "french_onion_soup",
+          "ceviche",
+          4,
+          0.8
+        ],
+        [
+          "chicken_curry",
+          "ceviche",
+          3,
+          0.6
+        ]
+      ],
+      "confident_errors": [
+        {
+          "index": 14364,
+          "true": "hummus",
+          "pred": "ceviche",
+          "conf": 0.03,
+          "image_id": "hummus/2820765"
+        },
+        {
+          "index": 18429,
+          "true": "panna_cotta",
+          "pred": "steak",
+          "conf": 0.029,
+          "image_id": "panna_cotta/3562574"
+        },
+        {
+          "index": 18420,
+          "true": "panna_cotta",
+          "pred": "steak",
+          "conf": 0.028,
+          "image_id": "panna_cotta/3481124"
+        },
+        {
+          "index": 409,
+          "true": "baby_back_ribs",
+          "pred": "steak",
+          "conf": 0.028,
+          "image_id": "baby_back_ribs/3142180"
+        },
+        {
+          "index": 24315,
+          "true": "takoyaki",
+          "pred": "pizza",
+          "conf": 0.028,
+          "image_id": "takoyaki/1836141"
+        },
+        {
+          "index": 22864,
+          "true": "spaghetti_carbonara",
+          "pred": "ceviche",
+          "conf": 0.028,
+          "image_id": "spaghetti_carbonara/2570737"
+        },
+        {
+          "index": 12905,
+          "true": "guacamole",
+          "pred": "grilled_salmon",
+          "conf": 0.027,
+          "image_id": "guacamole/3244541"
+        },
+        {
+          "index": 17833,
+          "true": "paella",
+          "pred": "pizza",
+          "conf": 0.027,
+          "image_id": "paella/2026438"
+        },
+        {
+          "index": 15646,
+          "true": "macaroni_and_cheese",
+          "pred": "ceviche",
+          "conf": 0.026,
+          "image_id": "macaroni_and_cheese/3108607"
+        },
+        {
+          "index": 15656,
+          "true": "macaroni_and_cheese",
+          "pred": "grilled_salmon",
+          "conf": 0.026,
+          "image_id": "macaroni_and_cheese/3256717"
+        },
+        {
+          "index": 847,
+          "true": "beef_carpaccio",
+          "pred": "oysters",
+          "conf": 0.026,
+          "image_id": "beef_carpaccio/2155995"
+        },
+        {
+          "index": 3162,
+          "true": "cannoli",
+          "pred": "pizza",
+          "conf": 0.026,
+          "image_id": "cannoli/3342120"
+        },
+        {
+          "index": 8851,
+          "true": "escargots",
+          "pred": "ceviche",
+          "conf": 0.025,
+          "image_id": "escargots/2396135"
+        },
+        {
+          "index": 15377,
+          "true": "lobster_roll_sandwich",
+          "pred": "pancakes",
+          "conf": 0.025,
+          "image_id": "lobster_roll_sandwich/2581709"
+        },
+        {
+          "index": 12828,
+          "true": "guacamole",
+          "pred": "ceviche",
+          "conf": 0.025,
+          "image_id": "guacamole/2011284"
+        },
+        {
+          "index": 20639,
+          "true": "ravioli",
+          "pred": "ceviche",
+          "conf": 0.025,
+          "image_id": "ravioli/3114098"
+        },
+        {
+          "index": 23580,
+          "true": "strawberry_shortcake",
+          "pred": "steak",
+          "conf": 0.025,
+          "image_id": "strawberry_shortcake/2146251"
+        },
+        {
+          "index": 16628,
+          "true": "nachos",
+          "pred": "ceviche",
+          "conf": 0.025,
+          "image_id": "nachos/2894735"
+        },
+        {
+          "index": 14204,
+          "true": "huevos_rancheros",
+          "pred": "pancakes",
+          "conf": 0.025,
+          "image_id": "huevos_rancheros/478499"
+        },
+        {
+          "index": 4424,
+          "true": "cheesecake",
+          "pred": "steak",
+          "conf": 0.025,
+          "image_id": "cheesecake/344202"
+        }
+      ]
+    },
+    "resnet50 pretrained partial": {
+      "top1": 0.005859375,
+      "top5": 0.0546875,
+      "macro_f1": 0.0016379955123410619,
+      "worst_classes": [
+        [
+          "apple_pie",
+          0.0
+        ],
+        [
+          "panna_cotta",
+          0.0
+        ],
+        [
+          "pancakes",
+          0.0
+        ],
+        [
+          "paella",
+          0.0
+        ],
+        [
+          "pad_thai",
+          0.0
+        ],
+        [
+          "onion_rings",
+          0.0
+        ],
+        [
+          "omelette",
+          0.0
+        ],
+        [
+          "nachos",
+          0.0
+        ],
+        [
+          "mussels",
+          0.0
+        ],
+        [
+          "miso_soup",
+          0.0
+        ]
+      ],
+      "best_classes": [
+        [
+          "oysters",
+          0.5
+        ],
+        [
+          "bibimbap",
+          0.143
+        ],
+        [
+          "waffles",
+          0.0
+        ],
+        [
+          "falafel",
+          0.0
+        ],
+        [
+          "creme_brulee",
+          0.0
+        ],
+        [
+          "croque_madame",
+          0.0
+        ],
+        [
+          "cup_cakes",
+          0.0
+        ],
+        [
+          "deviled_eggs",
+          0.0
+        ],
+        [
+          "donuts",
+          0.0
+        ],
+        [
+          "dumplings",
+          0.0
+        ]
+      ],
+      "top_confusions": [
+        [
+          "pad_thai",
+          "oysters",
+          7,
+          1.0
+        ],
+        [
+          "creme_brulee",
+          "oysters",
+          7,
+          1.0
+        ],
+        [
+          "donuts",
+          "gyoza",
+          6,
+          0.6
+        ],
+        [
+          "takoyaki",
+          "oysters",
+          6,
+          0.545
+        ],
+        [
+          "spaghetti_bolognese",
+          "oysters",
+          5,
+          0.714
+        ],
+        [
+          "crab_cakes",
+          "oysters",
+          5,
+          0.714
+        ],
+        [
+          "ramen",
+          "oysters",
+          5,
+          1.0
+        ],
+        [
+          "lasagna",
+          "oysters",
+          5,
+          0.833
+        ],
+        [
+          "bibimbap",
+          "oysters",
+          5,
+          0.714
+        ],
+        [
+          "hummus",
+          "falafel",
+          5,
+          0.556
+        ],
+        [
+          "sushi",
+          "falafel",
+          4,
+          0.4
+        ],
+        [
+          "grilled_cheese_sandwich",
+          "gyoza",
+          4,
+          0.5
+        ],
+        [
+          "shrimp_and_grits",
+          "oysters",
+          4,
+          0.571
+        ],
+        [
+          "bruschetta",
+          "oysters",
+          4,
+          1.0
+        ],
+        [
+          "pulled_pork_sandwich",
+          "falafel",
+          4,
+          0.571
+        ]
+      ],
+      "confident_errors": [
+        {
+          "index": 24315,
+          "true": "takoyaki",
+          "pred": "oysters",
+          "conf": 0.029,
+          "image_id": "takoyaki/1836141"
+        },
+        {
+          "index": 13845,
+          "true": "hot_dog",
+          "pred": "oysters",
+          "conf": 0.026,
+          "image_id": "hot_dog/2181351"
+        },
+        {
+          "index": 12722,
+          "true": "grilled_salmon",
+          "pred": "gyoza",
+          "conf": 0.026,
+          "image_id": "grilled_salmon/601053"
+        },
+        {
+          "index": 23782,
+          "true": "sushi",
+          "pred": "oysters",
+          "conf": 0.026,
+          "image_id": "sushi/1404154"
+        },
+        {
+          "index": 1961,
+          "true": "bibimbap",
+          "pred": "oysters",
+          "conf": 0.026,
+          "image_id": "bibimbap/421113"
+        },
+        {
+          "index": 15646,
+          "true": "macaroni_and_cheese",
+          "pred": "oysters",
+          "conf": 0.026,
+          "image_id": "macaroni_and_cheese/3108607"
+        },
+        {
+          "index": 15377,
+          "true": "lobster_roll_sandwich",
+          "pred": "gyoza",
+          "conf": 0.026,
+          "image_id": "lobster_roll_sandwich/2581709"
+        },
+        {
+          "index": 847,
+          "true": "beef_carpaccio",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "beef_carpaccio/2155995"
+        },
+        {
+          "index": 14959,
+          "true": "lasagna",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "lasagna/398728"
+        },
+        {
+          "index": 22483,
+          "true": "shrimp_and_grits",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "shrimp_and_grits/836501"
+        },
+        {
+          "index": 5775,
+          "true": "churros",
+          "pred": "falafel",
+          "conf": 0.025,
+          "image_id": "churros/1348657"
+        },
+        {
+          "index": 4659,
+          "true": "chicken_curry",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "chicken_curry/3202622"
+        },
+        {
+          "index": 6997,
+          "true": "creme_brulee",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "creme_brulee/986485"
+        },
+        {
+          "index": 1836,
+          "true": "bibimbap",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "bibimbap/2224494"
+        },
+        {
+          "index": 7829,
+          "true": "donuts",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "donuts/2166009"
+        },
+        {
+          "index": 11904,
+          "true": "gnocchi",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "gnocchi/3467162"
+        },
+        {
+          "index": 20666,
+          "true": "ravioli",
+          "pred": "oysters",
+          "conf": 0.025,
+          "image_id": "ravioli/342673"
+        },
+        {
+          "index": 409,
+          "true": "baby_back_ribs",
+          "pred": "falafel",
+          "conf": 0.025,
+          "image_id": "baby_back_ribs/3142180"
+        },
+        {
+          "index": 21043,
+          "true": "risotto",
+          "pred": "oysters",
+          "conf": 0.024,
+          "image_id": "risotto/1667699"
+        },
+        {
+          "index": 8851,
+          "true": "escargots",
+          "pred": "oysters",
+          "conf": 0.024,
+          "image_id": "escargots/2396135"
+        }
+      ]
+    },
+    "resnet50 scratch full": {
+      "top1": 0.005859375,
+      "top5": 0.056640625,
+      "macro_f1": 0.00035662556273243303,
+      "worst_classes": [
+        [
+          "apple_pie",
+          0.0
+        ],
+        [
+          "pancakes",
+          0.0
+        ],
+        [
+          "paella",
+          0.0
+        ],
+        [
+          "pad_thai",
+          0.0
+        ],
+        [
+          "oysters",
+          0.0
+        ],
+        [
+          "onion_rings",
+          0.0
+        ],
+        [
+          "omelette",
+          0.0
+        ],
+        [
+          "nachos",
+          0.0
+        ],
+        [
+          "mussels",
+          0.0
+        ],
+        [
+          "miso_soup",
+          0.0
+        ]
+      ],
+      "best_classes": [
+        [
+          "edamame",
+          0.5
+        ],
+        [
+          "french_toast",
+          0.286
+        ],
+        [
+          "waffles",
+          0.0
+        ],
+        [
+          "falafel",
+          0.0
+        ],
+        [
+          "crab_cakes",
+          0.0
+        ],
+        [
+          "creme_brulee",
+          0.0
+        ],
+        [
+          "croque_madame",
+          0.0
+        ],
+        [
+          "cup_cakes",
+          0.0
+        ],
+        [
+          "deviled_eggs",
+          0.0
+        ],
+        [
+          "donuts",
+          0.0
+        ]
+      ],
+      "top_confusions": [
+        [
+          "takoyaki",
+          "edamame",
+          10,
+          0.909
+        ],
+        [
+          "sushi",
+          "edamame",
+          8,
+          0.8
+        ],
+        [
+          "panna_cotta",
+          "edamame",
+          8,
+          0.889
+        ],
+        [
+          "beef_tartare",
+          "edamame",
+          8,
+          1.0
+        ],
+        [
+          "macaroni_and_cheese",
+          "edamame",
+          8,
+          1.0
+        ],
+        [
+          "bibimbap",
+          "edamame",
+          7,
+          1.0
+        ],
+        [
+          "ravioli",
+          "edamame",
+          7,
+          0.778
+        ],
+        [
+          "donuts",
+          "edamame",
+          7,
+          0.7
+        ],
+        [
+          "pad_thai",
+          "edamame",
+          7,
+          1.0
+        ],
+        [
+          "scallops",
+          "edamame",
+          7,
+          1.0
+        ],
+        [
+          "greek_salad",
+          "edamame",
+          7,
+          1.0
+        ],
+        [
+          "strawberry_shortcake",
+          "edamame",
+          6,
+          0.75
+        ],
+        [
+          "falafel",
+          "edamame",
+          6,
+          0.857
+        ],
+        [
+          "samosa",
+          "edamame",
+          6,
+          1.0
+        ],
+        [
+          "gyoza",
+          "edamame",
+          6,
+          0.75
+        ]
+      ],
+      "confident_errors": [
+        {
+          "index": 1307,
+          "true": "beet_salad",
+          "pred": "edamame",
+          "conf": 0.021,
+          "image_id": "beet_salad/1671834"
+        },
+        {
+          "index": 20423,
+          "true": "ramen",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "ramen/3645906"
+        },
+        {
+          "index": 22039,
+          "true": "seaweed_salad",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "seaweed_salad/1480174"
+        },
+        {
+          "index": 13717,
+          "true": "hot_and_sour_soup",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "hot_and_sour_soup/446205"
+        },
+        {
+          "index": 22711,
+          "true": "spaghetti_bolognese",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "spaghetti_bolognese/398583"
+        },
+        {
+          "index": 4988,
+          "true": "chicken_quesadilla",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "chicken_quesadilla/80127"
+        },
+        {
+          "index": 1014,
+          "true": "beef_tartare",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "beef_tartare/1208771"
+        },
+        {
+          "index": 20583,
+          "true": "ravioli",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "ravioli/2268217"
+        },
+        {
+          "index": 1074,
+          "true": "beef_tartare",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "beef_tartare/2082066"
+        },
+        {
+          "index": 12945,
+          "true": "guacamole",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "guacamole/3842147"
+        },
+        {
+          "index": 10399,
+          "true": "french_onion_soup",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "french_onion_soup/3066662"
+        },
+        {
+          "index": 23725,
+          "true": "strawberry_shortcake",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "strawberry_shortcake/784816"
+        },
+        {
+          "index": 4886,
+          "true": "chicken_quesadilla",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "chicken_quesadilla/2881450"
+        },
+        {
+          "index": 13982,
+          "true": "hot_dog",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "hot_dog/807265"
+        },
+        {
+          "index": 6484,
+          "true": "club_sandwich",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "club_sandwich/797815"
+        },
+        {
+          "index": 18208,
+          "true": "pancakes",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "pancakes/473383"
+        },
+        {
+          "index": 21456,
+          "true": "samosa",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "samosa/476861"
+        },
+        {
+          "index": 13798,
+          "true": "hot_dog",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "hot_dog/1498448"
+        },
+        {
+          "index": 13074,
+          "true": "gyoza",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "gyoza/2179464"
+        },
+        {
+          "index": 6811,
+          "true": "creme_brulee",
+          "pred": "edamame",
+          "conf": 0.02,
+          "image_id": "creme_brulee/18583"
+        }
+      ]
+    },
+    "vit_b_16 pretrained full": {
+      "top1": 0.052734375,
+      "top5": 0.1484375,
+      "macro_f1": 0.02574562683587283,
+      "worst_classes": [
+        [
+          "apple_pie",
+          0.0
+        ],
+        [
+          "onion_rings",
+          0.0
+        ],
+        [
+          "omelette",
+          0.0
+        ],
+        [
+          "nachos",
+          0.0
+        ],
+        [
+          "mussels",
+          0.0
+        ],
+        [
+          "miso_soup",
+          0.0
+        ],
+        [
+          "macarons",
+          0.0
+        ],
+        [
+          "macaroni_and_cheese",
+          0.0
+        ],
+        [
+          "lobster_bisque",
+          0.0
+        ],
+        [
+          "lasagna",
+          0.0
+        ]
+      ],
+      "best_classes": [
+        [
+          "pizza",
+          0.75
+        ],
+        [
+          "strawberry_shortcake",
+          0.625
+        ],
+        [
+          "spaghetti_bolognese",
+          0.571
+        ],
+        [
+          "steak",
+          0.5
+        ],
+        [
+          "fried_calamari",
+          0.5
+        ],
+        [
+          "lobster_roll_sandwich",
+          0.5
+        ],
+        [
+          "foie_gras",
+          0.4
+        ],
+        [
+          "pulled_pork_sandwich",
+          0.286
+        ],
+        [
+          "greek_salad",
+          0.286
+        ],
+        [
+          "sashimi",
+          0.143
+        ]
+      ],
+      "top_confusions": [
+        [
+          "takoyaki",
+          "greek_salad",
+          8,
+          0.727
+        ],
+        [
+          "pad_thai",
+          "greek_salad",
+          6,
+          0.857
+        ],
+        [
+          "shrimp_and_grits",
+          "greek_salad",
+          6,
+          0.857
+        ],
+        [
+          "nachos",
+          "steak",
+          4,
+          0.8
+        ],
+        [
+          "ravioli",
+          "greek_salad",
+          4,
+          0.444
+        ],
+        [
+          "caprese_salad",
+          "greek_salad",
+          4,
+          1.0
+        ],
+        [
+          "beet_salad",
+          "greek_salad",
+          4,
+          0.8
+        ],
+        [
+          "scallops",
+          "greek_salad",
+          4,
+          0.571
+        ],
+        [
+          "crab_cakes",
+          "greek_salad",
+          4,
+          0.571
+        ],
+        [
+          "omelette",
+          "steak",
+          4,
+          0.5
+        ],
+        [
+          "bruschetta",
+          "greek_salad",
+          3,
+          0.75
+        ],
+        [
+          "bread_pudding",
+          "steak",
+          3,
+          0.375
+        ],
+        [
+          "seaweed_salad",
+          "greek_salad",
+          3,
+          0.75
+        ],
+        [
+          "grilled_salmon",
+          "greek_salad",
+          3,
+          0.375
+        ],
+        [
+          "chocolate_mousse",
+          "strawberry_shortcake",
+          3,
+          0.6
+        ]
+      ],
+      "confident_errors": [
+        {
+          "index": 2027,
+          "true": "bread_pudding",
+          "pred": "steak",
+          "conf": 0.025,
+          "image_id": "bread_pudding/1364468"
+        },
+        {
+          "index": 22039,
+          "true": "seaweed_salad",
+          "pred": "greek_salad",
+          "conf": 0.024,
+          "image_id": "seaweed_salad/1480174"
+        },
+        {
+          "index": 24315,
+          "true": "takoyaki",
+          "pred": "greek_salad",
+          "conf": 0.024,
+          "image_id": "takoyaki/1836141"
+        },
+        {
+          "index": 2649,
+          "true": "bruschetta",
+          "pred": "greek_salad",
+          "conf": 0.023,
+          "image_id": "bruschetta/3268307"
+        },
+        {
+          "index": 16278,
+          "true": "mussels",
+          "pred": "steak",
+          "conf": 0.022,
+          "image_id": "mussels/1462844"
+        },
+        {
+          "index": 12555,
+          "true": "grilled_salmon",
+          "pred": "greek_salad",
+          "conf": 0.022,
+          "image_id": "grilled_salmon/1919368"
+        },
+        {
+          "index": 22223,
+          "true": "seaweed_salad",
+          "pred": "greek_salad",
+          "conf": 0.022,
+          "image_id": "seaweed_salad/684735"
+        },
+        {
+          "index": 17780,
+          "true": "paella",
+          "pred": "greek_salad",
+          "conf": 0.022,
+          "image_id": "paella/1393594"
+        },
+        {
+          "index": 1961,
+          "true": "bibimbap",
+          "pred": "grilled_salmon",
+          "conf": 0.022,
+          "image_id": "bibimbap/421113"
+        },
+        {
+          "index": 14885,
+          "true": "lasagna",
+          "pred": "steak",
+          "conf": 0.022,
+          "image_id": "lasagna/3126290"
+        },
+        {
+          "index": 16926,
+          "true": "omelette",
+          "pred": "greek_salad",
+          "conf": 0.022,
+          "image_id": "omelette/3670784"
+        },
+        {
+          "index": 3318,
+          "true": "caprese_salad",
+          "pred": "greek_salad",
+          "conf": 0.021,
+          "image_id": "caprese_salad/1847628"
+        },
+        {
+          "index": 9028,
+          "true": "falafel",
+          "pred": "deviled_eggs",
+          "conf": 0.021,
+          "image_id": "falafel/1493398"
+        },
+        {
+          "index": 16751,
+          "true": "omelette",
+          "pred": "steak",
+          "conf": 0.021,
+          "image_id": "omelette/1058816"
+        },
+        {
+          "index": 15565,
+          "true": "macaroni_and_cheese",
+          "pred": "spaghetti_bolognese",
+          "conf": 0.021,
+          "image_id": "macaroni_and_cheese/2017927"
+        },
+        {
+          "index": 23903,
+          "true": "sushi",
+          "pred": "steak",
+          "conf": 0.021,
+          "image_id": "sushi/3354268"
+        },
+        {
+          "index": 24490,
+          "true": "takoyaki",
+          "pred": "greek_salad",
+          "conf": 0.021,
+          "image_id": "takoyaki/818257"
+        },
+        {
+          "index": 17728,
+          "true": "pad_thai",
+          "pred": "greek_salad",
+          "conf": 0.021,
+          "image_id": "pad_thai/653871"
+        },
+        {
+          "index": 22200,
+          "true": "seaweed_salad",
+          "pred": "greek_salad",
+          "conf": 0.021,
+          "image_id": "seaweed_salad/3897197"
+        },
+        {
+          "index": 2828,
+          "true": "caesar_salad",
+          "pred": "spaghetti_bolognese",
+          "conf": 0.02,
+          "image_id": "caesar_salad/2112568"
+        }
+      ]
+    }
+  },
+  "pairs": {
+    "resnet50 pretrained full vs vit_b_16 pretrained full": {
+      "both_correct": 0,
+      "only_a": 5,
+      "only_b": 27,
+      "both_wrong": 480,
+      "same_wrong_pred": 6
+    },
+    "resnet50 scratch full vs resnet50 pretrained full": {
+      "both_correct": 0,
+      "only_a": 3,
+      "only_b": 5,
+      "both_wrong": 504,
+      "same_wrong_pred": 1
+    },
+    "resnet50 pretrained head vs resnet50 pretrained full": {
+      "both_correct": 2,
+      "only_a": 5,
+      "only_b": 3,
+      "both_wrong": 502,
+      "same_wrong_pred": 77
+    },
+    "resnet50 pretrained partial vs resnet50 pretrained full": {
+      "both_correct": 3,
+      "only_a": 0,
+      "only_b": 2,
+      "both_wrong": 507,
+      "same_wrong_pred": 393
+    }
+  }
+}

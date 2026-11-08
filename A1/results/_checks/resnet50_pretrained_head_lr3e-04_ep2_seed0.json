@@ -1,0 +1,97 @@
+{
+  "run": "resnet50_pretrained_head_lr3e-04_ep2_seed0",
+  "config": {
+    "dataset": "Food-101",
+    "data_dir": "/Users/kiettieu/Workspace/09_Assignments/CO5085/food-101",
+    "manifest_path": "/Users/kiettieu/Workspace/09_Assignments/CO5085/co5085_tieutrikiet_dl_cv/A1/split_manifest.csv",
+    "split_seed": 2026,
+    "per_class": {
+      "train": 600,
+      "val": 150,
+      "test": 250
+    },
+    "image_size": 224,
+    "physical_batch": 32,
+    "accum_steps": 4,
+    "num_workers": 8,
+    "seed": 0,
+    "epochs": 2,
+    "warmup_epochs": 1,
+    "lr_head": 0.0003,
+    "backbone_lr_mult": {
+      "scratch": 1.0,
+      "pretrained": 0.1
+    },
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "grad_clip": 1.0,
+    "head_init_std": 0.01,
+    "amp": true,
+    "log_every": 0,
+    "arch": "resnet50",
+    "init": "pretrained",
+    "freeze": "head",
+    "frozen_modules": [
+      "conv1",
+      "bn1",
+      "relu",
+      "maxpool",
+      "layer1",
+      "layer2",
+      "layer3",
+      "layer4",
+      "avgpool"
+    ]
+  },
+  "best": {
+    "val_top1": 0.0078125,
+    "epoch": 2
+  },
+  "history": {
+    "train_loss": [
+      4.645486831665039,
+      4.5349225997924805
+    ],
+    "train_acc": [
+      0.00390625,
+      0.01953125
+    ],
+    "val_loss": [
+      4.638260841369629,
+      4.644261837005615
+    ],
+    "val_top1": [
+      0.0,
+      0.0078125
+    ],
+    "val_top5": [
+      0.0390625,
+      0.03125
+    ],
+    "lr": [
+      2.9999999999999997e-05,
+      0.0003
+    ],
+    "epoch_time": [
+      9.39968991279602,
+      1.8348231315612793
+    ],
+    "val_time": [
+      8.18954586982727,
+      0.9532120227813721
+    ],
+    "memory_mb": [
+      1205.84375,
+      1205.84375
+    ]
+  },
+  "total_params": 23714981,
+  "trainable_params": 206949,
+  "total_train_time_s": 11.2345130443573,
+  "total_val_time_s": 9.142757892608643,
+  "weights": "https://download.pytorch.org/models/resnet50-0676ba61.pth"
+}

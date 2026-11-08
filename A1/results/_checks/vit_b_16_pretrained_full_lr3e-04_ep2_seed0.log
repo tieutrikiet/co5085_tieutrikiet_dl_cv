@@ -1,0 +1,2 @@
+[vit_b_16_pretrained_full_lr3e-04_ep2_seed0] epoch  1/2 | lr 3.00e-05 | train 4.615/0.012 | val 4.622/0.016 (top5 0.062) | 20s + 10s
+[vit_b_16_pretrained_full_lr3e-04_ep2_seed0] epoch  2/2 | lr 3.00e-04 | train 4.492/0.055 | val 4.588/0.023 (top5 0.086) | 13s + 2s

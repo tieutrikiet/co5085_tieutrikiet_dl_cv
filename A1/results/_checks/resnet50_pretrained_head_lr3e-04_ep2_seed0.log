@@ -1,0 +1,2 @@
+[resnet50_pretrained_head_lr3e-04_ep2_seed0] epoch  1/2 | lr 3.00e-05 | train 4.645/0.004 | val 4.638/0.000 (top5 0.039) | 9s + 8s
+[resnet50_pretrained_head_lr3e-04_ep2_seed0] epoch  2/2 | lr 3.00e-04 | train 4.535/0.020 | val 4.644/0.008 (top5 0.031) | 2s + 1s

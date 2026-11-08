@@ -1,0 +1,87 @@
+{
+  "run": "resnet50_pretrained_full_lr3e-04_ep2_seed0",
+  "config": {
+    "dataset": "Food-101",
+    "data_dir": "/Users/kiettieu/Workspace/09_Assignments/CO5085/food-101",
+    "manifest_path": "/Users/kiettieu/Workspace/09_Assignments/CO5085/co5085_tieutrikiet_dl_cv/A1/split_manifest.csv",
+    "split_seed": 2026,
+    "per_class": {
+      "train": 600,
+      "val": 150,
+      "test": 250
+    },
+    "image_size": 224,
+    "physical_batch": 32,
+    "accum_steps": 4,
+    "num_workers": 8,
+    "seed": 0,
+    "epochs": 2,
+    "warmup_epochs": 1,
+    "lr_head": 0.0003,
+    "backbone_lr_mult": {
+      "scratch": 1.0,
+      "pretrained": 0.1
+    },
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "grad_clip": 1.0,
+    "head_init_std": 0.01,
+    "amp": true,
+    "log_every": 0,
+    "arch": "resnet50",
+    "init": "pretrained",
+    "freeze": "full",
+    "frozen_modules": []
+  },
+  "best": {
+    "val_top1": 0.0078125,
+    "epoch": 1
+  },
+  "history": {
+    "train_loss": [
+      4.650461196899414,
+      4.508689880371094
+    ],
+    "train_acc": [
+      0.0078125,
+      0.04296875
+    ],
+    "val_loss": [
+      4.639800071716309,
+      4.655381202697754
+    ],
+    "val_top1": [
+      0.0078125,
+      0.0
+    ],
+    "val_top5": [
+      0.0234375,
+      0.0390625
+    ],
+    "lr": [
+      2.9999999999999997e-05,
+      0.0003
+    ],
+    "epoch_time": [
+      13.250162839889526,
+      5.618568181991577
+    ],
+    "val_time": [
+      9.003024101257324,
+      0.9659299850463867
+    ],
+    "memory_mb": [
+      4342.921875,
+      4440.921875
+    ]
+  },
+  "total_params": 23714981,
+  "trainable_params": 23714981,
+  "total_train_time_s": 18.868731021881104,
+  "total_val_time_s": 9.968954086303711,
+  "weights": "https://download.pytorch.org/models/resnet50-0676ba61.pth"
+}
