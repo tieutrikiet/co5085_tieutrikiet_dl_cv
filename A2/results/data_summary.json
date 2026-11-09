@@ -1,0 +1,33 @@
+{
+  "min_face_px": 2,
+  "splits": {
+    "train": {
+      "images": 12880,
+      "faces_raw": 159424,
+      "faces": 159376,
+      "dropped": 48,
+      "faces_lmk": 75913,
+      "no_face_images": 4,
+      "size_bins": {
+        "<10": 44458,
+        "10-32": 78002,
+        "32-96": 29304,
+        ">=96": 7612
+      }
+    },
+    "val": {
+      "images": 3226,
+      "faces_raw": 39707,
+      "faces": 39682,
+      "dropped": 25,
+      "faces_lmk": 0,
+      "no_face_images": 4,
+      "size_bins": {
+        "<10": 11257,
+        "10-32": 19164,
+        "32-96": 7365,
+        ">=96": 1896
+      }
+    }
+  }
+}
