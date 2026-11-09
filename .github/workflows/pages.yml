@@ -58,7 +58,12 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+          # Unique name per attempt: re-running a failed run would otherwise
+          # leave two "github-pages" artifacts and deploy-pages refuses to pick one.
+          name: github-pages-${{ github.run_attempt }}
           # v4+ skips dotfiles by default; keep .nojekyll in the artifact.
           include-hidden-files: true
       - id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
