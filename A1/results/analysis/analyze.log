@@ -1,0 +1,18 @@
+[11-09 18:01:02] Analyzing 5 run(s) from /Users/kiettieu/Workspace/09_Assignments/CO5085/co5085_tieutrikiet_dl_cv/A1/results/experiments on test | device mps
+[11-09 18:01:03] Manifest: 101,000 rows | SHA-256 c4027e1fb884a87b…
+[11-09 18:01:03] [analysis] learning curves -> /Users/kiettieu/Workspace/09_Assignments/CO5085/co5085_tieutrikiet_dl_cv/A1/figures/results/learning_curves.png
+[11-09 18:01:03] [outputs] resnet50_pretrained_full_lr3e-04_ep10_seed42: best epoch 9 -> evaluating 25,250 test images
+[11-09 18:04:48] [analysis] resnet50 pretrained full       test top-1 0.8283 top-5 0.9610 macro-F1 0.8278
+[11-09 18:04:49] [outputs] resnet50_pretrained_head_lr3e-04_ep10_seed42: best epoch 9 -> evaluating 25,250 test images
+[11-09 18:08:37] [analysis] resnet50 pretrained head       test top-1 0.6553 top-5 0.8843 macro-F1 0.6521
+[11-09 18:08:38] [outputs] resnet50_pretrained_partial_lr3e-04_ep10_seed42: best epoch 9 -> evaluating 25,250 test images
+[11-09 18:12:28] [analysis] resnet50 pretrained partial    test top-1 0.8015 top-5 0.9523 macro-F1 0.8009
+[11-09 18:12:29] [outputs] resnet50_scratch_full_lr3e-04_ep10_seed42: best epoch 10 -> evaluating 25,250 test images
+[11-09 18:16:17] [analysis] resnet50 scratch full          test top-1 0.5773 top-5 0.8333 macro-F1 0.5725
+[11-09 18:16:18] [outputs] vit_b_16_pretrained_full_lr3e-04_ep10_seed42: best epoch 9 -> evaluating 25,250 test images
+[11-09 18:22:44] [analysis] vit_b_16 pretrained full       test top-1 0.8592 top-5 0.9693 macro-F1 0.8591
+[11-09 18:22:45] [analysis] resnet50 pretrained full vs vit_b_16 pretrained full: {'both_correct': 19650, 'only_a': 1265, 'only_b': 2046, 'both_wrong': 2289, 'same_wrong_pred': 1105}
+[11-09 18:22:45] [analysis] resnet50 scratch full vs resnet50 pretrained full: {'both_correct': 13846, 'only_a': 732, 'only_b': 7069, 'both_wrong': 3603, 'same_wrong_pred': 1029}
+[11-09 18:22:45] [analysis] resnet50 pretrained head vs resnet50 pretrained full: {'both_correct': 15816, 'only_a': 730, 'only_b': 5099, 'both_wrong': 3605, 'same_wrong_pred': 1497}
+[11-09 18:22:45] [analysis] resnet50 pretrained partial vs resnet50 pretrained full: {'both_correct': 19392, 'only_a': 846, 'only_b': 1523, 'both_wrong': 3489, 'same_wrong_pred': 2374}
+[11-09 18:22:45] [analysis] tables -> /Users/kiettieu/Workspace/09_Assignments/CO5085/co5085_tieutrikiet_dl_cv/A1/results/analysis | figures -> /Users/kiettieu/Workspace/09_Assignments/CO5085/co5085_tieutrikiet_dl_cv/A1/figures/results

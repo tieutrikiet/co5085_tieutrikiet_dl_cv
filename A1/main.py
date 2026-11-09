@@ -14,10 +14,9 @@ Run from the repo root:
     python -m A1.main analyze                     # Phase 5: test outputs, confusion matrix, learning curves, lỗi
     python -m A1.main analyze --source checks --limit 512   # thử nhanh trên kết quả smoke
 
-Thí nghiệm thật chạy rất lâu (~20-25 h); chạy trong terminal và giữ máy không sleep:
+Chạy lệnh
     caffeinate -i python -m A1.main train
     tail -f A1/results/experiments/train.log      # theo dõi tiến độ từ terminal khác
-Bị ngắt giữa chừng thì chạy lại đúng lệnh: run đã xong được bỏ qua, run dở được resume từ checkpoint.
 """
 import argparse
 import json

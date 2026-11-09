@@ -1,0 +1,10 @@
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  1/10 | lr 3.00e-05 | train 4.425/0.041 | val 4.631/0.076 (top5 0.238) | 1310s + 112s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  2/10 | lr 3.00e-04 | train 3.794/0.128 | val 3.875/0.156 (top5 0.389) | 1295s + 106s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  3/10 | lr 2.91e-04 | train 3.318/0.207 | val 3.407/0.217 (top5 0.486) | 1307s + 105s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  4/10 | lr 2.65e-04 | train 2.952/0.278 | val 2.836/0.314 (top5 0.606) | 1309s + 106s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  5/10 | lr 2.26e-04 | train 2.620/0.348 | val 2.572/0.372 (top5 0.663) | 1308s + 108s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  6/10 | lr 1.77e-04 | train 2.329/0.412 | val 2.331/0.428 (top5 0.705) | 1442s + 104s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  7/10 | lr 1.26e-04 | train 2.062/0.473 | val 2.195/0.462 (top5 0.740) | 1308s + 108s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  8/10 | lr 7.73e-05 | train 1.838/0.525 | val 2.166/0.500 (top5 0.768) | 1300s + 106s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch  9/10 | lr 3.77e-05 | train 1.674/0.564 | val 2.093/0.517 (top5 0.781) | 1316s + 105s
+[resnet50_scratch_full_lr3e-04_ep10_seed42] epoch 10/10 | lr 1.20e-05 | train 1.586/0.585 | val 2.053/0.521 (top5 0.783) | 1287s + 105s

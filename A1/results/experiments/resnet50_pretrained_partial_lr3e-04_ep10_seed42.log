@@ -1,0 +1,10 @@
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  1/10 | lr 3.00e-05 | train 3.056/0.360 | val 1.605/0.595 (top5 0.841) | 550s + 113s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  2/10 | lr 3.00e-04 | train 1.384/0.645 | val 1.186/0.687 (top5 0.898) | 544s + 104s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  3/10 | lr 2.91e-04 | train 1.051/0.723 | val 1.067/0.721 (top5 0.910) | 546s + 106s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  4/10 | lr 2.65e-04 | train 0.872/0.767 | val 1.019/0.731 (top5 0.915) | 544s + 105s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  5/10 | lr 2.26e-04 | train 0.737/0.801 | val 0.998/0.738 (top5 0.916) | 550s + 105s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  6/10 | lr 1.77e-04 | train 0.634/0.828 | val 0.981/0.746 (top5 0.920) | 548s + 104s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  7/10 | lr 1.26e-04 | train 0.561/0.848 | val 0.973/0.746 (top5 0.920) | 549s + 105s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  8/10 | lr 7.73e-05 | train 0.508/0.862 | val 0.971/0.749 (top5 0.921) | 548s + 105s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch  9/10 | lr 3.77e-05 | train 0.475/0.874 | val 0.971/0.750 (top5 0.920) | 547s + 105s
+[resnet50_pretrained_partial_lr3e-04_ep10_seed42] epoch 10/10 | lr 1.20e-05 | train 0.465/0.877 | val 0.967/0.750 (top5 0.920) | 548s + 104s

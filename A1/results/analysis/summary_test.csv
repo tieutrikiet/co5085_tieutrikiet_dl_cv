@@ -1,0 +1,6 @@
+config,trainable_params,best_epoch,val_top1,test_top1,test_top5,test_macro_f1,train_time_h,peak_memory_mb
+resnet50 pretrained full,23714981,9,0.7775,0.8283,0.961,0.8278,3.55,7415.0
+resnet50 pretrained head,206949,9,0.6064,0.6553,0.8843,0.6521,1.17,1203.0
+resnet50 pretrained partial,15171685,9,0.75,0.8015,0.9523,0.8009,1.52,2228.0
+resnet50 scratch full,23714981,10,0.5206,0.5773,0.8333,0.5725,3.66,7418.0
+vit_b_16 pretrained full,85876325,9,0.8087,0.8592,0.9693,0.8591,8.26,7645.0
