@@ -38,6 +38,10 @@ jobs:
           # Files linked from detail pages (reports, figures).
           mkdir -p _site/A1 _site/A2
           cp A1/*.pdf     _site/A1/
+          # A1 report + figures rendered on the A1 detail page.
+          test -f A1/A1-report.pdf
+          mkdir -p _site/A1/figures
+          cp -r A1/figures/results _site/A1/figures/
           cp -r A2/figures _site/A2/
           # Exercise notebooks are rendered client-side on their detail pages;
           # figures/ holds images the notebooks' markdown cells reference.

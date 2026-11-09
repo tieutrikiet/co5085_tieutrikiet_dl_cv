@@ -30,7 +30,7 @@
 
     <div class="card-top" style="max-width:260px">
       <span class="tag">A1</span>
-      <span class="status"><span class="dot"></span>Đang thực hiện</span>
+      <span class="status done"><span class="dot"></span>Đã hoàn thành</span>
     </div>
 
     <h1>So sánh CNN và Transformer</h1>
@@ -58,7 +58,8 @@
               <p><span class="chip">Hạn nộp · <strong>26/10/2026, 23:59 GMT+7</strong> · W8</span></p>
               <p>Chọn tập dữ liệu; mô tả split và augmentation; liệt kê các mô hình CNN/Transformer sẽ dùng; lên kế hoạch from-scratch / pretrained / freeze. Chưa cần số liệu cuối.</p>
             </div></li>
-            <li><span class="n">2</span><div>
+            <li class="done"><span class="n">2</span><div>
+              <span class="done-badge" title="Đã hoàn thành"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hoàn thành · 09-11-2026</span>
               <h3>A1.2 — So sánh cuối</h3>
               <p><span class="chip">Hạn nộp · <strong>09/11/2026, 23:59 GMT+7</strong> · W10</span></p>
               <p>Chạy đủ các thí nghiệm trong phần Yêu cầu kỹ thuật; có bảng và biểu đồ, phần thảo luận, và code tái lập được.</p>
@@ -100,6 +101,253 @@
           </button>
         </div>
       </div>
+      <br>
+      <div class="file-box">
+        <span class="file-icon" aria-hidden="true">PDF</span>
+        <div class="file-meta">
+          <strong>A1 — Report</strong>
+          <span>Đã hoàn thành · PDF · 1.4 MB</span>
+        </div>
+        <div class="file-actions">
+          <a class="icon-btn" href="../A1/A1-report.pdf" download="A1-report.pdf" aria-label="Tải báo cáo A1" title="Tải">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16"/></svg>
+          </a>
+          <button class="icon-btn" type="button" data-pdf-open="../A1/A1-report.pdf" data-pdf-title="A1 — Report" aria-label="Xem báo cáo A1" title="Xem">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <h3 class="subhead">Báo cáo A1</h3>
+      <div class="box report">
+        <h3>1. EDA / Dataset</h3>
+        <h4>Food-101</h4>
+        <p><strong>Food-101</strong> là một dataset về hình ảnh của các món ăn chuyên dùng cho các bài toán nhận diện và phân loại (food image recognition), được giới thiệu lần đầu tiên vào năm 2014 bởi các nhà nghiên cứu tại Viện Công nghệ Liên bang Thụy Sĩ (ETH Zurich).</p>
+        <p>Các hình ảnh trong tập dữ liệu này được thu thập từ nền tảng mạng xã hội ẩm thực nổi tiếng lúc đó là Foodspotting.com. Vì là ảnh do người dùng thực tế chụp khi đi ăn uống, tập dữ liệu này có độ biến động rất cao về góc độ, ánh sáng và bối cảnh.</p>
+        <p>Bộ dữ liệu này bao gồm <strong>101.000 hình ảnh</strong> về <strong>101 loại món ăn</strong> phổ biến khác nhau từ bánh pizza, ramen, sushi, apple pie, gà rán,… tương đương với 101 lớp (hay nhãn) phân loại khác nhau. Với mỗi lớp có đúng <strong>1.000 hình ảnh</strong>, trong đó:</p>
+        <ul>
+          <li><strong>750 ảnh cho tập train</strong>: được cố tình giữ nguyên "nhiễu" từ thực tế như sai nhãn, màu sắc quá đà, dính đạo cụ hoặc góc chụp không chuẩn,… để thử thách khả năng thích ứng của các mô hình.</li>
+          <li><strong>250 ảnh cho tập test</strong>: được rà soát và làm sạch thủ công để đánh giá chính xác hiệu suất của mô hình.</li>
+        </ul>
+        <p>Đồng thời, tập dữ liệu còn có một số đặc điểm:</p>
+        <ul>
+          <li>Toàn bộ là ảnh màu RGB nên số kênh <code>channels=3</code>.</li>
+          <li>Kích thước ảnh thay đổi, cạnh dài tối đa là 512px, không cố định như 28×28 hoặc 32×32.</li>
+        </ul>
+        <p>Do đó, Food-101 có thể được xem là một tập dữ liệu "đủ lớn" về nhiều khía cạnh: kích thước ảnh, độ phân giải, số lớp, số lượng ảnh, cũng như sự đa dạng và độ chi tiết của ảnh, đủ để ảnh hưởng đến quá trình huấn luyện, thời gian và kết quả đầu ra của các mô hình.</p>
+
+        <h4>Split Dataset</h4>
+        <p>Food-101 cân bằng giữa các lớp: mỗi lớp có 1.000 ảnh, chia thành 750 ảnh train và 250 ảnh test. Trong 750 ảnh train, tiếp tục chia thành training và validation theo tỉ lệ 8:2, tương ứng 600 ảnh training và 150 ảnh validation mỗi lớp.</p>
+        <div class="table-wrap"><table>
+          <caption>Bảng 1. Số lượng các tập trong Food-101</caption>
+          <thead><tr><th>Tập</th><th>Số ảnh mỗi lớp</th><th>Tổng cộng</th><th>Mục đích</th></tr></thead>
+          <tbody>
+            <tr><td>Training</td><td class="num">600</td><td class="num">60.600</td><td>Cập nhật gradient, học ra trọng số</td></tr>
+            <tr><td>Validation</td><td class="num">150</td><td class="num">15.150</td><td>Chọn siêu tham số, learning rate, checkpoint</td></tr>
+            <tr><td>Test</td><td class="num">250</td><td class="num">25.250</td><td>Đánh giá</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>2. DataLoader &amp; augmentation</h3>
+        <h4>DataLoader</h4>
+        <p>Food-101 có kích thước khá lớn (khoảng ~5GB), không thể load hết một lần, nên dữ liệu được nạp theo <strong>từng batch 32 ảnh</strong> trong lúc train, validation và test. Luồng dữ liệu đi qua 4 tầng:</p>
+        <pre class="mermaid">
+flowchart TD
+  A["food-101/images/*.jpg"]
+  B["split_manifest.csv"]
+  C["Food101Dataset"]
+  D["DataLoader"]
+  E["batch hiệu dụng 128"]
+  A -->|build manifest| B
+  B -->|make_datasets| C
+  C -->|build_transforms| D
+  D -->|train_one_epoch| E
+        </pre>
+        <p class="caption">Hình 1. Luồng dữ liệu sơ bộ trong pipeline</p>
+        <ul>
+          <li><strong>Train</strong>: 60.600 / 32 = 1.893,75, nên một epoch có 1.894 batch, batch cuối chỉ có 24 ảnh.
+            <ul>
+              <li>Gom 4 batch thành 1 step: 1.894 = 473 × 4 + 2, nên một epoch có <strong>474 optimizer step</strong>.</li>
+              <li>Nhóm cuối chỉ có 2 batch = 32 + 24 = <strong>56 ảnh</strong>. Loss của nhóm này được chia cho 56, không chia cho 128.</li>
+            </ul>
+          </li>
+          <li><strong>Val</strong>: 15.150 / 32 = 473,4375, tức là có 474 batch.</li>
+          <li><strong>Test</strong>: 25.250 ảnh, dùng batch 64 để chạy nhanh hơn; batch size không ảnh hưởng kết quả vì đây là pha suy luận.</li>
+        </ul>
+
+        <h4>Augmentation</h4>
+        <div class="table-wrap"><table>
+          <caption>Bảng 2. Các phép biến đổi ảnh</caption>
+          <thead><tr><th></th><th>Train</th><th>Val/Test</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Không gian</strong></td><td><code>RandomResizedCrop(224, scale=(0.8, 1.0), ratio=(3/4, 4/3))</code> + <code>RandomHorizontalFlip(0.5)</code></td><td><code>Resize(256)</code> (cạnh ngắn) → <code>CenterCrop(224)</code></td></tr>
+            <tr><td><strong>Nội suy</strong></td><td>Bilinear + antialias</td><td>Bilinear + antialias</td></tr>
+            <tr><td><strong>Chuẩn hoá</strong></td><td>uint8 → [0, 1] → mean/std ImageNet</td><td>như train</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>Crop với scale từ 0.8 trở lên luôn giữ hơn 80% diện tích ảnh, nhờ vậy các cấu hình được so sánh công bằng: không cấu hình nào được lợi riêng từ augmentation.</li>
+          <li>BatchNorm chỉ thấy 32 ảnh mỗi lần: gradient accumulation làm tăng batch hiệu dụng cho optimizer lên 128, nhưng thống kê BatchNorm vẫn tính trên từng batch 32.</li>
+        </ul>
+
+        <h3>3. Protocol thí nghiệm</h3>
+        <div class="table-wrap"><table>
+          <caption>Bảng 3. Danh sách cấu hình</caption>
+          <thead><tr><th>#</th><th>Mô hình</th><th>Khởi tạo</th><th>Freeze</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>ResNet-50</td><td>scratch</td><td>full train</td></tr>
+            <tr><td>2</td><td>ResNet-50</td><td>pretrained</td><td>full fine-tune</td></tr>
+            <tr><td>3</td><td>ViT-B/16</td><td>pretrained</td><td>full fine-tune</td></tr>
+            <tr><td>4</td><td>ResNet-50</td><td>pretrained</td><td>freeze backbone (head-only)</td></tr>
+            <tr><td>5</td><td>ResNet-50</td><td>pretrained</td><td>freeze một phần</td></tr>
+          </tbody>
+        </table></div>
+        <p>So với kế hoạch Protocol ban đầu, danh sách cấu hình thực tế bỏ bớt 3 cấu hình của ViT-B/16: from-scratch, pretrained freeze một phần và pretrained freeze backbone.</p>
+        <div class="table-wrap"><table>
+          <caption>Bảng 4. Chi tiết từng cấu hình</caption>
+          <thead><tr><th>#</th><th>Cấu hình</th><th>Trọng số khởi tạo</th><th>Phần được train</th><th>Tham số train / tổng</th><th>LR head / backbone</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>ResNet scratch full</td><td>Ngẫu nhiên</td><td>Toàn bộ</td><td>23,71M / 23,71M (100%)</td><td>3e-4 / 3e-4</td></tr>
+            <tr><td>2</td><td>ResNet pretrained full</td><td><code>IMAGENET1K_V1</code> (76,1% top-1)</td><td>Toàn bộ</td><td>23,71M / 23,71M (100%)</td><td>3e-4 / 3e-5</td></tr>
+            <tr><td>3</td><td>ViT-B/16 pretrained full</td><td><code>IMAGENET1K_V1</code> (81,1%)</td><td>Toàn bộ</td><td>85,88M / 85,88M (100%)</td><td>3e-4 / 3e-5</td></tr>
+            <tr><td>4</td><td>ResNet pretrained head</td><td><code>IMAGENET1K_V1</code></td><td>Chỉ <code>fc</code></td><td>0,21M / 23,71M (0,9%)</td><td>3e-4 / —</td></tr>
+            <tr><td>5</td><td>ResNet pretrained partial</td><td><code>IMAGENET1K_V1</code></td><td><code>layer4</code> + <code>fc</code></td><td>15,17M / 23,71M (64%)</td><td>3e-4 / 3e-5</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3>4. Kết quả thực nghiệm</h3>
+        <div class="table-wrap"><table>
+          <caption>Bảng 5. Val top-1 theo epoch (* best epoch)</caption>
+          <thead><tr><th>Epoch</th><th>ResNet Scratch</th><th>ResNet full</th><th>ResNet Head</th><th>ResNet Partial</th><th>ViT full</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="num">0,076</td><td class="num">0,614</td><td class="num">0,477</td><td class="num">0,595</td><td class="num"><strong>0,676</strong></td></tr>
+            <tr><td>2</td><td class="num">0,156</td><td class="num">0,714</td><td class="num">0,555</td><td class="num">0,687</td><td class="num">0,756</td></tr>
+            <tr><td>3</td><td class="num">0,217</td><td class="num">0,742</td><td class="num">0,571</td><td class="num">0,721</td><td class="num">0,782</td></tr>
+            <tr><td>5</td><td class="num">0,372</td><td class="num">0,767</td><td class="num">0,594</td><td class="num">0,738</td><td class="num">0,797</td></tr>
+            <tr><td>7</td><td class="num">0,462</td><td class="num">0,777</td><td class="num">0,602</td><td class="num">0,746</td><td class="num">0,805</td></tr>
+            <tr><td>9</td><td class="num">0,517</td><td class="num"><strong>0,7775*</strong></td><td class="num"><strong>0,606*</strong></td><td class="num"><strong>0,750*</strong></td><td class="num"><strong>0,809*</strong></td></tr>
+            <tr><td>10</td><td class="num"><strong>0,521*</strong></td><td class="num">0,777</td><td class="num">0,606</td><td class="num">0,750</td><td class="num">0,808</td></tr>
+          </tbody>
+        </table></div>
+        <figure>
+          <img src="../A1/figures/results/learning_curves.png" alt="Đường cong học của 5 cấu hình qua 10 epoch" loading="lazy">
+          <figcaption>Hình 2. Đường cong học qua 10 epoch</figcaption>
+        </figure>
+        <ul>
+          <li><strong>Pipeline huấn luyện chạy đúng</strong>: learning rate đầu mỗi epoch đúng như thiết kế: epoch 1 bắt đầu ở 3e-5, epoch 2 lên 3e-4, sau đó giảm dần theo cosine về 1,2e-5 ở đầu epoch 10.</li>
+          <li>Các cấu hình pretrained: phần lớn mức tăng diễn ra trong 3–4 epoch đầu; từ epoch 7 trở đi, val chỉ tăng ≤ 0,3 điểm. Do đó, train 10 epoch được xem là đủ.</li>
+        </ul>
+        <div class="table-wrap"><table>
+          <caption>Bảng 6. Mức độ overfit: train acc − val top-1 ở epoch 10</caption>
+          <thead><tr><th>Cấu hình</th><th>Train acc</th><th>Val top-1</th><th>Gap</th></tr></thead>
+          <tbody>
+            <tr><td>ResNet scratch</td><td class="num">0,585</td><td class="num">0,521</td><td class="num">6,4</td></tr>
+            <tr><td>ResNet pretrained full</td><td class="num">0,913</td><td class="num">0,777</td><td class="num">13,6</td></tr>
+            <tr><td>ResNet freeze backbone</td><td class="num">0,632</td><td class="num">0,606</td><td class="num">2,6</td></tr>
+            <tr><td>ResNet freeze partial</td><td class="num">0,877</td><td class="num">0,750</td><td class="num">12,7</td></tr>
+            <tr><td>ViT pretrained full</td><td class="num"><strong>0,984</strong></td><td class="num"><strong>0,808</strong></td><td class="num"><strong>17,6</strong></td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>ViT pretrained full fine-tune gần như thuộc lòng tập train: val loss chạm đáy ở epoch 7 rồi tăng lại, trong khi val top-1 vẫn đi ngang.</li>
+          <li>ResNet freeze partial và ResNet pretrained full overfit vừa phải.</li>
+          <li>ResNet freeze backbone bị underfit: chỉ có phần head được học nên năng lực mô hình có giới hạn.</li>
+          <li>ResNet from-scratch có thể chưa học hết dữ liệu do chỉ có 10 epoch.</li>
+        </ul>
+        <div class="table-wrap"><table>
+          <caption>Bảng 7. Thời gian train</caption>
+          <thead><tr><th>Cấu hình</th><th>Train/epoch thực tế</th><th>Ước tính</th><th>Val/epoch</th></tr></thead>
+          <tbody>
+            <tr><td>Head</td><td>~420 s (7,0 phút)</td><td>8,05 phút</td><td>~105 s</td></tr>
+            <tr><td>Partial</td><td>~547 s (9,1 phút)</td><td>10,2 phút</td><td>~105 s</td></tr>
+            <tr><td>ResNet full</td><td>~1.280 s (21,3 phút)</td><td>22,5 phút</td><td>~105 s</td></tr>
+            <tr><td>ViT full</td><td>~2.975 s (49,6 phút)</td><td>50,1 phút</td><td>~205 s</td></tr>
+            <tr><td>Scratch</td><td>~1.305 s</td><td>22,5 phút</td><td>~106 s</td></tr>
+          </tbody>
+        </table></div>
+        <p>Tổng thực tế <strong>19,98 h</strong>; ước tính 20,6 h; sai số khoảng 3%.</p>
+        <div class="table-wrap"><table>
+          <caption>Bảng 8. Tổng hợp kết quả trên tập test</caption>
+          <thead><tr><th>Cấu hình</th><th>Tham số train</th><th>Val top-1</th><th>Test top-1</th><th>Test top-5</th><th>Macro-F1</th><th>Train (h)</th><th>Bộ nhớ (MB)</th></tr></thead>
+          <tbody>
+            <tr><td>ViT-B/16 pretrained full</td><td class="num">85,88M</td><td class="num">0,809</td><td class="num"><strong>0,859</strong></td><td class="num">0,969</td><td class="num">0,859</td><td class="num">8,26</td><td class="num">7.645</td></tr>
+            <tr><td>ResNet-50 pretrained full</td><td class="num">23,71M</td><td class="num">0,778</td><td class="num">0,828</td><td class="num">0,961</td><td class="num">0,828</td><td class="num">3,55</td><td class="num">7.415</td></tr>
+            <tr><td>ResNet-50 pretrained partial</td><td class="num">15,17M</td><td class="num">0,750</td><td class="num">0,802</td><td class="num">0,952</td><td class="num">0,801</td><td class="num">1,52</td><td class="num">2.228</td></tr>
+            <tr><td>ResNet-50 pretrained head</td><td class="num">0,21M</td><td class="num">0,606</td><td class="num">0,655</td><td class="num">0,884</td><td class="num">0,652</td><td class="num"><strong>1,17</strong></td><td class="num"><strong>1.203</strong></td></tr>
+            <tr><td>ResNet-50 scratch full</td><td class="num">23,71M</td><td class="num">0,521</td><td class="num">0,577</td><td class="num">0,833</td><td class="num">0,573</td><td class="num">3,66</td><td class="num">7.418</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>ViT-B/16 tốt hơn ResNet-50 (cùng pretrained full), nhưng tốn hơn 2,3 lần thời gian train và có hơn 3,6 lần tham số.</li>
+          <li>Pretrained full tốn hơn 2,3 lần thời gian so với freeze một phần do train thêm layer1–layer3, nhưng chỉ thêm khoảng 2,7 điểm.</li>
+          <li>Test top-1 cao hơn val top-1 khoảng 5 điểm ở mọi cấu hình, có thể do cách xây dựng dataset: tập test được làm sạch thủ công, còn tập train (và tập val tách ra từ đó) vẫn còn nhiễu.</li>
+        </ul>
+        <div class="table-wrap"><table>
+          <caption>Bảng 9. So sánh theo cặp trên 25.250 ảnh test</caption>
+          <thead><tr><th>Cặp so sánh</th><th>Cả hai đúng</th><th>Chỉ bên trái đúng</th><th>Chỉ bên phải đúng</th><th>Cả hai sai</th></tr></thead>
+          <tbody>
+            <tr><td>ResNet full vs ViT full</td><td class="num">19.650</td><td class="num">1.265</td><td class="num">2.046</td><td class="num">2.289</td></tr>
+            <tr><td>Scratch vs pretrained full</td><td class="num">13.846</td><td class="num">732</td><td class="num">7.069</td><td class="num">3.603</td></tr>
+            <tr><td>Head vs full</td><td class="num">15.816</td><td class="num">730</td><td class="num">5.099</td><td class="num">3.605</td></tr>
+            <tr><td>Partial vs full</td><td class="num">19.392</td><td class="num">846</td><td class="num">1.523</td><td class="num">3.489</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>ResNet đúng ở 1.265 ảnh mà ViT sai.</li>
+          <li>Khoảng 2.289 ảnh (9%) cả hai mô hình đều sai, trong đó 1.105 ảnh chúng đoán <strong>cùng một lớp sai</strong>; các ảnh này nhiều khả năng mơ hồ thật hoặc bị gán nhãn sai.</li>
+        </ul>
+        <p>Dựa vào confusion matrix (Hình 3) và phân tích lỗi:</p>
+        <ul>
+          <li><strong>Các lớp khó giống nhau ở mọi cấu hình:</strong> <code>steak</code>, <code>pork_chop</code>, <code>apple_pie</code>, <code>filet_mignon</code>, <code>huevos_rancheros</code>, <code>ravioli</code>, <code>foie_gras</code>. Cấu hình tốt nhất cũng chỉ đạt khoảng 55–68% ở các lớp này.</li>
+          <li><strong>Các lớp dễ:</strong> <code>edamame</code> (99,6–100% với các cấu hình pretrained), <code>macarons</code>, <code>hot_and_sour_soup</code>, <code>pad_thai</code>: những món có hình dạng hoặc màu sắc rất đặc trưng.</li>
+          <li><strong>Các cặp bị nhầm nhiều nhất xoay quanh nhóm thịt đỏ:</strong> <code>steak</code> ↔ <code>filet_mignon</code> (12–17% mỗi chiều); <code>prime_rib</code> → <code>steak</code>, <code>pork_chop</code> → <code>steak</code>; ngoài ra <code>tuna_tartare</code> ↔ <code>beef_tartare</code>, <code>chocolate_cake</code> ↔ <code>chocolate_mousse</code>, <code>apple_pie</code> ↔ <code>bread_pudding</code>.</li>
+        </ul>
+
+        <h3>5. Thảo luận</h3>
+        <p>Các số liệu và kết quả trên chỉ phản ánh thiết lập của thí nghiệm này, không phải kết quả chung cho mọi thiết lập (Bảng 10).</p>
+        <div class="table-wrap"><table>
+          <caption>Bảng 10. Các thiết lập dùng trong thí nghiệm</caption>
+          <thead><tr><th>Thiết lập</th><th>Giá trị</th></tr></thead>
+          <tbody>
+            <tr><td>Loss</td><td>Cross-entropy</td></tr>
+            <tr><td>Optimizer</td><td>AdamW (0.9, 0.999), eps 1e-8</td></tr>
+            <tr><td>Weight decay</td><td>0.01 cho ma trận/kernel; 0 cho bias, tham số norm, pos-emb, CLS</td></tr>
+            <tr><td>Batch</td><td>32 × 4 = 128</td></tr>
+            <tr><td>Số epoch</td><td>10 (474 step/epoch → 4.740 step)</td></tr>
+            <tr><td>Lịch LR</td><td>Warmup 474 step (0,1× → 1×), sau đó cosine (→ 0,01×)</td></tr>
+            <tr><td>Gradient clipping</td><td>1.0</td></tr>
+            <tr><td>Precision</td><td>FP16 autocast + GradScaler</td></tr>
+            <tr><td>Seed</td><td>1 seed = 42</td></tr>
+            <tr><td>Thiết bị</td><td>Apple M4, MPS</td></tr>
+          </tbody>
+        </table></div>
+        <p>Chỉ có 1 seed nên không có mean ± SD. ResNet from-scratch chưa hội tụ, có thể do số epoch huấn luyện không đủ, làm khoảng cách giữa from-scratch và pretrained trở nên xa hơn.</p>
+        <p>Nhờ đo pilot trước khi chạy thực tế, số cấu hình được rút từ 12 xuống 8, rồi xuống 5; thời gian ước lượng giảm từ khoảng 50 ngày xuống còn khoảng 20,6 giờ cho 5 cấu hình × 10 epoch.</p>
+        <p>Về kết quả: khi dữ liệu ít, pretraining quan trọng hơn kiến trúc, và phần được fine-tune quan trọng hơn số tham số được train. Partial đạt 97% kết quả của full với 43% thời gian, vì <code>layer4</code> chứa đặc trưng ngữ nghĩa cấp cao, phần cần thích nghi với ảnh món ăn nhất. Ngược lại, head-only thiếu 14,6 điểm: đặc trưng ImageNet không đủ tách biệt các món ăn.</p>
+        <p>Phần lớn lỗi nằm ở dữ liệu, không ở mô hình. Val nhiễu nhưng vẫn xếp hạng đúng.</p>
+        <p>Để tăng độ tin cậy của kết luận, có thể thêm 2 seed cho các cấu hình full fine-tune để có mean ± SD và kiểm chứng chênh lệch giữa ViT và ResNet; đồng thời tăng số epoch của ResNet from-scratch lên 30–50 (khoảng 12–20 giờ train) để quan sát điểm hội tụ.</p>
+
+        <h3>Phụ lục</h3>
+        <h4>Confusion matrix</h4>
+        <figure><img src="../A1/figures/results/cm_resnet50_scratch_full_lr3e-04_ep10_seed42.png" alt="Confusion matrix ResNet-50 from-scratch" loading="lazy"><figcaption>(a) CNN ResNet-50 from-scratch</figcaption></figure>
+        <figure><img src="../A1/figures/results/cm_resnet50_pretrained_full_lr3e-04_ep10_seed42.png" alt="Confusion matrix ResNet-50 full fine-tune" loading="lazy"><figcaption>(b) CNN ResNet-50 full fine-tune</figcaption></figure>
+        <figure><img src="../A1/figures/results/cm_resnet50_pretrained_head_lr3e-04_ep10_seed42.png" alt="Confusion matrix ResNet-50 freeze backbone" loading="lazy"><figcaption>(c) CNN ResNet-50 freeze backbone</figcaption></figure>
+        <figure><img src="../A1/figures/results/cm_resnet50_pretrained_partial_lr3e-04_ep10_seed42.png" alt="Confusion matrix ResNet-50 freeze partial" loading="lazy"><figcaption>(d) CNN ResNet-50 freeze partial</figcaption></figure>
+        <figure><img src="../A1/figures/results/cm_vit_b_16_pretrained_full_lr3e-04_ep10_seed42.png" alt="Confusion matrix ViT-B/16 full fine-tune" loading="lazy"><figcaption>(e) Transformer ViT-B/16 full fine-tune</figcaption></figure>
+        <p class="caption">Hình 3. Các confusion matrix của các mô hình</p>
+
+        <h4>Các lỗi tự tin nhất</h4>
+        <p>Mỗi hình gồm 16 ảnh test bị đoán sai với độ tự tin cao nhất (nhãn đúng, nhãn dự đoán và xác suất).</p>
+        <figure><img src="../A1/figures/results/errors_resnet50_scratch_full_lr3e-04_ep10_seed42.png" alt="Ảnh bị đoán sai với độ tự tin cao nhất — CNN ResNet-50 from-scratch" loading="lazy"><figcaption>(a) CNN ResNet-50 from-scratch</figcaption></figure>
+        <figure><img src="../A1/figures/results/errors_resnet50_pretrained_full_lr3e-04_ep10_seed42.png" alt="Ảnh bị đoán sai với độ tự tin cao nhất — CNN ResNet-50 full fine-tune" loading="lazy"><figcaption>(b) CNN ResNet-50 full fine-tune</figcaption></figure>
+        <figure><img src="../A1/figures/results/errors_resnet50_pretrained_head_lr3e-04_ep10_seed42.png" alt="Ảnh bị đoán sai với độ tự tin cao nhất — CNN ResNet-50 freeze backbone" loading="lazy"><figcaption>(c) CNN ResNet-50 freeze backbone</figcaption></figure>
+        <figure><img src="../A1/figures/results/errors_resnet50_pretrained_partial_lr3e-04_ep10_seed42.png" alt="Ảnh bị đoán sai với độ tự tin cao nhất — CNN ResNet-50 freeze partial" loading="lazy"><figcaption>(d) CNN ResNet-50 freeze partial</figcaption></figure>
+        <figure><img src="../A1/figures/results/errors_vit_b_16_pretrained_full_lr3e-04_ep10_seed42.png" alt="Ảnh bị đoán sai với độ tự tin cao nhất — Transformer ViT-B/16 full fine-tune" loading="lazy"><figcaption>(e) Transformer ViT-B/16 full fine-tune</figcaption></figure>
+        <p class="caption">Hình 4. Các ảnh bị đoán sai với độ tự tin cao nhất của từng mô hình</p>
+
+        <h4>Accuracy theo từng lớp</h4>
+        <figure><img src="../A1/figures/results/per_class_accuracy.png" alt="Accuracy theo từng lớp của 5 cấu hình" loading="lazy"><figcaption>Hình 5. Accuracy trên tập test theo từng lớp của 5 cấu hình, sắp xếp theo trung bình</figcaption></figure>
+      </div>
     </section>
 
     <section>
@@ -125,5 +373,10 @@
 </dialog>
 
 <script src="../assets/pdf-viewer.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
+  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({ startOnLoad: true, theme: dark ? 'dark' : 'neutral' });
+</script>
 </body>
 </html>

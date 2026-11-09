@@ -534,6 +534,8 @@ a.card:hover .card-go .chev { transform: translateX(3px); }
 .report figure { margin: 14px 0; }
 .report figure img { display: block; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); }
 .report figcaption { margin-top: 6px; font-size: 13px; color: var(--faint); font-style: italic; }
+.report table caption { caption-side: top; text-align: left; padding: 0 0 6px; font-size: 13px; color: var(--faint); font-style: italic; }
+.report p.caption { margin-top: 6px; font-size: 13px; color: var(--faint); font-style: italic; }
 .report .mermaid { margin: 14px 0; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; text-align: center; overflow-x: auto; }
 .report .math { margin: 12px 0; overflow-x: auto; color: var(--text); }
 
