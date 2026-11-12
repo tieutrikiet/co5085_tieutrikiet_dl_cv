@@ -1,0 +1,94 @@
+{
+  "run": "yolo5face_n_no_landmark_img640_ep2_seed42",
+  "meta": {
+    "model": "yolo5face_n",
+    "variant": "no_landmark",
+    "config": {
+      "min_face_px": 2,
+      "img_size": 640,
+      "batch_size": 16,
+      "num_workers": 8,
+      "seed": 42,
+      "epochs": 2,
+      "log_every": 100
+    },
+    "optim": {
+      "lr0": 0.01,
+      "lrf": 0.2,
+      "momentum": 0.937,
+      "weight_decay": 0.0005,
+      "nominal_batch": 64,
+      "warmup_epochs": 3.0,
+      "warmup_min_iters": 1000,
+      "warmup_momentum": 0.8,
+      "warmup_bias_lr": 0.1,
+      "ema_decay": 0.9999,
+      "amp": true
+    },
+    "loss": {
+      "box": 0.05,
+      "obj": 1.0,
+      "cls": 0.5,
+      "landmark": 0.005,
+      "anchor_t": 4.0
+    },
+    "log_every": 100,
+    "max_batches": {
+      "train": 10,
+      "val": 5
+    }
+  },
+  "best": {
+    "val_total": 0.20325422286987305,
+    "epoch": 2
+  },
+  "history": {
+    "train": [
+      {
+        "box": 0.12539878487586975,
+        "obj": 0.04592100530862808,
+        "cls": 0.0,
+        "landmark": 0.07170750945806503,
+        "total": 0.17131979763507843
+      },
+      {
+        "box": 0.12396290153265,
+        "obj": 0.04709955304861069,
+        "cls": 0.0,
+        "landmark": 0.06778845936059952,
+        "total": 0.17106246948242188
+      }
+    ],
+    "val": [
+      {
+        "box": 0.12546224892139435,
+        "obj": 0.0792941227555275,
+        "cls": 0.0,
+        "landmark": 0.0,
+        "total": 0.20475634932518005
+      },
+      {
+        "box": 0.12213089317083359,
+        "obj": 0.08112331479787827,
+        "cls": 0.0,
+        "landmark": 0.0,
+        "total": 0.20325422286987305
+      }
+    ],
+    "lr": [
+      9e-05,
+      0.00011400000000000002
+    ],
+    "epoch_time": [
+      13.927206039428711,
+      8.4952392578125
+    ],
+    "val_time": [
+      7.734356164932251,
+      1.5480940341949463
+    ]
+  },
+  "total_params": 1725744,
+  "total_train_time_s": 22.42244529724121,
+  "total_val_time_s": 9.282450199127197
+}

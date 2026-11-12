@@ -7,6 +7,8 @@ YOLO_DIR = REPO_DIR.parent / "widerface_yolo"   # train/, val/ (định dạng Y
 WIDER_DIR = REPO_DIR.parent / "widerface"       # bản gốc, dùng cho val/label.txt và test
 MANIFEST_PATH = A2_DIR / "split_manifest.csv"
 RESULTS_DIR = A2_DIR / "results"
+EXPERIMENT_DIR = RESULTS_DIR / "experiments"     # kết quả thí nghiệm thật
+CHECK_DIR = RESULTS_DIR / "_checks"              # kết quả thử nghiệm nhỏ, không dùng trong báo cáo
 CKPT_DIR = A2_DIR / "checkpoints"
 FIG_DIR = A2_DIR / "figures"
 
@@ -16,6 +18,8 @@ CONFIG = {
     "batch_size": 16,
     "num_workers": 8,
     "seed": 42,
+    "epochs": 20,                 # tạm, chốt lại sau khi ước lượng thời gian
+    "log_every": 100,             # in tiến độ mỗi 100 batch
 }
 
 # Augmentation lấy theo data/hyp.scratch.yaml của yolov5-face
@@ -54,4 +58,13 @@ OPTIM = {
     "amp": True,             # FP16 autocast
 }
 
-EXPERIMENTS =[("yolo5face_n", "landmark"), ("yolo5face_n", "no_landmark")]
+EXPERIMENTS = [("yolo5face_n", "landmark"), ("yolo5face_n", "no_landmark")]
+
+
+def experiment_key(model: str, variant: str) -> str:
+    """Tên ngắn của một cấu hình, dùng cho `--only`: ví dụ yolo5face_n_landmark."""
+    return f"{model}_{variant}"
+
+
+def run_name(model: str, variant: str, cfg: dict) -> str:
+    return f"{experiment_key(model, variant)}_img{cfg['img_size']}_ep{cfg['epochs']}_seed{cfg['seed']}"

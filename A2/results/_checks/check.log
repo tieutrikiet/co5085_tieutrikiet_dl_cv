@@ -1,0 +1,25 @@
+[11-12 23:15:54] Kiểm tra ['smoke', 'estimate'] | thiết bị mps | img_size 640
+[11-12 23:15:55] yolo5face_n_landmark_img640_ep2_seed42: 1,725,744 tham số | 10 batch train/epoch | gom 4 batch | warmup 1000 iter
+[11-12 23:16:10]   epoch 0 batch 10/10 | box 0.1259 obj 0.0458 lmk 0.0706 tổng 0.2423 | lr 0.00009 | 0.2 phút, còn 0.0 phút
+[11-12 23:16:18] [yolo5face_n_landmark_img640_ep2_seed42] epoch 1/2 | train 0.2423 (box 0.1259 obj 0.0458 lmk 0.0706) | val 0.2051 (box 0.1263 obj 0.0788) | lr 0.00009 | 15s + 8s
+[11-12 23:16:27]   epoch 1 batch 10/10 | box 0.1249 obj 0.0471 lmk 0.0632 tổng 0.2352 | lr 0.00011 | 0.2 phút, còn 0.0 phút
+[11-12 23:16:29] [yolo5face_n_landmark_img640_ep2_seed42] epoch 2/2 | train 0.2352 (box 0.1249 obj 0.0471 lmk 0.0632) | val 0.2036 (box 0.1229 obj 0.0807) | lr 0.00011 | 9s + 2s
+[11-12 23:17:50] yolo5face_n_landmark_img640_ep3_seed42: 1,725,744 tham số | 10 batch train/epoch | gom 4 batch | warmup 1000 iter
+[11-12 23:17:50] Resume yolo5face_n_landmark_img640_ep3_seed42 từ epoch 2/3
+[11-12 23:18:04]   epoch 2 batch 10/10 | box 0.1182 obj 0.0466 lmk 0.0667 tổng 0.2316 | lr 0.00012 | 0.2 phút, còn 0.0 phút
+[11-12 23:18:13] [yolo5face_n_landmark_img640_ep3_seed42] epoch 3/3 | train 0.2316 (box 0.1182 obj 0.0466 lmk 0.0667) | val 0.2029 (box 0.1208 obj 0.0821) | lr 0.00012 | 14s + 9s
+[11-12 23:19:29] [smoke] yolo5face_n_landmark: history 3 epoch, resume OK
+[11-12 23:19:29] yolo5face_n_no_landmark_img640_ep2_seed42: 1,725,744 tham số | 10 batch train/epoch | gom 4 batch | warmup 1000 iter
+[11-12 23:19:43]   epoch 0 batch 10/10 | box 0.1254 obj 0.0459 lmk 0.0717 tổng 0.1713 | lr 0.00009 | 0.2 phút, còn 0.0 phút
+[11-12 23:19:51] [yolo5face_n_no_landmark_img640_ep2_seed42] epoch 1/2 | train 0.1713 (box 0.1254 obj 0.0459 lmk 0.0717) | val 0.2048 (box 0.1255 obj 0.0793) | lr 0.00009 | 14s + 8s
+[11-12 23:19:59]   epoch 1 batch 10/10 | box 0.1240 obj 0.0471 lmk 0.0678 tổng 0.1711 | lr 0.00011 | 0.1 phút, còn 0.0 phút
+[11-12 23:20:01] [yolo5face_n_no_landmark_img640_ep2_seed42] epoch 2/2 | train 0.1711 (box 0.1240 obj 0.0471 lmk 0.0678) | val 0.2033 (box 0.1221 obj 0.0811) | lr 0.00011 | 8s + 2s
+[11-12 23:21:22] yolo5face_n_no_landmark_img640_ep3_seed42: 1,725,744 tham số | 10 batch train/epoch | gom 4 batch | warmup 1000 iter
+[11-12 23:21:22] Resume yolo5face_n_no_landmark_img640_ep3_seed42 từ epoch 2/3
+[11-12 23:21:36]   epoch 2 batch 10/10 | box 0.1174 obj 0.0471 lmk 0.0727 tổng 0.1645 | lr 0.00012 | 0.2 phút, còn 0.0 phút
+[11-12 23:21:44] [yolo5face_n_no_landmark_img640_ep3_seed42] epoch 3/3 | train 0.1645 (box 0.1174 obj 0.0471 lmk 0.0727) | val 0.2026 (box 0.1206 obj 0.0820) | lr 0.00012 | 14s + 7s
+[11-12 23:22:59] [smoke] yolo5face_n_no_landmark: history 3 epoch, resume OK
+[11-12 23:22:59] [smoke] xong trong 7.1 phút
+[11-12 23:23:49] [estimate] img 640 batch 16: train 805 ms/batch × 805 + val 265 ms/batch × 202 = 11.7 phút/epoch
+[11-12 23:23:49] [estimate] tổng giờ cho 2 biến thể theo số epoch: {10: 3.9, 20: 7.8, 30: 11.7, 50: 19.5, 100: 39.0}
+[11-12 23:25:10] [estimate] xong trong 2.2 phút

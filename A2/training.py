@@ -5,19 +5,55 @@ Theo `train.py` của yolov5-face:
 - Warmup theo iteration: LR bias đi từ 0.1 xuống lr, LR còn lại đi từ 0 lên lr, momentum 0.8 -> 0.937.
 - Gom gradient cho đến khi đủ batch danh nghĩa 64 ảnh rồi mới cập nhật.
 - EMA: bản sao trọng số trung bình trượt, dùng để đánh giá và lưu model.
+
+`fit` chạy trọn một thí nghiệm: train + val loss mỗi epoch, ghi history, lưu checkpoint, resume khi bị ngắt.
 """
+import gc
+import json
 import math
 import time
 from copy import deepcopy
-from typing import Optional
+from pathlib import Path
+from typing import Dict, Optional
 
 import numpy as np
 import torch
 import torch.nn as nn
 
 
+_LOG_FILE: Optional[Path] = None
+
+
+def set_log_file(path: Optional[Path]) -> None:
+    """Mọi lời gọi `log` sau đó được ghi thêm vào file này (theo dõi bằng `tail -f`)."""
+    global _LOG_FILE
+    _LOG_FILE = path
+    if path is not None:
+        path.parent.mkdir(parents=True, exist_ok=True)
+
+
 def log(msg: str) -> None:
-    print(f"[{time.strftime('%m-%d %H:%M:%S')}] {msg}", flush=True)
+    line = f"[{time.strftime('%m-%d %H:%M:%S')}] {msg}"
+    print(line, flush=True)
+    if _LOG_FILE is not None:
+        with open(_LOG_FILE, "a") as f:
+            f.write(line + "\n")
+
+
+def sync(device: torch.device) -> None:
+    """Chờ GPU tính xong trước khi đọc đồng hồ."""
+    if device.type == "cuda":
+        torch.cuda.synchronize()
+    elif device.type == "mps":
+        torch.mps.synchronize()
+
+
+def free_memory(device: torch.device) -> None:
+    gc.collect()
+    if device.type == "mps":
+        torch.mps.empty_cache()
+    elif device.type == "cuda":
+        torch.cuda.empty_cache()
 
 
 def build_optimizer(model: nn.Module, cfg: dict, batch_size: int) -> torch.optim.Optimizer:
@@ -175,3 +211,91 @@ class Trainer:
         self.scheduler.load_state_dict(state["scheduler"])
         self.scaler.load_state_dict(state["scaler"])
         self.iters = self.last_step = state["iters"]
+
+
+def fit(trainer: Trainer, loaders: Dict, epochs: int, name: str, out_dir: Path, ckpt_dir: Path,
+        meta: dict, max_batches: Optional[Dict[str, int]] = None) -> dict:
+    """Train `epochs` epoch, resume được từ `{name}_last.pt`; ghi `{name}.json` vào out_dir.
+
+    Mỗi epoch lưu `last.pt` (đủ để resume) và `best.pt` (trọng số EMA có val loss thấp nhất).
+    `max_batches` giới hạn số batch train/val mỗi epoch, dùng cho thử nghiệm nhỏ.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+    max_batches = max_batches or {}
+    last_path, best_path = ckpt_dir / f"{name}_last.pt", ckpt_dir / f"{name}_best.pt"
+
+    history = {k: [] for k in ("train", "val", "lr", "epoch_time", "val_time")}
+    best = {"val_total": float("inf"), "epoch": None}
+    start_epoch = 0
+    if last_path.exists():
+        state = torch.load(last_path, map_location=trainer.device, weights_only=False)
+        trainer.load_state_dict(state["trainer"])
+        history, best, start_epoch = state["history"], state["best"], state["epoch"]
+        torch.set_rng_state(state["rng_cpu"].cpu())     # map_location đã đưa tensor sang GPU
+        log(f"Resume {name} từ epoch {start_epoch}/{epochs}")
+
+    for epoch in range(start_epoch, epochs):
+        sync(trainer.device); t0 = time.time()
+        tr = trainer.train_one_epoch(loaders["train"], epoch, log_every=meta.get("log_every", 100),
+                                     max_batches=max_batches.get("train"))
+        sync(trainer.device); t1 = time.time()
+        va = trainer.val_loss(loaders["val"], max_batches=max_batches.get("val"))
+        sync(trainer.device); t2 = time.time()
+
+        history["train"].append({k: tr[k] for k in ("box", "obj", "cls", "landmark", "total")})
+        history["val"].append(va)
+        history["lr"].append(tr["lr"][1])
+        history["epoch_time"].append(t1 - t0)
+        history["val_time"].append(t2 - t1)
+
+        if va["total"] < best["val_total"]:
+            best = {"val_total": va["total"], "epoch": epoch + 1}
+            torch.save({"model": trainer.ema.ema.state_dict(), "epoch": epoch + 1, "meta": meta}, best_path)
+        torch.save({"trainer": trainer.state_dict(), "history": history, "best": best, "epoch": epoch + 1,
+                    "rng_cpu": torch.get_rng_state()}, last_path)
+
+        log(f"[{name}] epoch {epoch + 1}/{epochs} | train {tr['total']:.4f} (box {tr['box']:.4f} "
+            f"obj {tr['obj']:.4f} lmk {tr['landmark']:.4f}) | val {va['total']:.4f} (box {va['box']:.4f} "
+            f"obj {va['obj']:.4f}) | lr {tr['lr'][1]:.5f} | {t1 - t0:.0f}s + {t2 - t1:.0f}s")
+
+    summary = {
+        "run": name,
+        "meta": meta,
+        "best": best,
+        "history": history,
+        "total_params": sum(p.numel() for p in trainer.model.parameters()),
+        "total_train_time_s": sum(history["epoch_time"]),
+        "total_val_time_s": sum(history["val_time"]),
+    }
+    (out_dir / f"{name}.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False))
+    return summary
+
+
+def run_experiment(model_name: str, variant: str, cfg: dict, optim: dict, loss_hyp: dict, datasets: Dict,
+                   device: torch.device, out_dir: Path, ckpt_dir: Path,
+                   max_batches: Optional[Dict[str, int]] = None) -> dict:
+    """build_model -> loss theo biến thể -> DataLoader theo seed -> fit."""
+    from common.utils import set_seed
+
+    from .config import run_name
+    from .dataset import make_loaders
+    from .loss import YoloFaceLoss
+    from .models import build_model
+
+    set_seed(cfg["seed"])
+    model = build_model(model_name).to(device)
+    loss_fn = YoloFaceLoss(model.head, loss_hyp, use_landmark=(variant == "landmark"))
+    loaders = make_loaders(datasets, cfg["batch_size"], cfg["seed"], cfg["num_workers"])
+    n_train = len(loaders["train"]) if not max_batches else min(max_batches["train"], len(loaders["train"]))
+    trainer = Trainer(model, loss_fn, optim, cfg["batch_size"], cfg["epochs"], n_train, device)
+    name = run_name(model_name, variant, cfg)
+    meta = {"model": model_name, "variant": variant, "config": cfg, "optim": optim, "loss": loss_hyp,
+            "log_every": cfg["log_every"], "max_batches": max_batches}
+    log(f"{name}: {sum(p.numel() for p in model.parameters()):,} tham số | {n_train} batch train/epoch | "
+        f"gom {trainer.accumulate} batch | warmup {trainer.n_warmup} iter")
+    try:
+        return fit(trainer, loaders, cfg["epochs"], name, out_dir, ckpt_dir, meta, max_batches)
+    finally:
+        del model, trainer, loaders
+        free_memory(device)

@@ -5,13 +5,25 @@ Chạy từ thư mục gốc của repo:
     python -m A2.main manifest --rebuild    # tạo lại manifest từ đầu (ghi đè file cũ)
     python -m A2.main preview               # vẽ một batch train/val + đo tốc độ DataLoader
     python -m A2.main preview --batches 50 --workers 4
+
+    python -m A2.main check                       # thử nghiệm nhỏ: overfit, smoke, estimate
+    python -m A2.main check --only estimate --img-size 512
+
+    python -m A2.main train                       # thí nghiệm thật: cả 2 biến thể
+    python -m A2.main train --only yolo5face_n_landmark --epochs 30
+
+Thí nghiệm thật chạy lâu; chạy trong terminal và giữ máy không sleep:
+    caffeinate -i python -m A2.main train
+    tail -f A2/results/experiments/train.log      # theo dõi từ terminal khác
+Bị ngắt giữa chừng thì chạy lại đúng lệnh: run đã xong được bỏ qua, run dở được resume từ checkpoint.
 """
 import argparse
 import json
 import sys
 import time
 
-from .config import AUGMENT, CONFIG, FIG_DIR, MANIFEST_PATH, REPO_DIR, RESULTS_DIR, WIDER_DIR, YOLO_DIR
+from .config import (AUGMENT, CHECK_DIR, CKPT_DIR, CONFIG, EXPERIMENT_DIR, EXPERIMENTS, FIG_DIR, LOSS,
+                     MANIFEST_PATH, OPTIM, REPO_DIR, RESULTS_DIR, WIDER_DIR, YOLO_DIR, experiment_key, run_name)
 from .data import SPLITS, check_manifest, file_sha256, load_manifest, load_or_build_manifest
 
 # Số ảnh chuẩn của WIDERFace, dùng để phát hiện dữ liệu thiếu
@@ -28,6 +40,18 @@ def parse_args():
     p = sub.add_parser("preview", help="vẽ batch đã augment và đo tốc độ DataLoader")
     p.add_argument("--batches", type=int, default=20, help="số batch train dùng để đo tốc độ")
     p.add_argument("--workers", type=int, default=CONFIG["num_workers"])
+
+    from .checks import CHECKS
+    p = sub.add_parser("check", help="thử nghiệm nhỏ + ước lượng thời gian trước khi train thật")
+    p.add_argument("--only", nargs="+", choices=CHECKS, default=list(CHECKS))
+    p.add_argument("--img-size", type=int, default=CONFIG["img_size"])
+
+    keys = [experiment_key(*e) for e in EXPERIMENTS]
+    p = sub.add_parser("train", help="thí nghiệm thật (cả 2 biến thể)")
+    p.add_argument("--only", nargs="+", choices=keys, help="chỉ chạy các biến thể này")
+    p.add_argument("--epochs", type=int, default=CONFIG["epochs"])
+    p.add_argument("--img-size", type=int, default=CONFIG["img_size"])
+    p.add_argument("--retrain", action="store_true", help="train lại dù đã có kết quả")
     return parser.parse_args()
 
 
@@ -90,12 +114,66 @@ def cmd_preview(args, cfg):
           f"{(FIG_DIR / 'preview_val.png').relative_to(REPO_DIR)}")
 
 
+def load_rows():
+    if not MANIFEST_PATH.exists():
+        sys.exit("Chưa có manifest. Chạy `python -m A2.main manifest` trước.")
+    return load_manifest(MANIFEST_PATH)
+
+
+def cmd_check(args, cfg, device):
+    from .checks import reset_check_outputs, run_checks
+    from .training import log, set_log_file
+
+    cfg = {**cfg, "img_size": args.img_size}
+    reset_check_outputs()                 # xoá kết quả/checkpoint của lần kiểm tra trước
+    set_log_file(CHECK_DIR / "check.log")
+    log(f"Kiểm tra {args.only} | thiết bị {device} | img_size {cfg['img_size']}")
+    run_checks(args.only, load_rows(), YOLO_DIR, cfg, device)
+
+
+def cmd_train(args, cfg, device):
+    import traceback
+
+    from .dataset import make_datasets
+    from .training import free_memory, log, run_experiment, set_log_file
+
+    cfg = {**cfg, "epochs": args.epochs, "img_size": args.img_size}
+    set_log_file(EXPERIMENT_DIR / "train.log")
+    datasets = make_datasets(load_rows(), YOLO_DIR, cfg, AUGMENT)
+    todo = [e for e in EXPERIMENTS if not args.only or experiment_key(*e) in args.only]
+    log(f"Train {[experiment_key(*e) for e in todo]} | {cfg['epochs']} epoch | img {cfg['img_size']} | {device}")
+
+    for model_name, variant in todo:
+        name = run_name(model_name, variant, cfg)
+        done = EXPERIMENT_DIR / f"{name}.json"
+        if done.exists() and not args.retrain:
+            log(f"Bỏ qua {name}: đã có {done.relative_to(REPO_DIR)}")
+            continue
+        if args.retrain:
+            for f in (done, CKPT_DIR / f"{name}_last.pt", CKPT_DIR / f"{name}_best.pt"):
+                f.unlink(missing_ok=True)
+        try:
+            s = run_experiment(model_name, variant, cfg, OPTIM, LOSS, datasets, device, EXPERIMENT_DIR, CKPT_DIR)
+            log(f"Xong {name}: val loss tốt nhất {s['best']['val_total']:.4f} ở epoch {s['best']['epoch']} | "
+                f"{s['total_train_time_s'] / 3600:.1f} giờ train")
+        except Exception:
+            log(f"LỖI ở {name}:\n{traceback.format_exc()}")
+            free_memory(device)
+
+
 def main():
     args = parse_args()
     if args.command == "manifest":
         cmd_manifest(args, CONFIG)
     elif args.command == "preview":
         cmd_preview(args, CONFIG)
+    else:
+        from common.utils import get_device
+        device = get_device()
+        if args.command == "check":
+            cmd_check(args, CONFIG, device)
+        elif args.command == "train":
+            cmd_train(args, CONFIG, device)
 
 
 if __name__ == "__main__":

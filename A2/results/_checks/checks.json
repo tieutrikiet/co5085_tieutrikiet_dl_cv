@@ -1,0 +1,28 @@
+{
+  "smoke": {
+    "yolo5face_n_landmark": {
+      "epochs_in_history": 3,
+      "resume_ok": true
+    },
+    "yolo5face_n_no_landmark": {
+      "epochs_in_history": 3,
+      "resume_ok": true
+    }
+  },
+  "estimate": {
+    "img_size": 640,
+    "batch_size": 16,
+    "train_ms_per_batch": 804.501223564148,
+    "val_ms_per_batch": 264.7478977839152,
+    "train_batches": 805,
+    "val_batches": 202,
+    "minutes_per_epoch": 11.685042672024831,
+    "hours_total_by_epochs": {
+      "10": 3.9,
+      "20": 7.8,
+      "30": 11.7,
+      "50": 19.5,
+      "100": 39.0
+    }
+  }
+}
